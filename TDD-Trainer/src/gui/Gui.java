@@ -28,13 +28,19 @@ public class Gui extends Application{
 	private TabPane create_buttons_top(){
 		TabPane menue = new TabPane();
 		menue.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
+		CodePane code_pane = new CodePane();
+		TestPane test_pane = new TestPane();
+		ConsolePane console_pane = new ConsolePane();
 		Tab code = new Tab("Code");
 		Tab test = new Tab("Tests");
-		Tab konsole = new Tab("Konsole");
-		code.setContent(null); //TODO
-		test.setContent(null); //TODO
-		konsole.setContent(null); //TODO
-		menue.getTabs().addAll(code, test, konsole);
+		Tab console = new Tab("Konsole");
+		code.setContent(code_pane);
+		test.setContent(test_pane);
+		console.setContent(console_pane);
+		code.setContent(code_pane); //TODO: inhalt
+		test.setContent(test_pane); //TODO :inhalt
+		console.setContent(console_pane); //TODO: inhalt
+		menue.getTabs().addAll(code, test, console);
 		return menue;
 	}
 }
