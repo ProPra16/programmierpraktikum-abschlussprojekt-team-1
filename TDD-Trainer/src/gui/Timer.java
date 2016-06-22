@@ -60,7 +60,7 @@ public class Timer extends Text implements Runnable{//TODO:Thread schliessen!!!
 	}
 	
 	public String toString(){
-		long diff = System.currentTimeMillis() - startMillis;
+		long diff = duration-(System.currentTimeMillis() - startMillis);
 		int seconds = (int)((diff % (1000 * 60))/1000);
 		int minutes = (int)((diff % (1000 * 60 * 60))/(1000*60));
 		return String.valueOf(minutes) + ":" + String.valueOf(seconds); // TODO: sec nit nullen auf zwei stellen fuellen
