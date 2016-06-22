@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 public class Gui extends Application{
 	private Phase phase;
 	private int duration;
+	private Timer timer;
 	public static void main(String[] args){
 		launch();
 	}
@@ -23,6 +24,9 @@ public class Gui extends Application{
 		Scene main_scene = create_scene();
 		stage.setScene(main_scene);
 		stage.show();
+		stage.setOnCloseRequest(e->{
+			timer.stop();
+		});
 	}
 	private Scene create_scene(){
 		phase = new Phase();
@@ -67,7 +71,7 @@ public class Gui extends Application{
 		return menue;
 	}
 	private GridPane create_right_side(){
-		Timer timer= new Timer(duration, phase);
+		timer= new Timer(duration, phase);
 		timer.start();
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
