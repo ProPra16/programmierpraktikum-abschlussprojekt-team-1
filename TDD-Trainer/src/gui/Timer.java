@@ -2,7 +2,7 @@ package gui;
 
 import javafx.scene.text.Text;
 
-public class Timer extends Text implements Runnable{//TODO:Thread schliessen!!!
+public class Timer extends Text implements Runnable{
 	private long startMillis = 0L;
 	private int updateMillis = 1000;
 	private Thread t;
@@ -13,7 +13,7 @@ public class Timer extends Text implements Runnable{//TODO:Thread schliessen!!!
 	
 	public Timer(int sec, Phase phase){
 		super("Time: 0:00");
-		this.duration = sec*1000;
+		this.duration = ((sec+1)*1000)-1; //TODO:dieser verzoegerungsfix ist unschoen - das soll ned so bleiben!
 		this.phase = phase;
 		time_up = false;
 	}
@@ -60,15 +60,18 @@ public class Timer extends Text implements Runnable{//TODO:Thread schliessen!!!
 	}
 	
 	public String toString(){
-		long diff = duration-(System.currentTimeMillis() - startMillis);
-		int seconds = (int)((diff % (1000 * 60))/1000);
-		int minutes = (int)((diff % (1000 * 60 * 60))/(1000*60));
+		long diff = (System.currentTimeMillis() - startMillis); //TODO: ungewollte verzoegerung fixen
+		int diff2 = (int)duration-(int) diff;
+		System.out.println(diff2);
+		int seconds = (int)((diff2 % (1000 * 60))/1000);
+		int minutes = (int)((diff2 % (1000 * 60 * 60))/(1000*60));
 		return String.valueOf(minutes) + ":" + String.valueOf(seconds); // TODO: sec nit nullen auf zwei stellen fuellen
 	}
 	
 	public void update(){
 		this.setText("Time: " + this.toString());
 		if((System.currentTimeMillis() - startMillis)>=duration){
+			System.out.println("reset");
 			time_up = true;
 			time_up_act();
 		}
