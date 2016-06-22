@@ -9,3 +9,14 @@ For more information on test-driven development, see [the Wikipedia article](htt
 For information on how to build with gradle, see [gradle-HOWTO.md](gradle-HOWTO.md)
 
 ## License
+Each file in this repository, if not otherwise specified, is part of TDD-Trainer.
+
+TDD-Trainer is free software: You can redistribute it and/or modify it unter the terms of the Apache License, as released by the Apache Software foundation, version 2.0.
+
+TDD-Trainer is distributed in the hope that it will be useful, but **_WITHOUT ANY WARRANTY_**.
+
+You should have received a copy of the Apache 2.0-license along with this TDD-Trainer. If not, see [https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode](https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode).
+
+Copyright Daniela Prigge, Lukas Rose, Rebecca Wagner, 2016
+
+For further licensing information see License.txt in this repository.
