@@ -23,4 +23,25 @@ public class TimerText extends Text implements Runnable{
 			}
 		}
 	}
+	
+	public void start(){
+		System.out.println("Starting Timer");
+		if (t == null){
+			t = new Thread(this, "Timer");
+			running = true;
+			t.start();
+		}
+	}
+	
+	public void stop(){
+		running = false;
+		if (t != null){
+			t.interrupt();
+			t = null;
+		}
+	}
+	
+	public void reset(){
+		startMillis = System.currentTimeMillis();
+	}
 }
