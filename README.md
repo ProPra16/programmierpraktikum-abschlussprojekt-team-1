@@ -15,7 +15,7 @@ TDD-Trainer is free software: You can redistribute it and/or modify it unter the
 
 TDD-Trainer is distributed in the hope that it will be useful, but **_WITHOUT ANY WARRANTY_**.
 
-You should have received a copy of the Apache 2.0-license along with this TDD-Trainer. If not, see [https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode](https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode).
+You should have received a copy of the Apache 2.0-license along with this TDD-Trainer. If not, see [https://www.apache.org/licenses/LICENSE-2.0.txt](https://www.apache.org/licenses/LICENSE-2.0.txt).
 
 Copyright Daniela Prigge, Lukas Rose, Rebecca Wagner, 2016
 
