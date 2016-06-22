@@ -5,7 +5,7 @@ public class Test {
 	public Test(String text){
 		this.text = text;
 	}
-	public String toString(){ //
+	public String toString(){
 		return text;
 	}
 }
