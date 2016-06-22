@@ -1,11 +1,8 @@
 package gui;
 
-import javax.swing.GroupLayout.Alignment;
-
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -77,6 +74,9 @@ public class Gui extends Application{
 		Text phase3 = new Text("Refactor");
 		grid.addColumn(1, phase1, phase2, phase3, run, test);
 		run.setOnAction(e->{
+			
+		});
+		test.setOnAction(e->{
 			
 		});
 		return grid;
