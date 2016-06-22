@@ -2,9 +2,9 @@ package gui;
 
 import javafx.scene.text.Text;
 
-public class Timer extends Text implements Runnable{
+public class Timer extends Text implements Runnable{//TODO:Thread schliessen!!!
 	private long startMillis = 0L;
-	private int updateMillis = 100;
+	private int updateMillis = 1000;
 	private Thread t;
 	private boolean running = false;
 	private boolean time_up;
@@ -68,7 +68,7 @@ public class Timer extends Text implements Runnable{
 	
 	public void update(){
 		this.setText("Time: " + this.toString());
-		if((System.currentTimeMillis() - startMillis)<=duration){
+		if((System.currentTimeMillis() - startMillis)>=duration){
 			time_up = true;
 			time_up_act();
 		}
