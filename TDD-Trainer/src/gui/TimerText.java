@@ -44,4 +44,16 @@ public class TimerText extends Text implements Runnable{
 	public void reset(){
 		startMillis = System.currentTimeMillis();
 	}
+	
+	public String toString(){
+		long diff = System.currentTimeMillis() - startMillis;
+		int seconds = (int)((diff % (1000 * 60))/1000);
+		int minutes = (int)((diff % (1000 * 60 * 60))/(1000*60));
+		int millis = (int)(diff % 1000);
+		return String.valueOf(minutes) + ":" + String.valueOf(seconds) + "." + String.valueOf(millis).substring(0, 1);
+	}
+	
+	public void update(){
+		this.setText("Time: " + this.toString());
+	}
 }
