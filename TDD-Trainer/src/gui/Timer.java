@@ -60,11 +60,10 @@ public class Timer extends Text implements Runnable{
 	}
 	
 	public String toString(){
-		long diff = (System.currentTimeMillis() - startMillis); //TODO: ungewollte verzoegerung fixen
-		int diff2 = (int)duration-(int) diff;
-		System.out.println(diff2);
-		int seconds = (int)((diff2 % (1000 * 60))/1000);
-		int minutes = (int)((diff2 % (1000 * 60 * 60))/(1000*60));
+		long diff = duration-(System.currentTimeMillis() - startMillis);
+		//System.out.println(diff2);
+		int seconds = (int)((diff % (1000 * 60))/1000);
+		int minutes = (int)((diff % (1000 * 60 * 60))/(1000*60));
 		return String.valueOf(minutes) + ":" + String.valueOf(seconds); // TODO: sec nit nullen auf zwei stellen fuellen
 	}
 	
