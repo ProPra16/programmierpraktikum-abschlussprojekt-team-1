@@ -21,6 +21,6 @@ public class TestTest {
 	
 	@Test
 	public void failingTestTestklasse(){
-		assertEquals("bar", io.Testklasse.bar());
+		assertEquals("foo", io.Testklasse.bar());
 	}
 }
