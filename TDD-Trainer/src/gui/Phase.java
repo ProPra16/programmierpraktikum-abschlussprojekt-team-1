@@ -14,7 +14,7 @@ public class Phase {
 		this.phase = this.phase %2;
 	}
 	
-	public void set_phase(int phase){
-		this.phase = phase;
+	public int get(){
+		return phase;
 	}
 }

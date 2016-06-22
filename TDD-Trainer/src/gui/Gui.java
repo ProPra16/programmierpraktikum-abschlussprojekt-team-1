@@ -1,8 +1,6 @@
 package gui;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -70,6 +68,7 @@ public class Gui extends Application{
 	}
 	private GridPane create_right_side(){
 		Timer timer= new Timer(duration, phase);
+		timer.start();
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		Button run = new Button("run");
@@ -77,7 +76,8 @@ public class Gui extends Application{
 		Text phase1 = new Text("Write failing Test");
 		Text phase2 = new Text("Write passing Code");
 		Text phase3 = new Text("Refactor");
-		grid.addColumn(1, phase1, phase2, phase3, run, test);
+		grid.addColumn(1, phase1, phase2, phase3, timer, run, test);
+		
 		run.setOnAction(e->{
 		});
 		test.setOnAction(e->{
