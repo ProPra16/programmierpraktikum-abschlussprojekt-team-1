@@ -2,22 +2,29 @@ package gui;
 
 import javafx.scene.text.Text;
 
-public class TimerText extends Text implements Runnable{
+public class Timer extends Text implements Runnable{
 	private long startMillis = 0L;
 	private int updateMillis = 100;
 	private Thread t;
 	private boolean running = false;
 	private boolean time_up;
 	private long duration;
+	private Phase phase;
 	
-	public TimerText(int sec){
+	public Timer(int sec, Phase phase){
 		super("Time: 0:00");
 		this.duration = sec*1000;
+		this.phase = phase;
 		time_up = false;
 	}
 	public boolean time_up(){
 		return time_up;
 	}
+	public void time_up_act(){
+		phase.next_phase();
+		reset();
+	}
+
 	public void run(){
 		startMillis = System.currentTimeMillis();
 		while (running){
@@ -61,6 +68,9 @@ public class TimerText extends Text implements Runnable{
 	
 	public void update(){
 		this.setText("Time: " + this.toString());
-		if((System.currentTimeMillis() - startMillis)<=duration) time_up = true;
+		if((System.currentTimeMillis() - startMillis)<=duration){
+			time_up = true;
+			time_up_act();
+		}
 	}
 }

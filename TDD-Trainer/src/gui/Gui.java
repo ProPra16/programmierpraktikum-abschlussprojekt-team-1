@@ -15,6 +15,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Gui extends Application{
+	private Phase phase;
+	private int duration;
 	public static void main(String[] args){
 		launch();
 	}
@@ -25,6 +27,7 @@ public class Gui extends Application{
 		stage.show();
 	}
 	private Scene create_scene(){
+		phase = new Phase();
 		BorderPane root = new BorderPane();
 		TabPane main = create_buttons_top(); //TODO: doofer name
 		root.setCenter(main);
@@ -48,23 +51,25 @@ public class Gui extends Application{
 		test.setContent(test_pane);
 		console.setContent(console_pane);
 		menue.getTabs().addAll(code, test, console);
-	    menue.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>()
-	    {
-	        @Override
-	        public void changed(ObservableValue<? extends Tab> arg0, Tab arg1, Tab selected_tab){
-	        	if(selected_tab == code){
-	        	}
-	        	if(selected_tab == test){
-	        	}
-	        	if(selected_tab == console){
-	        		
-	        	}
-	        }
-	    });
+//	    menue.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>()
+//	    {
+//	    	//TODO: denkfehler - brauchte es doch ned -.- kann mans ansonsten zu i-was gebrauchen?
+//	        @Override 
+//	        public void changed(ObservableValue<? extends Tab> arg0, Tab arg1, Tab selected_tab){
+//	        	if(selected_tab == code){
+//	        	}
+//	        	if(selected_tab == test){
+//	        	}
+//	        	if(selected_tab == console){
+//	        		
+//	        	}
+//	        }
+//	    });
 
 		return menue;
 	}
 	private GridPane create_right_side(){
+		Timer timer= new Timer(duration, phase);
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		Button run = new Button("run");
@@ -74,7 +79,6 @@ public class Gui extends Application{
 		Text phase3 = new Text("Refactor");
 		grid.addColumn(1, phase1, phase2, phase3, run, test);
 		run.setOnAction(e->{
-			
 		});
 		test.setOnAction(e->{
 			
