@@ -5,7 +5,7 @@ public class Test {
 	public Test(String text){
 		this.text = text;
 	}
-	public void einlesen(){ //zum einlesen delimiter?
-		// TODO: implementieren
+	public String toString(){ //
+		return text;
 	}
 }
