@@ -8,4 +8,7 @@ public class Phase {
 	public void next_phase(){
 		this.phase = this.phase %4;
 	}
+	public int get(){
+		return phase;
+	}
 }
