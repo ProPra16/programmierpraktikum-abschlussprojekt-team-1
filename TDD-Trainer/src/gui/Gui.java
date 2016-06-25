@@ -105,9 +105,10 @@ public class Gui extends Application{
 		alert.getButtonTypes().setAll(yes, no);
 		alert.showAndWait().ifPresent(event-> {
 			if(event == yes) babysteps = true;
-			if(event == no)  babysteps = false;
-			else babysteps = false; //TODO: babys = false wenn man das fenster schliesst?
+			else if(event == no)  babysteps = false; //warum geht das ohne else ned??
+			else babysteps = false;
 		});
+		System.out.println(babysteps);
 		if(babysteps){
 			TextInputDialog b_duration = new TextInputDialog();
 			b_duration.setContentText("How many secounds?"); //TODO: besseren text...
