@@ -98,8 +98,10 @@ public class Gui extends Application{
 			//TODO: run programm & put console output in console tab
 		});
 		test.setOnAction(e->{
+			System.out.println(phase.get());
 			if(phase.get()==phase.TESTS){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
 				phase.next_phase();
+				System.out.println(phase.get());
 				phase1.setFill(Color.BLACK);
 				phase2.setFill(Color.GREEN);
 			}
