@@ -13,6 +13,7 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -29,9 +30,11 @@ public class Gui extends Application{
 		Scene main_scene = create_scene();
 		stage.setScene(main_scene);
 		stage.show();
-		stage.setOnCloseRequest(e->{
+		if(babysteps) {
+			stage.setOnCloseRequest(e->{
 			timer.stop();
-		});
+			});
+		}
 	}
 	private Scene create_scene(){
 		phase = new Phase();
@@ -88,12 +91,23 @@ public class Gui extends Application{
 		Text phase1 = new Text("Write failing Test");
 		Text phase2 = new Text("Write passing Code");
 		Text phase3 = new Text("Refactor");
-		grid.addColumn(1, phase1, phase2, phase3, timer, run, test);
+		grid.addColumn(1, phase1, phase2, phase3, run, test);
+		if(babysteps) grid.add(timer,2, 2);
 		
 		run.setOnAction(e->{
+			//TODO: run programm & put console output in console tab
 		});
 		test.setOnAction(e->{
-			
+			if(phase.get()==phase.TESTS){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
+				phase.next_phase();
+				phase1.setFill(Color.BLACK);
+				phase2.setFill(Color.GREEN);
+			}
+			else if(phase.get() == phase.CODE){ //TODO: i-was das true zurückgibt wenns lauft ins if
+				phase.next_phase();
+				phase2.setFill(Color.BLACK);
+				phase3.setFill(Color.GREEN);
+			}
 		});
 		return grid;
 	}
@@ -115,9 +129,12 @@ public class Gui extends Application{
 			b_duration.setContentText("How many secounds?"); //TODO: besseren text...
 			b_duration.setHeaderText(null);
 			b_duration.showAndWait().ifPresent(input ->{
-				duration = Integer.parseInt(input);
+				try{
+					duration = Integer.parseInt(input);
+				} catch(NumberFormatException e){
+					babysteps = false; //TODO: do something more useful
+				}
 			});
 		}
 	}
-
 }
