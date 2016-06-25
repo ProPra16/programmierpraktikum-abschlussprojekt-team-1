@@ -77,8 +77,10 @@ public class Gui extends Application{
 	}
 	private GridPane create_right_side(){
 		babysteps_alert();
-		timer= new Timer(duration, phase);
-		timer.start();
+		if (babysteps){
+			timer= new Timer(duration, phase);
+			timer.start();
+		}
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
 		Button run = new Button("run");
