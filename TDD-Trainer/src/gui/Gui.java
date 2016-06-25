@@ -104,21 +104,18 @@ public class Gui extends Application{
 		});
 		next.setOnAction(e->{
 			System.out.println("a "+phase.get());
-			if(phase.get()==phase.TESTS){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
-				phase.next_phase();
-				System.out.println("b "+phase.get());
+			if(phase.get()==Phase.TESTS){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
+				phase.next_phase(); // TODO: zeug disablen
 				phase1.setFill(Color.BLACK);
 				phase2.setFill(Color.GREEN);
 			}
-			else if(phase.get() == phase.CODE){ //TODO: i-was das true zurückgibt wenns lauft ins if
-				System.out.println("c "+phase.get());
-				phase.next_phase();
+			else if(phase.get() == Phase.CODE){ //TODO: i-was das true zurückgibt wenns lauft ins if
+				phase.next_phase(); //TODO: zeug disablen
 				phase2.setFill(Color.BLACK);
 				phase3.setFill(Color.GREEN);
 			}
-			else if(phase.get() == phase.REFACTOR){
-				System.out.println("d "+phase.get());
-				phase.next_phase();
+			else if(phase.get() == Phase.REFACTOR){ //TODO: tests muessen laufen
+				phase.next_phase(); //TODO: zeug disablen
 				phase3.setFill(Color.BLACK);
 				phase1.setFill(Color.GREEN);
 			}
