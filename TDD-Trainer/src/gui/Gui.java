@@ -103,7 +103,6 @@ public class Gui extends Application{
 			//TODO: run tests & put console output in console tab
 		});
 		next.setOnAction(e->{
-			System.out.println("a "+phase.get());
 			if(phase.get()==Phase.TESTS){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
 				phase.next_phase(); // TODO: zeug disablen
 				phase1.setFill(Color.BLACK);
