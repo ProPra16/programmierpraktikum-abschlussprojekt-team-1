@@ -3,10 +3,15 @@ package gui;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
@@ -16,6 +21,7 @@ public class Gui extends Application{
 	private Phase phase;
 	private int duration;
 	private Timer timer;
+	private boolean babysteps;
 	public static void main(String[] args){
 		launch();
 	}
@@ -71,6 +77,7 @@ public class Gui extends Application{
 		return menue;
 	}
 	private GridPane create_right_side(){
+		babysteps_alert();
 		timer= new Timer(duration, phase);
 		timer.start();
 		GridPane grid = new GridPane();
@@ -89,4 +96,26 @@ public class Gui extends Application{
 		});
 		return grid;
 	}
+	private void babysteps_alert(){
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setHeaderText(null);
+		alert.setContentText("Do you want to use 'babsteps'?"); //TODO: besseren text ausdenken...?
+		ButtonType yes = new ButtonType("yes");
+		ButtonType no = new ButtonType("no");
+		alert.getButtonTypes().setAll(yes, no);
+		alert.showAndWait().ifPresent(event-> {
+			if(event == yes) babysteps = true;
+			if(event == no)  babysteps = false;
+			else babysteps = false; //TODO: babys = false wenn man das fenster schliesst?
+		});
+		if(babysteps){
+			TextInputDialog b_duration = new TextInputDialog();
+			b_duration.setContentText("How many secounds?"); //TODO: besseren text...
+			b_duration.setHeaderText(null);
+			b_duration.showAndWait().ifPresent(input ->{
+				duration = Integer.parseInt(input);
+			});
+		}
+	}
+
 }
