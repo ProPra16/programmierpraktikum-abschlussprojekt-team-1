@@ -88,27 +88,39 @@ public class Gui extends Application{
 		grid.setAlignment(Pos.CENTER);
 		Button run = new Button("run");
 		Button test = new Button("test");
+		Button next = new Button("next");
 		Text phase1 = new Text("Write failing Test");
 		Text phase2 = new Text("Write passing Code");
 		Text phase3 = new Text("Refactor");
-		grid.addColumn(1, phase1, phase2, phase3, run, test);
+		phase1.setFill(Color.GREEN);
+		grid.addColumn(1, phase1, phase2, phase3, run, test, next);
 		if(babysteps) grid.add(timer,2, 2);
 		
 		run.setOnAction(e->{
 			//TODO: run programm & put console output in console tab
 		});
 		test.setOnAction(e->{
-			System.out.println(phase.get());
+			//TODO: run tests & put console output in console tab
+		});
+		next.setOnAction(e->{
+			System.out.println("a "+phase.get());
 			if(phase.get()==phase.TESTS){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
 				phase.next_phase();
-				System.out.println(phase.get());
+				System.out.println("b "+phase.get());
 				phase1.setFill(Color.BLACK);
 				phase2.setFill(Color.GREEN);
 			}
 			else if(phase.get() == phase.CODE){ //TODO: i-was das true zurückgibt wenns lauft ins if
+				System.out.println("c "+phase.get());
 				phase.next_phase();
 				phase2.setFill(Color.BLACK);
 				phase3.setFill(Color.GREEN);
+			}
+			else if(phase.get() == phase.REFACTOR){
+				System.out.println("d "+phase.get());
+				phase.next_phase();
+				phase3.setFill(Color.BLACK);
+				phase1.setFill(Color.GREEN);
 			}
 		});
 		return grid;
