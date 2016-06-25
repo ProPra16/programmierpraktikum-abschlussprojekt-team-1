@@ -11,7 +11,7 @@ public class Phase {
 	}
 	
 	public void next_phase(){
-		this.phase = this.phase %4;
+		this.phase = (this.phase++)%4;
 	}
 	
 	public int get(){
