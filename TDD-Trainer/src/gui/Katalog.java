@@ -5,8 +5,10 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -16,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -28,7 +31,9 @@ public class Katalog extends Stage{
 	static Scene scene;
 	static BorderPane root = new BorderPane();
 	
-	static Label exerciseName, description;
+	static Label exerciseName, description, babysteps, timetracking;
+	static TextArea classes;
+	static TextArea tests;
 	
 	static Document doc = null;
 	
@@ -78,9 +83,10 @@ public class Katalog extends Stage{
 	
 	private static GridPane create_center() {
 		GridPane grid = new GridPane();
-		grid.setHgap(5);
-		grid.setVgap(5);
-		grid.setPadding(new Insets(0, 10, 0, 10));
+		grid.setHgap(10);
+		grid.setVgap(10);
+		grid.setPadding(new Insets(15, 50, 0, 50));
+		grid.setStyle("-fx-background-color: #f5f5f5;");
 		
 		// Text in column 1, row 1
 	    Text exerciseNameText = new Text("Excercise:");
@@ -97,10 +103,51 @@ public class Katalog extends Stage{
 	    descriptionText.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
 	    grid.add(descriptionText, 0, 1);
 	    
-	 // Label in column 2, row 2
+	    // Label in column 2, row 2
 	    description = new Label();
-	    description.setFont(Font.font("Arial", FontWeight.NORMAL, 15));
+	    description.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
 	    grid.add(description, 1, 1);
+	    
+	    // Text in column 1, row 3
+	    Text classesText = new Text("Classes:");
+	    classesText.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
+	    grid.add(classesText, 0, 2);
+	    
+	    // TextArea in column 1, row 4
+	    classes = new TextArea();
+	    classes.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+	    grid.add(classes, 0, 3, 2, 1);
+	    
+	    // Text in column 1, row 5
+	    Text testsText = new Text("Tests:");
+	    testsText.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
+	    grid.add(testsText, 0, 4);
+	    
+	    // TextArea in column 1, row 6
+	    tests = new TextArea();
+	    tests.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+	    grid.add(tests, 0, 5, 2, 1);
+	    
+	    // Text in column 1, row 7
+	    Text babystepsText = new Text("Babysteps:");
+	    babystepsText.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
+	    grid.add(babystepsText, 0, 6);
+	    
+	    // Label in column 2, row 7
+	    babysteps = new Label();
+	    babysteps.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
+	    grid.add(babysteps, 1, 6);
+	    
+	    // Text in column 1, row 8
+	    Text trackingText = new Text("Tracking:");
+	    trackingText.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
+	    grid.add(trackingText, 0, 7);
+	    
+	    // Label in column 2, row 8
+	    timetracking = new Label();
+	    timetracking.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
+	    grid.add(timetracking, 1, 7);
+	    
 	    
 		return grid;
 	}
@@ -116,7 +163,7 @@ public class Katalog extends Stage{
 		Button laden = new Button("laden");
 		
 		zurueck.setOnAction(e->{
-			currentExercise = (currentExercise-1)%numberOfExercises;
+			currentExercise = ((currentExercise-1)+numberOfExercises)%numberOfExercises;
 			showExcercise(currentExercise);
 		});
 		weiter.setOnAction(e->{
@@ -135,23 +182,52 @@ public class Katalog extends Stage{
 	private static void showExcercise(int index) {
 		NodeList nList = doc.getElementsByTagName("exercise");
     	Node nNode = nList.item(index);
+    	Element eElement = (Element) nNode;
     	if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-    		Element eElement = (Element) nNode;
     		exerciseName.setText(eElement.getAttribute("name")+"");
     		description.setText(eElement.getElementsByTagName("description").item(0).getTextContent());
     	}
     	
-    	
-    	// Funktionalität unbekannt
-    	// TODO Alles soll angezeigt werden
-    	if(nNode.getNodeType() == Node.DOCUMENT_NODE){
-    		doc = (Document)nNode;
-	    	doc.getDocumentElement().normalize();
-	    	
-	    	
-	    	NodeList classesList = doc.getElementsByTagName("class");
-	    	
+    	NodeList classList = eElement.getElementsByTagName("class");
+    	String hilfe = "";
+    	for(int i = 0; i < classList.getLength(); i++){
+    		hilfe = hilfe + ((Element)classList.item(i)).getAttribute("name") + "\n";
+    		
+    		for(int j = 0; j < classList.item(i).getChildNodes().getLength(); j++){
+    			hilfe = hilfe + classList.item(i).getChildNodes().item(j).getNodeValue();
+        	}
+    		hilfe = hilfe + "\n\n";
     	}
+    	classes.setText(hilfe);
+    	classes.setEditable(false);
+    	hilfe = "";
+    	
+    	NodeList testList = eElement.getElementsByTagName("test");
+    	for(int i = 0; i < testList.getLength(); i++){
+    		hilfe = hilfe + ((Element)testList.item(i)).getAttribute("name") + "\n";
+    		
+    		for(int j = 0; j < testList.item(i).getChildNodes().getLength(); j++){
+    			hilfe = hilfe + testList.item(i).getChildNodes().item(j).getNodeValue();
+        	}
+    		hilfe = hilfe + "\n\n";
+    	}
+    	tests.setText(hilfe);
+    	tests.setEditable(false);
+    	hilfe = "";
+    	
+    	NodeList babyList = eElement.getElementsByTagName("babysteps");
+    	if(((Element)babyList.item(0)).getAttribute("value").equals("True")){
+    		hilfe = ((Element)babyList.item(0)).getAttribute("value")+ "    time: "+ ((Element)babyList.item(0)).getAttribute("time") ;
+    		babysteps.setText(hilfe);
+    		
+    	} else {
+    		babysteps.setText(((Element)babyList.item(0)).getAttribute("value")+ "" );
+    	}
+    	
+    	NodeList trackingList = eElement.getElementsByTagName("timetracking");
+    	timetracking.setText(((Element)trackingList.item(0)).getAttribute("value")+ "" );
+    	
+    	
 		
 	}
 }
