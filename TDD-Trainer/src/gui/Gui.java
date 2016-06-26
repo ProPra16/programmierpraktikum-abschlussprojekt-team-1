@@ -23,8 +23,6 @@ public class Gui extends Application{
 	public void start(Stage stage){
 		Scene main_scene = create_scene();
 		stage.setScene(main_scene);
-		Katalog katalog = new Katalog();
-		katalog.show();
 		stage.show();
 		stage.setOnCloseRequest(e->{
 			timer.stop();
