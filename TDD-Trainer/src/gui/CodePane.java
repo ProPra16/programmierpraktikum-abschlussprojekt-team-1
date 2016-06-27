@@ -13,7 +13,6 @@ public class CodePane extends TabPane{
 	int plusTabIndex = 0;
 	public CodePane(){
 		super();
-		
 		addPlus();
 	}
 	
@@ -27,6 +26,7 @@ public class CodePane extends TabPane{
 			result.ifPresent(name -> {
 				getTabs().remove(plusTabIndex);
 				addClass(name);
+				getSelectionModel().select(plusTabIndex);
 				plusTabIndex++;
 				addPlus();
 			});
