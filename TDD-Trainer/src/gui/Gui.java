@@ -124,7 +124,7 @@ public class Gui extends Application{
 	private void babysteps_alert(){
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText(null);
-		alert.setContentText("Do you want to use 'babsteps'?"); //TODO: besseren text ausdenken...?
+		alert.setContentText("Do you want to use 'babysteps'?"); //TODO: besseren text ausdenken...?
 		ButtonType yes = new ButtonType("yes");
 		ButtonType no = new ButtonType("no");
 		alert.getButtonTypes().setAll(yes, no);
