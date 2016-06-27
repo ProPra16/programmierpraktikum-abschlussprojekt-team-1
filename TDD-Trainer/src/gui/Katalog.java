@@ -38,6 +38,7 @@ public class Katalog extends Stage{
 	
 	static int currentExercise = 0;
 	static int numberOfExercises = 0;
+	boolean geladen = false;
 	
 	public Katalog(){
 		super();
@@ -50,8 +51,13 @@ public class Katalog extends Stage{
 	private void klickOnLaden(){
 		laden.setOnAction(e->{
 			//TODO laden
+			geladen = true;
 			close();
 		});
+	}
+	
+	public boolean wurdeGeladen(){
+		return geladen;
 	}
 	
 	private static void loadExcercises(){

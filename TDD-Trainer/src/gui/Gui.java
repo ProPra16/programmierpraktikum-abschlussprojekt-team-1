@@ -27,15 +27,40 @@ public class Gui extends Application{
 	}
 	@Override
 	public void start(Stage stage){
-		Scene main_scene = create_scene();
-		stage.setScene(main_scene);
-		stage.show();
+		laden_neu(stage);
 		if(babysteps) {
 			stage.setOnCloseRequest(e->{
 			timer.stop();
 			});
 		}
 	}
+	
+	private void laden_neu(Stage stage){
+		Alert loadOrNew = new Alert(AlertType.CONFIRMATION);
+		loadOrNew.setHeaderText(null);
+		loadOrNew.setContentText("Load an exercise or create a new program?");
+		ButtonType load = new ButtonType("load");
+		ButtonType newProgram = new ButtonType("new program");
+		loadOrNew.getButtonTypes().setAll(load, newProgram);
+		loadOrNew.showAndWait().ifPresent(event-> {
+			if(event == load){
+				loadOrNew.close();
+				Katalog katalog = new Katalog();
+				katalog.showAndWait();
+				if(katalog.wurdeGeladen()){
+					stage.setScene(create_scene());
+					stage.show();
+				}
+				
+			}
+			else if(event == newProgram){
+				babysteps_alert();
+				stage.setScene(create_scene());
+				stage.show();
+			}
+		});
+	}
+	
 	private Scene create_scene(){
 		phase = new Phase();
 		BorderPane root = new BorderPane();
@@ -79,7 +104,6 @@ public class Gui extends Application{
 		return menue;
 	}
 	private GridPane create_right_side(){
-		babysteps_alert();
 		if (babysteps){
 			timer= new Timer(duration, phase);
 			timer.start();
