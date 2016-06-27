@@ -1,9 +1,9 @@
 package gui;
 
 public class Phase {
-	public static final int TESTS = 0;
-	public static final int CODE = 1;
-	public static final int REFACTOR = 2;
+	public static final int TESTS = 1;
+	public static final int CODE = 2;
+	public static final int REFACTOR = 3;
 	
 	private int phase;
 	public Phase(){

@@ -56,6 +56,7 @@ public class Timer extends Text implements Runnable{
 	}
 	
 	public String toString(){
+		//TODO: Rundungsfehler ausmerzen!
 		long diff = duration-(System.currentTimeMillis() - startMillis);
 		//System.out.println(diff2);
 		int seconds = (int)((diff % (1000 * 60))/1000);
