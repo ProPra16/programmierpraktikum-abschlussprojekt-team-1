@@ -56,34 +56,4 @@ public void testSomething() {
 			<timetracking value="True" />
 		</config>
 	</exercise>
-		</exercise>
-	<exercise name="Median">
-		<description>Berechnet den Median.</description>
-		<classes>
-			<class name="MedianBerechner">
-public class Median {
-
-
-}
-		</class>
-	</classes>
-	<tests>
-		<test name="MedianTest">
-import static org.junit.Assert.*;
-import org.junit.Test;
-
-public class MedianTest {
-
-	@Test
-	public void testSomething() {
-	
-	}
-}
-			</test>
-		</tests>
-		<config>
-			<babysteps value="False" />
-			<timetracking value="True" />
-		</config>
-	</exercise>
 </excercises>
