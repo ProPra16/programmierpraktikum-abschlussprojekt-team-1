@@ -32,6 +32,7 @@ public class Katalog extends Stage{
 	static Label exerciseName, description, babysteps, timetracking;
 	static TextArea classes;
 	static TextArea tests;
+	static Button laden;
 	
 	static Document doc = null;
 	
@@ -43,6 +44,14 @@ public class Katalog extends Stage{
 		setScene(create_scene());
 		loadExcercises();
 		showExcercise(currentExercise);
+		klickOnLaden();
+	}
+	
+	private void klickOnLaden(){
+		laden.setOnAction(e->{
+			//TODO laden
+			close();
+		});
 	}
 	
 	private static void loadExcercises(){
@@ -158,7 +167,7 @@ public class Katalog extends Stage{
 
 	    Button zurueck = new Button("zurück");
 		Button weiter = new Button("weiter");
-		Button laden = new Button("laden");
+		laden = new Button("laden");
 		
 		zurueck.setOnAction(e->{
 			currentExercise = ((currentExercise-1)+numberOfExercises)%numberOfExercises;
@@ -167,9 +176,6 @@ public class Katalog extends Stage{
 		weiter.setOnAction(e->{
 			currentExercise = (currentExercise+1)%numberOfExercises;
 			showExcercise(currentExercise);
-		});
-		laden.setOnAction(e->{
-			//TODO 
 		});
 
 	    hbox.getChildren().addAll(zurueck, weiter, laden);
@@ -225,7 +231,5 @@ public class Katalog extends Stage{
     	NodeList trackingList = eElement.getElementsByTagName("timetracking");
     	timetracking.setText(((Element)trackingList.item(0)).getAttribute("value")+ "" );
     	
-    	
-		
 	}
 }
