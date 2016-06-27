@@ -22,6 +22,9 @@ public class Gui extends Application{
 	private int duration;
 	private Timer timer;
 	private boolean babysteps;
+	CodePane code_pane;
+	TestPane test_pane;
+	ConsolePane console_pane;
 	public static void main(String[] args){
 		launch();
 	}
@@ -73,9 +76,9 @@ public class Gui extends Application{
 	private TabPane create_buttons_top(){
 		TabPane menue = new TabPane();
 		menue.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		CodePane code_pane = new CodePane();
-		TestPane test_pane = new TestPane();
-		ConsolePane console_pane = new ConsolePane();
+		code_pane = new CodePane();
+		test_pane = new TestPane();
+		console_pane = new ConsolePane();
 		Tab code = new Tab("Code");
 		Tab test = new Tab("Tests");
 		Tab console = new Tab("Konsole");
@@ -131,6 +134,8 @@ public class Gui extends Application{
 				phase.next_phase(); // TODO: zeug disablen
 				phase1.setFill(Color.BLACK);
 				phase2.setFill(Color.GREEN);
+				code_pane.setDisable(false);
+				test_pane.setDisable(true);
 			}
 			else if(phase.get() == Phase.CODE){ //TODO: i-was das true zurückgibt wenns lauft ins if
 				phase.next_phase(); //TODO: zeug disablen
@@ -141,6 +146,8 @@ public class Gui extends Application{
 				phase.next_phase(); //TODO: zeug disablen
 				phase3.setFill(Color.BLACK);
 				phase1.setFill(Color.GREEN);
+				code_pane.setDisable(true);
+				test_pane.setDisable(false);
 			}
 		});
 		return grid;
