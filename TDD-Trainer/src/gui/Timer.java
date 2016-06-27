@@ -20,10 +20,6 @@ public class Timer extends Text implements Runnable{
 	public boolean time_up(){
 		return time_up;
 	}
-	public void time_up_act(){
-		phase.next_phase();
-		reset();
-	}
 
 	public void run(){
 		startMillis = System.currentTimeMillis();
@@ -73,7 +69,6 @@ public class Timer extends Text implements Runnable{
 		if((System.currentTimeMillis() - startMillis)>=duration){
 			System.out.println("reset");
 			time_up = true;
-			time_up_act();
 		}
 	}
 }

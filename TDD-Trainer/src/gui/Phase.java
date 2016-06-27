@@ -7,11 +7,11 @@ public class Phase {
 	
 	private int phase;
 	public Phase(){
-		this.phase = 1;
+		this.phase = 0;
 	}
 	
 	public void next_phase(){
-		this.phase = (this.phase+1)%4;
+		this.phase = (this.phase+1)%3;
 	}
 	
 	public int get(){
