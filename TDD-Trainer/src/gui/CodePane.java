@@ -6,15 +6,14 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.text.Text;
 
 public class CodePane extends TabPane{
 	Tab plusTab;
 	int plusTabIndex = 0;
 	public CodePane(){
 		super();
-		setOnMouseClicked(e->{
-			clickOnPlus();
-		});
+		
 		addPlus();
 	}
 	
@@ -42,9 +41,17 @@ public class CodePane extends TabPane{
 		});
 		classTab.setContent(text);
 		getTabs().addAll(classTab);
+		setOnMouseClicked(e->{
+			clickOnPlus();
+		});
 	}
 	private void addPlus(){
-		plusTab = new Tab("+");
+		Text text = new Text("x");
+		text.setOnMouseClicked(e->{
+			clickOnPlus();
+		});
+		plusTab = new Tab();
+		plusTab.setGraphic(text);
 		plusTab.setClosable(false);
 		getTabs().addAll(plusTab);
 		
