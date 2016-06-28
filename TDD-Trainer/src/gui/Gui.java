@@ -25,6 +25,8 @@ public class Gui extends Application{
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
+	Button next, run, test;
+	Text phase1, phase2, phase3;
 	
 	public static void main(String[] args){
 		launch();
@@ -114,12 +116,12 @@ public class Gui extends Application{
 		}
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
-		Button run = new Button("run");
-		Button test = new Button("test");
-		Button next = new Button("next");
-		Text phase1 = new Text("Write failing Test");
-		Text phase2 = new Text("Write passing Code");
-		Text phase3 = new Text("Refactor");
+		run = new Button("run");
+		test = new Button("test");
+		next = new Button("next");
+		phase1 = new Text("Write failing Test");
+		phase2 = new Text("Write passing Code");
+		phase3 = new Text("Refactor");
 		phase1.setFill(Color.GREEN);
 		grid.addColumn(1, phase1, phase2, phase3, run, test, next);
 		if(babysteps) grid.add(timer,2, 2);
