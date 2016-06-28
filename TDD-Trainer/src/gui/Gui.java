@@ -25,10 +25,11 @@ public class Gui extends Application{
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
+	
 	public static void main(String[] args){
 		launch();
 	}
-	@Override
+	
 	public void start(Stage stage){
 		laden_neu(stage);
 		if(babysteps) {
@@ -41,7 +42,7 @@ public class Gui extends Application{
 	private void laden_neu(Stage stage){
 		Alert loadOrNew = new Alert(AlertType.CONFIRMATION);
 		loadOrNew.setHeaderText(null);
-		loadOrNew.setContentText("Load an exercise or create a new program?");
+		loadOrNew.setContentText("Load an exercise or create a new project?");
 		ButtonType load = new ButtonType("Load");
 		ButtonType newProgram = new ButtonType("New project");
 		loadOrNew.getButtonTypes().setAll(load, newProgram);
@@ -131,23 +132,13 @@ public class Gui extends Application{
 		});
 		next.setOnAction(e->{
 			if(phase.get()==Phase.TESTS){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
-				phase.next_phase(); // TODO: zeug disablen
-				phase1.setFill(Color.BLACK);
-				phase2.setFill(Color.GREEN);
-				code_pane.setDisable(false);
-				test_pane.setDisable(true);
+				setPhaseTest();
 			}
 			else if(phase.get() == Phase.CODE){ //TODO: i-was das true zurückgibt wenns lauft ins if
-				phase.next_phase(); //TODO: zeug disablen
-				phase2.setFill(Color.BLACK);
-				phase3.setFill(Color.GREEN);
+				setPhaseCode();
 			}
 			else if(phase.get() == Phase.REFACTOR){ //TODO: tests muessen laufen
-				phase.next_phase(); //TODO: zeug disablen
-				phase3.setFill(Color.BLACK);
-				phase1.setFill(Color.GREEN);
-				code_pane.setDisable(true);
-				test_pane.setDisable(false);
+				setPhaseRefactor();
 			}
 		});
 		return grid;
@@ -167,7 +158,7 @@ public class Gui extends Application{
 		System.out.println(babysteps);
 		if(babysteps){
 			TextInputDialog b_duration = new TextInputDialog();
-			b_duration.setContentText("How many secounds?"); //TODO: besseren text...
+			b_duration.setContentText("How many seconds for each stage?"); //TODO: besseren text...
 			b_duration.setHeaderText(null);
 			b_duration.showAndWait().ifPresent(input ->{
 				try{
@@ -177,5 +168,27 @@ public class Gui extends Application{
 				}
 			});
 		}
+	}
+	
+	private void setPhaseTest(){
+		phase.next_phase(); // TODO: zeug disablen
+		phase1.setFill(Color.BLACK);
+		phase2.setFill(Color.GREEN);
+		code_pane.setDisable(false);
+		test_pane.setDisable(true);
+	}
+	
+	private void setPhaseCode(){
+		phase.next_phase(); //TODO: zeug disablen
+		phase2.setFill(Color.BLACK);
+		phase3.setFill(Color.GREEN);
+	}
+	
+	private void setPhaseRefactor(){
+		phase.next_phase(); //TODO: zeug disablen
+		phase3.setFill(Color.BLACK);
+		phase1.setFill(Color.GREEN);
+		code_pane.setDisable(true);
+		test_pane.setDisable(false);
 	}
 }
