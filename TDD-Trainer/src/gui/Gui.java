@@ -89,21 +89,6 @@ public class Gui extends Application{
 		test.setContent(test_pane);
 		console.setContent(console_pane);
 		menue.getTabs().addAll(code, test, console);
-//	    menue.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>()
-//	    {
-//	    	//TODO: denkfehler - brauchte es doch ned -.- kann mans ansonsten zu i-was gebrauchen?
-//	        @Override 
-//	        public void changed(ObservableValue<? extends Tab> arg0, Tab arg1, Tab selected_tab){
-//	        	if(selected_tab == code){
-//	        	}
-//	        	if(selected_tab == test){
-//	        	}
-//	        	if(selected_tab == console){
-//	        		
-//	        	}
-//	        }
-//	    });
-
 		return menue;
 	}
 	private GridPane create_right_side(){
