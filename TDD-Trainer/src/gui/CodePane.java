@@ -33,7 +33,7 @@ public class CodePane extends TabPane{
 		}
 	}
 	
-	private void addClass(String className){ //TODO Klassen Name gross schreiben :)
+	private void addClass(String className){ //TODO Klassen Name gross schreiben
 		TextArea text = new TextArea();
 		Tab classTab = new Tab(className);
 		classTab.setOnClosed(e->{
