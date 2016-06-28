@@ -26,19 +26,19 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Catalog extends Stage{
-	static Scene scene;
-	static BorderPane root = new BorderPane();
+	private Scene scene;
+	private BorderPane root = new BorderPane();
 	
-	static Label exerciseName, description, babysteps, timetracking;
-	static TextArea classes;
-	static TextArea tests;
-	static Button laden;
+	private Label exerciseName, description, babysteps, timetracking;
+	private TextArea classes;
+	private TextArea tests;
+	private Button laden;
 	
-	static Document doc = null;
+	private Document doc = null;
 	
-	static int currentExercise = 0;
-	static int numberOfExercises = 0;
-	boolean geladen = false;
+	private int currentExercise = 0;
+	private int numberOfExercises = 0;
+	private boolean geladen = false;
 	
 	public Catalog(){
 		super();
@@ -60,7 +60,7 @@ public class Catalog extends Stage{
 		return geladen;
 	}
 	
-	private static void loadExcercises(){
+	private void loadExcercises(){
 		File input = null;
 	    try {
 	    	input = new File("./res/exercise.xml");
@@ -83,18 +83,18 @@ public class Catalog extends Stage{
 	}
 	
 	
-	private static Scene create_scene(){
+	private Scene create_scene(){
 		root = create_root();
 		scene = new Scene(root,600,600);
 		return scene;
 	}
-	private static BorderPane create_root(){
+	private BorderPane create_root(){
 		root.setTop(create_top());
 		root.setCenter(create_center());
 		return root;
 	}
 	
-	private static GridPane create_center() {
+	private GridPane create_center() {
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
@@ -165,7 +165,7 @@ public class Catalog extends Stage{
 		return grid;
 	}
 
-	private static HBox create_top(){
+	private HBox create_top(){
 		HBox hbox = new HBox();
 		hbox.setPadding(new Insets(10, 50, 10, 50));
 	    hbox.setSpacing(15);
@@ -189,7 +189,7 @@ public class Catalog extends Stage{
 	    return hbox;
 	}
 
-	private static void showExcercise(int index) {
+	private void showExcercise(int index) {
 		NodeList nList = doc.getElementsByTagName("exercise");
     	Node nNode = nList.item(index);
     	Element eElement = (Element) nNode;
