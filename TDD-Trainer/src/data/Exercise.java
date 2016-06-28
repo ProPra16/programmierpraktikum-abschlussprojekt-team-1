@@ -9,8 +9,16 @@ public class Exercise {
 	private boolean babysteps;
 	private int duration;
 	private boolean tracker;
-	
-	public Exercise(){
-		
+
+	public Exercise(List<AllTests> all_tests, List<Class> klasse, String description, 
+					String name, boolean babysteps, int duration, boolean tracker){
+		this.all_tests = all_tests;
+		this.klasse = klasse;
+		this.description = description;
+		this.name = name;
+		this.babysteps = babysteps;
+		this.tracker = tracker;
 	}
+	
+	public 
 }

@@ -1,11 +1,15 @@
 package data;
 
 public class Test {
-	private String text;
+	private String code;
+	private String name;
 	public Test(String text){
-		this.text = text;
+		this.code = text;
 	}
 	public String toString(){
-		return text;
+		return code;
+	}
+	public String getName(){
+		return name;
 	}
 }
