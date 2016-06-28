@@ -20,5 +20,4 @@ public class Exercise {
 		this.tracker = tracker;
 	}
 	
-	public 
 }
