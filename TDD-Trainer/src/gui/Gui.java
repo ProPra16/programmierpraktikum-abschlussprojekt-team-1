@@ -42,13 +42,13 @@ public class Gui extends Application{
 		Alert loadOrNew = new Alert(AlertType.CONFIRMATION);
 		loadOrNew.setHeaderText(null);
 		loadOrNew.setContentText("Load an exercise or create a new program?");
-		ButtonType load = new ButtonType("load");
-		ButtonType newProgram = new ButtonType("new program");
+		ButtonType load = new ButtonType("Load");
+		ButtonType newProgram = new ButtonType("New project");
 		loadOrNew.getButtonTypes().setAll(load, newProgram);
 		loadOrNew.showAndWait().ifPresent(event-> {
 			if(event == load){
 				loadOrNew.close();
-				Katalog katalog = new Katalog();
+				Catalog katalog = new Catalog();
 				katalog.showAndWait();
 				if(katalog.wurdeGeladen()){
 					stage.setScene(create_scene());
@@ -156,8 +156,8 @@ public class Gui extends Application{
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText(null);
 		alert.setContentText("Do you want to use 'babysteps'?"); //TODO: besseren text ausdenken...?
-		ButtonType yes = new ButtonType("yes");
-		ButtonType no = new ButtonType("no");
+		ButtonType yes = new ButtonType("Yes");
+		ButtonType no = new ButtonType("No");
 		alert.getButtonTypes().setAll(yes, no);
 		alert.showAndWait().ifPresent(event-> {
 			if(event == yes) babysteps = true;

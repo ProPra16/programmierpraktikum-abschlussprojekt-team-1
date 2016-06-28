@@ -25,7 +25,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class Katalog extends Stage{
+public class Catalog extends Stage{
 	static Scene scene;
 	static BorderPane root = new BorderPane();
 	
@@ -40,7 +40,7 @@ public class Katalog extends Stage{
 	static int numberOfExercises = 0;
 	boolean geladen = false;
 	
-	public Katalog(){
+	public Catalog(){
 		super();
 		setScene(create_scene());
 		loadExcercises();
@@ -171,9 +171,9 @@ public class Katalog extends Stage{
 	    hbox.setSpacing(15);
 	    hbox.setStyle("-fx-background-color: #dcdcdc;");
 
-	    Button zurueck = new Button("zurück");
-		Button weiter = new Button("weiter");
-		laden = new Button("laden");
+	    Button zurueck = new Button("Previous");
+		Button weiter = new Button("Next");
+		laden = new Button("Load this!");
 		
 		zurueck.setOnAction(e->{
 			currentExercise = ((currentExercise-1)+numberOfExercises)%numberOfExercises;
