@@ -7,8 +7,8 @@ public class ConsolePane extends GridPane{
 	private TextArea text;
 	public ConsolePane(){
 		text = new TextArea();
-		text.setDisable(true);
 		getChildren().add(text);
+		text.setEditable(false);
 	}
 	
 	public void set_text(String content){
