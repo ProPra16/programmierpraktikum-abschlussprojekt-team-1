@@ -16,7 +16,7 @@ public class Testing {
 			List<CompileError> errors = getCompileErrors(comp_un);
 			for(CompileError error: errors){
 				console.set_text(error.toString());
-				//TODO: ueberlegen: .toString()? - lieber selbst zusammenbasteln?
+				//TODO: ueberlegen: .toString()? -  lieber selbst zusammenbasteln?
 			}
 		}
 	}
