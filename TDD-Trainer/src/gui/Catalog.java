@@ -38,24 +38,16 @@ public class Catalog extends Stage{
 	
 	private int currentExercise = 0;
 	private int numberOfExercises = 0;
-	private boolean loaded = false;
 	
 	public Catalog(){
 		super();
 		setScene(create_scene());
 		loadExcercises();
 		showExcercise(currentExercise);
-		clickOnLaden();
 	}
 	
 	private void clickOnLaden(){
-		loaded = true;
-		//TODO: Laden
 		close();
-	}
-	
-	public boolean wasLoaded(){
-		return loaded;
 	}
 	
 	private void loadExcercises(){

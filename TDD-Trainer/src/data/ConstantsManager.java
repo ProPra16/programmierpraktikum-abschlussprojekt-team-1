@@ -8,6 +8,7 @@ public class ConstantsManager {
 	}
 	
 	public static Constants getConstants(){
+		if (constants == null) newConstants();
 		return constants;
 	}
 	
