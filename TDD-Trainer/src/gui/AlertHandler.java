@@ -2,7 +2,7 @@ package gui;
 
 import data.Constants;
 import data.ConstantsManager;
-import data.Exercise;
+import data.Project;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
@@ -34,7 +34,7 @@ public class AlertHandler {
 	
 	public static void babysteps_alert(){
 		Constants cs = ConstantsManager.getConstants();
-		Exercise ex = cs.getExercise();
+		Project ex = cs.getProject();
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText(null);
 		alert.setContentText("Do you want to use 'babysteps'?"); //TODO: besseren text ausdenken...?

@@ -9,17 +9,17 @@ public class Project {
 	private String description, name;
 	private boolean babysteps;
 	private int duration;
-	private boolean tracker;
+	private boolean tracking;
 
 	public Project(List<Test> all_tests, List<Class> klasse, String description, 
-					String name, boolean babysteps, int duration, boolean tracker){
+					String name, boolean babysteps, int duration, boolean tracking){
 		this.all_tests = all_tests;
 		this.all_class = klasse;
 		this.description = description;
 		this.name = name;
 		this.babysteps = babysteps;
 		this.duration = duration;
-		this.tracker = tracker;
+		this.tracking = tracking;
 	}
 	
 	public Project(){
@@ -29,7 +29,7 @@ public class Project {
 		description = "A new exercise.";
 		babysteps = false;
 		duration = 0;
-		tracker = false;
+		tracking = false;
 	}
 	
 	public void compile(){
@@ -62,5 +62,29 @@ public class Project {
 	
 	public int getDuration(){
 		return duration;
+	}
+	
+	public void setName(String name){
+		this.name = name;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void setDescription(String description){
+		this.description = description;
+	}
+	
+	public String getDescription(){
+		return description;
+	}
+	
+	public void setTracking(boolean tracking){
+		this.tracking = tracking;
+	}
+	
+	public boolean getTracking(){
+		return tracking;
 	}
 }
