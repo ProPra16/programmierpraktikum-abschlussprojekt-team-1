@@ -30,38 +30,12 @@ public class Gui extends Application{
 	}
 	@Override
 	public void start(Stage stage){
-		laden_neu(stage);
+		AlertHandler.newProject_alert();
 		if(babysteps) {
 			stage.setOnCloseRequest(e->{
 			timer.stop();
 			});
 		}
-	}
-	
-	private void laden_neu(Stage stage){
-		Alert loadOrNew = new Alert(AlertType.CONFIRMATION);
-		loadOrNew.setHeaderText(null);
-		loadOrNew.setContentText("Load an exercise or create a new program?");
-		ButtonType load = new ButtonType("Load");
-		ButtonType newProgram = new ButtonType("New project");
-		loadOrNew.getButtonTypes().setAll(load, newProgram);
-		loadOrNew.showAndWait().ifPresent(event-> {
-			if(event == load){
-				loadOrNew.close();
-				Catalog katalog = new Catalog();
-				katalog.showAndWait();
-				if(katalog.wurdeGeladen()){
-					stage.setScene(create_scene());
-					stage.show();
-				}
-				
-			}
-			else if(event == newProgram){
-				babysteps_alert();
-				stage.setScene(create_scene());
-				stage.show();
-			}
-		});
 	}
 	
 	private Scene create_scene(){
@@ -136,31 +110,5 @@ public class Gui extends Application{
 			}
 		});
 		return grid;
-	}
-	private void babysteps_alert(){
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setHeaderText(null);
-		alert.setContentText("Do you want to use 'babysteps'?"); //TODO: besseren text ausdenken...?
-		ButtonType yes = new ButtonType("Yes");
-		ButtonType no = new ButtonType("No");
-		alert.getButtonTypes().setAll(yes, no);
-		alert.showAndWait().ifPresent(event-> {
-			if(event == yes) babysteps = true;
-			else if(event == no)  babysteps = false; //warum geht das ohne else ned??
-			else babysteps = false;
-		});
-		System.out.println(babysteps);
-		if(babysteps){
-			TextInputDialog b_duration = new TextInputDialog();
-			b_duration.setContentText("How many secounds?"); //TODO: besseren text...
-			b_duration.setHeaderText(null);
-			b_duration.showAndWait().ifPresent(input ->{
-				try{
-					duration = Integer.parseInt(input);
-				} catch(NumberFormatException e){
-					babysteps = false; //TODO: do something more useful
-				}
-			});
-		}
 	}
 }
