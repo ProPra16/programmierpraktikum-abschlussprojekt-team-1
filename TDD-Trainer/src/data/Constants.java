@@ -3,6 +3,7 @@ package data;
 public class Constants {
 	private Exercise exercise;
 	private boolean showBabystepsAlert;
+	private boolean loadExercise = false;
 	
 	public Constants(){
 		exercise = new Exercise();
@@ -24,5 +25,13 @@ public class Constants {
 	
 	public boolean getShowBabystepsAlert(){
 		return this.showBabystepsAlert;
+	}
+	
+	public void setLoadExercise(boolean loadExercise){
+		this.loadExercise = loadExercise;
+	}
+	
+	public boolean getLoadExercise(){
+		return loadExercise;
 	}
 }
