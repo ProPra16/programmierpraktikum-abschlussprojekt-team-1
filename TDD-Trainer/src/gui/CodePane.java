@@ -14,6 +14,7 @@ public class CodePane extends TabPane{
 	public CodePane(){
 		super();
 		addPlus();
+		
 	}
 	
 	private void clickOnPlus(){
@@ -29,6 +30,8 @@ public class CodePane extends TabPane{
 				getSelectionModel().select(plusTabIndex);
 				plusTabIndex++;
 				addPlus();
+				if(plusTabIndex > 1) getTabs().get(0).setClosable(true);
+				if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
 			});
 		}
 	}
@@ -38,6 +41,7 @@ public class CodePane extends TabPane{
 		Tab classTab = new Tab(className);
 		classTab.setOnClosed(e->{
 			plusTabIndex--;
+			if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
 		});
 		classTab.setContent(text);
 		getTabs().addAll(classTab);
@@ -46,12 +50,12 @@ public class CodePane extends TabPane{
 		});
 	}
 	private void addPlus(){
-//		Text text = new Text("+");
-//		text.setOnMouseClicked(e->{
-//			clickOnPlus();
-//		});
+		//Text text = new Text("+");
+		//text.setOnMouseClicked(e->{
+		//	clickOnPlus();
+		//});
 		plusTab = new Tab("+");
-//		plusTab.setGraphic(text);
+		//plusTab.setGraphic(text);
 		plusTab.setClosable(false);
 		plusTab.setOnSelectionChanged((event) -> {
 			clickOnPlus();
