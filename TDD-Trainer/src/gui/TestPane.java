@@ -28,4 +28,7 @@ public class TestPane extends GridPane{
 	private void label_styling(){
 		tests_content.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
+	public void setEditable(boolean edit){
+		eingabe.setEditable(edit);
+	}
 }
