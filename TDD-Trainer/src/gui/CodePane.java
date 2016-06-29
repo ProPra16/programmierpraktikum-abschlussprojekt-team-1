@@ -56,12 +56,11 @@ public class CodePane extends TabPane{
 			clickOnPlus();
 		});
 		getTabs().addAll(plusTab);
-		
-		
 	}
 	public void setEditable(boolean edit){
-		for(int i = 0;i<getTabs().size(); i++){
-			getTabs().get(i);	
+		for(int i = 0;i<getTabs().size()-1; i++){
+			((TextArea)getTabs().get(i).getContent()).setEditable(edit);
+			
 		}
 	}
 }
