@@ -1,5 +1,7 @@
 package gui;
 
+import data.ConstantsManager;
+import data.Exercise;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,26 +21,37 @@ import javafx.stage.Stage;
 
 public class Gui extends Application{
 	private Phase phase;
-	private int duration;
 	private Timer timer;
-	private boolean babysteps;
+	private Exercise exercise;
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
 	public static void main(String[] args){
 		launch();
 	}
-	@Override
+	
 	public void start(Stage stage){
 		AlertHandler.newProject_alert();
-		if(babysteps) {
+		exercise = ConstantsManager.getConstants().getExercise();
+		switch (AlertHandler.returnValue){
+		case AlertHandler.NEW_PROJECT:
+			stage.setScene(main_scene());
+			stage.show();
+			break;
+		case AlertHandler.LOAD_TEMPLATE:
+			break;
+		case AlertHandler.LOAD_PROJECT:
+			break;
+		}
+
+		if(ConstantsManager.getConstants().getExercise().getBabysteps()) {
 			stage.setOnCloseRequest(e->{
 			timer.stop();
 			});
 		}
 	}
 	
-	private Scene create_scene(){
+	private Scene main_scene(){
 		phase = new Phase();
 		BorderPane root = new BorderPane();
 		TabPane main = create_buttons_top(); //TODO: doofer name
@@ -66,8 +79,8 @@ public class Gui extends Application{
 		return menue;
 	}
 	private GridPane create_right_side(){
-		if (babysteps){
-			timer= new Timer(duration, phase);
+		if (exercise.getBabysteps()){
+			timer= new Timer(exercise.getDuration(), phase);
 			timer.start();
 		}
 		GridPane grid = new GridPane();
@@ -80,7 +93,7 @@ public class Gui extends Application{
 		Text phase3 = new Text("Refactor");
 		phase1.setFill(Color.GREEN);
 		grid.addColumn(1, phase1, phase2, phase3, compile, test, next);
-		if(babysteps) grid.add(timer,2, 2);
+		if(exercise.getBabysteps()) grid.add(timer,2, 2);
 		
 		compile.setOnAction(e->{
 			//TODO: run programm & put console output in console tab
