@@ -11,8 +11,8 @@ public class AllTests {
 	public void file_read(){ //zum einlesen delimiter?
 		// TODO: implementieren 
 	}
-	public void add(String test){
-		tests.add(new Test(test));
+	public void add(String nane,String test){
+		tests.add(new Test(nane, test));
 	}
 	public String toString(){
 		String ret = "";
