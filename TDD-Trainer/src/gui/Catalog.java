@@ -38,26 +38,24 @@ public class Catalog extends Stage{
 	
 	private int currentExercise = 0;
 	private int numberOfExercises = 0;
-	private boolean geladen = false;
+	private boolean loaded = false;
 	
 	public Catalog(){
 		super();
 		setScene(create_scene());
 		loadExcercises();
 		showExcercise(currentExercise);
-		klickOnLaden();
+		clickOnLaden();
 	}
 	
-	private void klickOnLaden(){
-		laden.setOnAction(e->{
-			//TODO laden
-			geladen = true;
-			close();
-		});
+	private void clickOnLaden(){
+		loaded = true;
+		//TODO: Laden
+		close();
 	}
 	
-	public boolean wurdeGeladen(){
-		return geladen;
+	public boolean wasLoaded(){
+		return loaded;
 	}
 	
 	private void loadExcercises(){
@@ -88,6 +86,7 @@ public class Catalog extends Stage{
 		scene = new Scene(root,600,600);
 		return scene;
 	}
+	
 	private BorderPane create_root(){
 		root.setTop(create_top());
 		root.setCenter(create_center());
@@ -174,6 +173,9 @@ public class Catalog extends Stage{
 	    Button zurueck = new Button("Previous");
 		Button weiter = new Button("Next");
 		laden = new Button("Load this!");
+		laden.setOnAction(e->{
+			clickOnLaden();
+		});
 		
 		zurueck.setOnAction(e->{
 			currentExercise = ((currentExercise-1)+numberOfExercises)%numberOfExercises;
