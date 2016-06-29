@@ -1,5 +1,6 @@
 package data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Exercise {
@@ -17,19 +18,49 @@ public class Exercise {
 		this.description = description;
 		this.name = name;
 		this.babysteps = babysteps;
+		this.duration = duration;
 		this.tracker = tracker;
 	}
+	
+	public Exercise(){
+		all_tests = new ArrayList<Test>();
+		all_class = new ArrayList<Class>();
+		name = "new exercise";
+		description = "A new exercise.";
+		babysteps = false;
+		duration = 0;
+		tracker = false;
+	}
+	
 	public void compile(){
 		//TODO: zu console wechseln und consolenausgabe ins tab packen
 	}
+	
 	public void test(){
 		//TODO: zu console wechseln und consolenausgabe ins tab packen
 	}
+	
 	public void addClass(Class klasse){
 		all_class.add(klasse);
 	}
+	
 	public void addTest(Test test){
 		all_tests.add(test);
 	}
 	
+	public void setBabysteps(boolean babysteps){
+		this.babysteps = babysteps;
+	}
+	
+	public boolean getBabysteps(){
+		return babysteps;
+	}
+	
+	public void setDuration(int duration){
+		this.duration = duration;
+	}
+	
+	public int getDuration(){
+		return duration;
+	}
 }
