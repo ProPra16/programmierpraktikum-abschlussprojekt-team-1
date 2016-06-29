@@ -1,7 +1,7 @@
 package gui;
 
 import data.ConstantsManager;
-import data.Exercise;
+import data.Project;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 public class Gui extends Application{
 	private Phase phase;
 	private Timer timer;
-	private Exercise exercise;
+	private Project project;
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
@@ -32,9 +32,10 @@ public class Gui extends Application{
 	
 	public void start(Stage stage){
 		AlertHandler.newProject_alert();
-		exercise = ConstantsManager.getConstants().getExercise();
+		project = ConstantsManager.getConstants().getProject();
 		switch (AlertHandler.returnValue){
 		case AlertHandler.NEW_PROJECT:
+			new ProjectSettings();
 			stage.setScene(main_scene());
 			stage.show();
 			break;
@@ -44,7 +45,7 @@ public class Gui extends Application{
 			break;
 		}
 
-		if(ConstantsManager.getConstants().getExercise().getBabysteps()) {
+		if(ConstantsManager.getConstants().getProject().getBabysteps()) {
 			stage.setOnCloseRequest(e->{
 			timer.stop();
 			});
@@ -79,8 +80,8 @@ public class Gui extends Application{
 		return menue;
 	}
 	private GridPane create_right_side(){
-		if (exercise.getBabysteps()){
-			timer= new Timer(exercise.getDuration(), phase);
+		if (project.getBabysteps()){
+			timer= new Timer(project.getDuration(), phase);
 			timer.start();
 		}
 		GridPane grid = new GridPane();
@@ -93,7 +94,7 @@ public class Gui extends Application{
 		Text phase3 = new Text("Refactor");
 		phase1.setFill(Color.GREEN);
 		grid.addColumn(1, phase1, phase2, phase3, compile, test, next);
-		if(exercise.getBabysteps()) grid.add(timer,2, 2);
+		if(project.getBabysteps()) grid.add(timer,2, 2);
 		
 		compile.setOnAction(e->{
 			//TODO: run programm & put console output in console tab

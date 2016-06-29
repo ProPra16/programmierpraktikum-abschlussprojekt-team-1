@@ -1,22 +1,22 @@
 package data;
 
 public class Constants {
-	private Exercise exercise;
+	private Project project;
 	private boolean showBabystepsAlert;
 	private boolean loadExercise = false;
 	
 	public Constants(){
-		exercise = new Exercise();
+		project = new Project();
 		showBabystepsAlert = false;
 	}
 	
-	public void setExercise(Exercise newExercise){
-		exercise = newExercise;
+	public void setProject(Project newProject){
+		project = newProject;
 	}
 	
-	public Exercise getExercise(){
-		if (exercise == null) exercise = new Exercise();
-		return exercise;
+	public Project getProject(){
+		if (project == null) project = new Project();
+		return project;
 	}
 	
 	public void setShowBabystepsAlert(boolean showBabystepsAlert){

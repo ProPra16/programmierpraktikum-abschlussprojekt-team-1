@@ -3,7 +3,7 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Exercise {
+public class Project {
 	private List<Test> all_tests;
 	private List<Class> all_class;
 	private String description, name;
@@ -11,7 +11,7 @@ public class Exercise {
 	private int duration;
 	private boolean tracker;
 
-	public Exercise(List<Test> all_tests, List<Class> klasse, String description, 
+	public Project(List<Test> all_tests, List<Class> klasse, String description, 
 					String name, boolean babysteps, int duration, boolean tracker){
 		this.all_tests = all_tests;
 		this.all_class = klasse;
@@ -22,7 +22,7 @@ public class Exercise {
 		this.tracker = tracker;
 	}
 	
-	public Exercise(){
+	public Project(){
 		all_tests = new ArrayList<Test>();
 		all_class = new ArrayList<Class>();
 		name = "New exercise";
