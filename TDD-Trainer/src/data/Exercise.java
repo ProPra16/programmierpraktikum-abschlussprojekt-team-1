@@ -25,7 +25,7 @@ public class Exercise {
 	public Exercise(){
 		all_tests = new ArrayList<Test>();
 		all_class = new ArrayList<Class>();
-		name = "new exercise";
+		name = "New exercise";
 		description = "A new exercise.";
 		babysteps = false;
 		duration = 0;
