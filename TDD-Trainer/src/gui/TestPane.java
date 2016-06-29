@@ -12,22 +12,20 @@ import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 
 public class TestPane extends GridPane{ 
-	private TextArea eingabe;
-	private ScrollPane all_tests;
+	private TextArea eingabe, angenommeneTests;
 	private Label tests_content;
 	
 	public TestPane(){
 		eingabe = new TextArea();
-		all_tests = new ScrollPane();
-		tests_content = new Label(); // TODO:spaeter html-editor zum syntax-highlighten?
-		label_styling();
-		all_tests.setContent(tests_content);
+		angenommeneTests = new TextArea();
+		add(angenommeneTests,0,0);
 		add(eingabe,0,1);
-		add(all_tests,0,0);
-		super.setVgrow(all_tests, Priority.ALWAYS);
+		setGridLinesVisible(true);
+		super.setVgrow(angenommeneTests, Priority.ALWAYS);
+		super.setHgrow(angenommeneTests, Priority.ALWAYS);
+		angenommeneTests.setEditable(false);
 	}
 	private void label_styling(){
 		tests_content.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 	}
-
 }
