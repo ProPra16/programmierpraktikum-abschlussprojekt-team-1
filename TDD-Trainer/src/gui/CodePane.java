@@ -59,4 +59,9 @@ public class CodePane extends TabPane{
 		
 		
 	}
+	public void setEditable(boolean edit){
+		for(int i = 0;i<getTabs().size(); i++){
+			getTabs().get(i);	
+		}
+	}
 }
