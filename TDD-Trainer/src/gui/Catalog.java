@@ -1,6 +1,8 @@
 package gui;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -10,6 +12,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import data.AllTests;
+import data.Class;
+import data.Project;
+import data.Test;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -230,6 +236,48 @@ public class Catalog extends Stage{
     	
     	NodeList trackingList = eElement.getElementsByTagName("timetracking");
     	timetracking.setText(((Element)trackingList.item(0)).getAttribute("value")+ "" );
+	}
+	
+	public Project getProject(){
+		NodeList nList = doc.getElementsByTagName("exercise");
+    	Node nNode = nList.item(currentExercise);
+    	Element eElement = (Element) nNode;
     	
+    	
+    	NodeList classList = eElement.getElementsByTagName("class");
+    	List<Class> klassenListe = new ArrayList<Class>();
+    	for(int i = 0; i < classList.getLength(); i++){
+    		data.Class klasse = new data.Class(classList.item(i).getChildNodes().item(0).getNodeValue(), (String)((Element)classList.item(i)).getAttribute("name"));
+    		klassenListe.add(klasse);
+    	}
+    	
+    	NodeList testList = eElement.getElementsByTagName("test");
+    	List<Test> tests = new ArrayList<Test>();
+    	for(int i = 0; i < testList.getLength(); i++){
+    		Test test = new Test((String)(((Element)testList.item(i)).getAttribute("name")),testList.item(i).getChildNodes().item(0).getNodeValue());
+    		tests.add(test);
+    	}
+    	
+    	NodeList babyList = eElement.getElementsByTagName("babysteps");
+    	boolean babysteps = false;
+    	int duration = 0;
+    	if(((Element)babyList.item(0)).getAttribute("value").equals("True")){
+    		babysteps = true;
+    		duration = 0;	//((Element)babyList.item(0)).getAttribute("time") ; 
+    						//TODO duration in der xml datei zu einem String machen oder in Project die Zeit als String speichern
+    	}
+    	
+    	NodeList trackingList = eElement.getElementsByTagName("timetracking");
+    	boolean tracking = false;
+    	if(((Element)trackingList.item(0)).getAttribute("value").equals("True")){
+    		tracking = true;
+    	}
+    	
+    	
+    	Project project = new Project(tests, klassenListe, eElement.getElementsByTagName("description").item(0).getTextContent(),eElement.getAttribute("name"),babysteps,duration, tracking);
+    	
+		
+		
+		return project;
 	}
 }
