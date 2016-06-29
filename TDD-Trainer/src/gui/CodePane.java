@@ -50,12 +50,7 @@ public class CodePane extends TabPane{
 		});
 	}
 	private void addPlus(){
-		//Text text = new Text("+");
-		//text.setOnMouseClicked(e->{
-		//	clickOnPlus();
-		//});
 		plusTab = new Tab("+");
-		//plusTab.setGraphic(text);
 		plusTab.setClosable(false);
 		plusTab.setOnSelectionChanged((event) -> {
 			clickOnPlus();
