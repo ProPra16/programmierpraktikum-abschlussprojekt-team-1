@@ -40,6 +40,11 @@ public class Gui extends Application{
 			stage.show();
 			break;
 		case AlertHandler.LOAD_TEMPLATE:
+			Catalog catalog = new Catalog();
+			catalog.showAndWait();
+			//TODO load Exercise
+			stage.setScene(main_scene());
+			stage.show();
 			break;
 		case AlertHandler.LOAD_PROJECT:
 			break;
