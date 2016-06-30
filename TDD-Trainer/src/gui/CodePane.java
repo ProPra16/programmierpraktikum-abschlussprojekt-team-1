@@ -6,7 +6,6 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.text.Text;
 
 public class CodePane extends TabPane{
 	Tab plusTab;

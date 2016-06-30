@@ -67,7 +67,6 @@ public class Timer extends Text implements Runnable{
 	public void update(){
 		this.setText("Time: " + this.toString());
 		if((System.currentTimeMillis() - startMillis)>=duration){
-			System.out.println("reset");
 			time_up = true;
 		}
 	}
