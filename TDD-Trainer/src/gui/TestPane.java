@@ -31,4 +31,14 @@ public class TestPane extends GridPane{
 	public void setEditable(boolean edit){
 		eingabe.setEditable(edit);
 	}
+	public void clear(){
+		eingabe.clear();
+	}
+	public void setText(String tests){
+		angenommeneTests.setText(tests);
+	}
+	public String getNewTest(){
+		return eingabe.getText();
+	}
+
 }
