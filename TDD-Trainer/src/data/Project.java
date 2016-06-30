@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.Testing;
+import vk.core.api.CompilationUnit;
 
 public class Project {
 	private List<Test> all_tests;
@@ -35,15 +36,25 @@ public class Project {
 	}
 	
 	public void compile(){
-		for(Class klasse:all_class){
-			Testing.compile(klasse.getCompilationUnit());
+		Testing.compile(getCompilationUnitArray());
+	}
+	public boolean hasCompileErrors(){
+		return Testing.hasCompileErrors(getCompilationUnitArray());
+	}
+	private CompilationUnit[] getCompilationUnitArray(){
+		CompilationUnit[] cus = new CompilationUnit[all_class.size()];
+		for(int i = 0; i<all_class.size();i++){
+			cus[i] = all_class.get(i).getCompilationUnit();
 		}
+		return cus;
 	}
 	public void test(){
+		//TODO: array erstellen, dass alle tests und classes enthaelt
 		//TODO: zu console wechseln und consolenausgabe ins tab packen
 	}
 	public boolean tests_ok(){
 		boolean test_bestanden = true;
+		//TODO: array erstellen, dass alle tests und classes enthaelt
 		//false wenn test ned besteht
 		return test_bestanden;
 	}
