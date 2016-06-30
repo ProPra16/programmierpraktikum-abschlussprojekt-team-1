@@ -2,6 +2,8 @@ package io;
 
 import java.util.List;
 
+import org.junit.runner.JUnitCore;
+
 import gui.ConsolePane;
 import vk.core.api.CompilationUnit;
 import vk.core.api.CompileError;
@@ -22,7 +24,7 @@ public class Testing {
 	}
 	
 	public static void test(){
-		
+		//TODO: soll testen
 	}
 	
 	public static boolean hasCompileErrors(CompilationUnit x){

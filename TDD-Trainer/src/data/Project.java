@@ -3,6 +3,8 @@ package data;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.Testing;
+
 public class Project {
 	private List<Test> all_tests;
 	private List<Class> all_class;
@@ -33,7 +35,9 @@ public class Project {
 	}
 	
 	public void compile(){
-		//TODO: zu console wechseln und consolenausgabe ins tab packen
+		for(Class klasse:all_class){
+			Testing.compile(klasse.getCompilationUnit());
+		}
 	}
 	
 	public void test(){

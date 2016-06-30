@@ -14,4 +14,7 @@ public class Class {
 	public CompilationUnit getCompilationUnit(){
 		return new CompilationUnit(name, code, false); //TODO: ein besserer name muss her
 	}
+	public void setCode(String code){
+		this.code=code;
+	}
 }
