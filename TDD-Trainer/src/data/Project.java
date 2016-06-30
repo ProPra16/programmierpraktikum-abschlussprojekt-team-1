@@ -39,9 +39,13 @@ public class Project {
 			Testing.compile(klasse.getCompilationUnit());
 		}
 	}
-	
 	public void test(){
 		//TODO: zu console wechseln und consolenausgabe ins tab packen
+	}
+	public boolean tests_ok(){
+		boolean test_bestanden = true;
+		//false wenn test ned besteht
+		return test_bestanden;
 	}
 	
 	public void addClass(Class klasse){
