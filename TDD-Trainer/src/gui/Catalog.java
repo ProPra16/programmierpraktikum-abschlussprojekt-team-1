@@ -40,10 +40,19 @@ public class Catalog extends Stage{
 	private TextArea tests;
 	private Button laden;
 	
+	private String source = "./res/exercise.xml";
 	private Document doc = null;
 	
 	private int currentExercise = 0;
 	private int numberOfExercises = 0;
+	
+	public Catalog(String source){
+		super();
+		this.source = source;
+		setScene(create_scene());
+		loadExcercises();
+		showExcercise(currentExercise);
+	}
 	
 	public Catalog(){
 		super();
@@ -59,7 +68,7 @@ public class Catalog extends Stage{
 	private void loadExcercises(){
 		File input = null;
 	    try {
-	    	input = new File("./res/exercise.xml");
+	    	input = new File(source);
 	    	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	    	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 	    	doc = dBuilder.parse(input);
