@@ -44,6 +44,10 @@ public class ProjectSettings extends Stage {
 		Button ok = new Button("OK");
 		bottom.getChildren().add(ok);
 		
+		ok.setOnAction(e -> {
+			close();
+		});
+		
 		return bottom;
 	}
 	
