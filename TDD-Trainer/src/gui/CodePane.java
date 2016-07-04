@@ -10,6 +10,7 @@ import javafx.scene.control.TextInputDialog;
 public class CodePane extends TabPane{
 	Tab plusTab;
 	int plusTabIndex = 0;
+	private boolean editable = true; //TODO später müsste es klappen wenn editable = false
 	public CodePane(){
 		super();
 		addPlus();
@@ -17,6 +18,7 @@ public class CodePane extends TabPane{
 	}
 	
 	private void clickOnPlus(){
+		if(editable){
 		if(plusTab.isSelected()){
 			TextInputDialog dialog = new TextInputDialog();
 			dialog.setTitle("Class name Input Dialog");
@@ -32,6 +34,7 @@ public class CodePane extends TabPane{
 				if(plusTabIndex > 1) getTabs().get(0).setClosable(true);
 				if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
 			});
+		}
 		}
 	}
 	
@@ -59,7 +62,8 @@ public class CodePane extends TabPane{
 	public void setEditable(boolean edit){
 		for(int i = 0;i<getTabs().size()-1; i++){
 			((TextArea)getTabs().get(i).getContent()).setEditable(edit);
-			
+			getTabs().get(i).setClosable(edit);
+			editable = edit;
 		}
 	}
 }
