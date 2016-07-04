@@ -19,22 +19,22 @@ public class CodePane extends TabPane{
 	
 	private void clickOnPlus(){
 		if(editable){
-		if(plusTab.isSelected()){
-			TextInputDialog dialog = new TextInputDialog();
-			dialog.setTitle("Class name Input Dialog");
-			dialog.setHeaderText("Select a class name");
-			dialog.setContentText("Please enter the class name here:");
-			Optional<String> result = dialog.showAndWait();
-			result.ifPresent(name -> {
-				getTabs().remove(plusTabIndex);
-				addClass(name);
-				getSelectionModel().select(plusTabIndex);
-				plusTabIndex++;
-				addPlus();
-				if(plusTabIndex > 1) getTabs().get(0).setClosable(true);
-				if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
-			});
-		}
+			if(plusTab.isSelected()){
+				TextInputDialog dialog = new TextInputDialog();
+				dialog.setTitle("Class name Input Dialog");
+				dialog.setHeaderText("Select a class name");
+				dialog.setContentText("Please enter the class name here:");
+				Optional<String> result = dialog.showAndWait();
+				result.ifPresent(name -> {
+					getTabs().remove(plusTabIndex);
+					addClass(name);
+					getSelectionModel().select(plusTabIndex);
+					plusTabIndex++;
+					addPlus();
+					if(plusTabIndex > 1) getTabs().get(0).setClosable(true);
+					if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
+				});
+			}
 		}
 	}
 	
