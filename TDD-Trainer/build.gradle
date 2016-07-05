@@ -26,3 +26,9 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = '2.14'
 }
+
+task myJavadoc(type: Javadoc){
+  source = sourceSets.main.java
+  options.memberLevel = JavadocMemberLevel.PRIVATE
+  destinationDir = file("./doc/")
+}
