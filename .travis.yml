@@ -1,12 +1,14 @@
 language: java
 jdk: oraclejdk8
 script:
-  - echo "I'm running!"
-  - cd TDD-Trainer
-  - gradle clean build
-  - echo "Done!"
-#Fix for Travis not recognizing JavaFX (http://www.stevenschwenke.de/cannotFindSymbolInTravisAndShippable)
+- echo "I'm running!"
+- cd TDD-Trainer
+- gradle clean build
+- echo "Done!"
 addons:
   apt:
     packages:
-      - oracle-java8-installer
+    - oracle-java8-installer
+env:
+  global:
+    secure: YUkb05bORLb5VBQpbJn/F2FoP2qb7JGkHSpzdMJXOKzqAG8AmJQP2pz0E1iCPhEPGhfbNy3krwjag+avwtEbCoGp2BIC4OPgqmp7wkp+pQkX7kEaQH8G3RKJx0+pworAAP+zvaIhhE3CadFkmjHVZCFc9pOdeWT+kJHPWqrNIbbYivj1TofW0fIIq7el7V9FSRpZlHI97DWa5/iIcg83isief/gs+FF8phvsqr/lYHtGF7532444af7q+T/Eq1IR9rEFpb2Clyvd6wcWQgtgizaXeU7fo/w6S//OxR1+t/oPi/UaLeQq9pCgdNEFZuhcOce0P06OrWYxB8j6AH15837tgFaYGm1KJSadww6eh+vR3XIK35Q7ObIsDmgp0xubwMVmPzB8GR4F99a4ziP5TZXoZ6fGU0G/eNQG37ZhvEsCd694FOIqsdEYKaAmOTts6vsCcjfPqjApkhZav1GmqWHBKvzgmakKUF2i2xEyJOgaHlxNAIfOXJkTTtB4Amuuk9PzsYx9fRiDWS92gxyt5MvNwu9JUzZz/vehdif1MBAKojVtZyk7gWpSyRlVKJlQOydTBRapDveDJJaemRreYzjxYC22qrFgeOu5dHKcFJpoA5RD2JHbDsK5FEokj4NgYyH2FEDMT+2GnAAaWwqoX7NmNnsRAOGJ1lCRY4fANKA=
