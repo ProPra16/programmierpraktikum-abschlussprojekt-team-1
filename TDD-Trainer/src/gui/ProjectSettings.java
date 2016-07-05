@@ -16,6 +16,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Repräsentiert ein Fenster, mit dem die Projekteinstellungen bearbeitet werden können.
+ *
+ */
+
 public class ProjectSettings extends Stage {
 	private Project project = ConstantsManager.getConstants().getProject();
 	private BorderPane root;

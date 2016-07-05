@@ -2,8 +2,15 @@ package gui;
 
 import javafx.scene.text.Text;
 
+/**
+ * Repräsentiert den Timer, der die verbleibende Zeit (bei Verwendung von Babysteps) im Programm
+ * anzeigt. Enthält den dazu notwendigen Timer-Thread, und aktualisiert sich selbstständig.
+ */
+
 public class Timer extends Text implements Runnable{
+	/** Repräsentiert den Startwert des Timers (Anzahl der Millisekunden) */
 	private long startMillis = 0L;
+	/** Anzahl der Millisekunden zwischen den Aktualisierungen der Anzeige. */
 	private int updateMillis = 1000;
 	private Thread t;
 	private boolean running = false;

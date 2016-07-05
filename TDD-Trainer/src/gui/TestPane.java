@@ -4,6 +4,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
+/**
+ * Repräsentiert ein Panel, mit dem im Programm der Test-Code angesehen und bearbeitet werden kann.
+ *
+ */
+
 public class TestPane extends GridPane{ 
 	private TextArea eingabe, angenommeneTests;
 	

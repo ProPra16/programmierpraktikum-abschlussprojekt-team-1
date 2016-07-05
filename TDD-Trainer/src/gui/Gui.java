@@ -21,6 +21,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Repräsentiert die Hauptanwendung. Initialisiert das Hauptfenster und für die Hauptanwendung notwendige Komponenten.
+ *
+ */
+
 public class Gui extends Application{
 	private Phase phase;
 	private Timer timer;

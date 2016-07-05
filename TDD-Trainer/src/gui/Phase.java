@@ -1,5 +1,12 @@
 package gui;
 
+
+//TODO: Ist dies nicht eigentlich eine Datentyps-Klasse?
+/**
+ * Repräsentiert eine Phase. Ist das hier nicht eigentlich eine Datentyps-Klasse?
+ *
+ */
+
 public class Phase {
 	public static final int TESTS = 0;
 	public static final int CODE = 1;

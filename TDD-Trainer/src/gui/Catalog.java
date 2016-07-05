@@ -28,6 +28,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Repräsentiert das Katalogfenster, mit dem der Nutzer bestehende oder Beispielprojekte ansehen
+ * und laden kann.
+ *
+ */
+
 public class Catalog extends Stage{
 	private Scene scene;
 	private BorderPane root = new BorderPane();

@@ -9,6 +9,12 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 
+/**
+ * Repräsentiert ein Panel, welches im Programm dazu gedacht ist, das Textfeld mit
+ * dem Programmcode zu beherbergen.
+ *
+ */
+
 public class CodePane extends TabPane{
 	Tab plusTab;
 	int plusTabIndex = 0;
