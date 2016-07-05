@@ -121,10 +121,10 @@ public class Gui extends Application{
 			//TODO: run tests & put console output in console tab
 		});
 		next.setOnAction(e->{
-			if(phase.get()==Phase.TESTS){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
+			if(phase.get()==Phase.TESTS && !project.tests_ok()){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
 				setPhaseTest();
 			}
-			else if(phase.get() == Phase.CODE){ //TODO: i-was das true zurückgibt wenns lauft ins if
+			else if(phase.get() == Phase.CODE && project.tests_ok()){ //TODO: i-was das true zurückgibt wenns lauft ins if
 				setPhaseCode();
 			}
 			else if(phase.get() == Phase.REFACTOR){ //TODO: tests muessen laufen
@@ -135,7 +135,10 @@ public class Gui extends Application{
 	}
 	private void fillWithContent(Project project){
 		
-		for(Class klasse : project.getClassList()) code_pane.addTab(klasse.getName());
+		for(Class klasse : project.getClassList()){
+			code_pane.addTab(klasse.getName());
+			//code_pane
+		}
 		code_pane.run();
 		
 	}

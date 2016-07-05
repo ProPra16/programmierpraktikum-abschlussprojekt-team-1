@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.List;
 import java.util.Optional;
 
 import javafx.scene.control.Tab;
@@ -10,6 +11,7 @@ import javafx.scene.control.TextInputDialog;
 public class CodePane extends TabPane{
 	Tab plusTab;
 	int plusTabIndex = 0;
+	List <TextArea> list;
 	private boolean editable = true; //TODO später müsste es klappen wenn editable = false
 	
 	public CodePane(){
@@ -75,5 +77,8 @@ public class CodePane extends TabPane{
 			getTabs().get(i).setClosable(edit);
 			editable = edit;
 		}
+	}
+	public void setText(String text){
+		
 	}
 }

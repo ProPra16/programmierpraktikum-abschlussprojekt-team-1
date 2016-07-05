@@ -55,7 +55,7 @@ public class Project {
 	public boolean tests_ok(){
 		boolean test_bestanden = true;
 		//TODO: array erstellen, dass alle tests und classes enthaelt
-		//false wenn test ned besteht
+		//TODO: false wenn test ned besteht
 		return test_bestanden;
 	}
 	
