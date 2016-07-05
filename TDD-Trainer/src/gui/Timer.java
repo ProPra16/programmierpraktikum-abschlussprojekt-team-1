@@ -12,10 +12,15 @@ public class Timer extends Text implements Runnable{
 	private long startMillis = 0L;
 	/** Anzahl der Millisekunden zwischen den Aktualisierungen der Anzeige. */
 	private int updateMillis = 1000;
+	/** Der Thread, welcher den Timer repräsentiert und die Aktualisierung durchführt. */
 	private Thread t;
+	/** Gibt an, ob der Timer gerade läuft oder gestoppt ist. */
 	private boolean running = false;
+	/** Gibt (vermutlich) an, ob die Zeit abgelaufen ist.*/ //TODO: Wirklich?
 	private boolean time_up;
+	/** Gibt die Zeit an, die der Timer herunterzählen soll.*/
 	private long duration;
+	/** Speichert die Phase, die der Timer verwaltet*/ //TODO: Entsprechend ConstantsManager extrahieren.
 	private Phase phase;
 	
 	public Timer(int sec, Phase phase){
