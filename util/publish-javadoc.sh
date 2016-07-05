@@ -6,6 +6,7 @@ cd $HOME
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "travis-ci"
 git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/ProPra16/programmierpraktikum-abschlussprojekt-team-1 > /dev/null
+ls -ahl
 
 # Commit and Push the Changes
 cd gh-pages
