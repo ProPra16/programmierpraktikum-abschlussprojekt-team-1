@@ -27,6 +27,11 @@ public class Gui extends Application{
 	ConsolePane console_pane;
 	Button next, run, test;
 	Text phase1, phase2, phase3;
+	/* field askForBabysteps: Variable that states if the application should
+	 * continue asking for babysteps setting. Is set to false after a correct
+	 * answer occurred.
+	 */
+	private boolean askForBabysteps = true;
 	
 	public static void main(String[] args){
 		launch();
@@ -43,7 +48,7 @@ public class Gui extends Application{
 	
 	private void laden_neu(Stage stage){
 		Alert loadOrNew = new Alert(AlertType.CONFIRMATION);
-		loadOrNew.setHeaderText(null);
+		loadOrNew.setHeaderText("Load an exercise?");
 		loadOrNew.setContentText("Load an exercise or create a new project?");
 		ButtonType load = new ButtonType("Load");
 		ButtonType newProgram = new ButtonType("New project");
@@ -57,7 +62,6 @@ public class Gui extends Application{
 					stage.setScene(create_scene());
 					stage.show();
 				}
-				
 			}
 			else if(event == newProgram){
 				babysteps_alert();
@@ -147,7 +151,7 @@ public class Gui extends Application{
 	}
 	private void babysteps_alert(){
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setHeaderText(null);
+		alert.setHeaderText("Use Babysteps?");
 		alert.setContentText("Do you want to use 'babysteps'?"); //TODO: besseren text ausdenken...?
 		ButtonType yes = new ButtonType("Yes");
 		ButtonType no = new ButtonType("No");
@@ -158,18 +162,26 @@ public class Gui extends Application{
 			else babysteps = false;
 		});
 		System.out.println(babysteps);
-		if(babysteps){
-			TextInputDialog b_duration = new TextInputDialog();
-			b_duration.setContentText("How many seconds for each stage?"); //TODO: besseren text...
-			b_duration.setHeaderText(null);
-			b_duration.showAndWait().ifPresent(input ->{
-				try{
-					duration = Integer.parseInt(input);
-				} catch(NumberFormatException e){
-					babysteps = false; //TODO: do something more useful
-				}
-			});
-		}
+		askForBabysteps = true;
+		do {
+			if(babysteps){
+				TextInputDialog b_duration = new TextInputDialog();
+				b_duration.setContentText("How many seconds for each stage?"); //TODO: besseren text...
+				b_duration.setHeaderText(null);
+				b_duration.showAndWait().ifPresent(input ->{
+					try{
+						duration = Integer.parseInt(input);
+						askForBabysteps = false;
+					} catch(NumberFormatException e){
+						System.out.println("Banane!");
+						Alert error = new Alert(AlertType.ERROR);
+						error.setHeaderText("Please enter an integer!");
+						error.setContentText("The duration you supplied couldn't be parsed for an integer. Please try again.");
+						error.showAndWait();
+					}
+				});
+			}
+		} while (askForBabysteps);
 	}
 	
 	private void setPhaseTest(){
