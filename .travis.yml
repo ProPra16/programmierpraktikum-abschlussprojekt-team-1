@@ -5,3 +5,7 @@ script:
   - cd TDD-Trainer
   - gradle clean build
   - echo "Done!"
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
