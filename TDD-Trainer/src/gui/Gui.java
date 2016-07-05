@@ -2,6 +2,7 @@ package gui;
 
 import data.ConstantsManager;
 import data.Project;
+import data.Class;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -41,6 +42,7 @@ public class Gui extends Application{
 			//TODO load Exercise
 			ConstantsManager.getConstants().setProject(catalog.getProject());
 			stage.setScene(main_scene());
+			fillWithContent(ConstantsManager.getConstants().getProject());
 			stage.show();
 			break;
 		case AlertHandler.LOAD_PROJECT:
@@ -126,5 +128,11 @@ public class Gui extends Application{
 			}
 		});
 		return grid;
+	}
+	private void fillWithContent(Project project){
+		
+		for(Class klasse : project.getClassList()) code_pane.addTab(klasse.getName());
+		code_pane.run();
+		
 	}
 }

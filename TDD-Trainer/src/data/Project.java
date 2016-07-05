@@ -63,8 +63,16 @@ public class Project {
 		all_class.add(klasse);
 	}
 	
+	public List<Class> getClassList(){
+		return all_class;
+	}
+	
 	public void addTest(Test test){
 		all_tests.add(test);
+	}
+	
+	public List<Test> getTestList(){
+		return all_tests;
 	}
 	
 	public void setBabysteps(boolean babysteps){

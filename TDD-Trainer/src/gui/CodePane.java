@@ -11,9 +11,10 @@ public class CodePane extends TabPane{
 	Tab plusTab;
 	int plusTabIndex = 0;
 	private boolean editable = true; //TODO später müsste es klappen wenn editable = false
+	
 	public CodePane(){
 		super();
-		addPlus();
+		//addPlus(); TODO mach nicht vergessen sagt Rebecca :D
 		
 	}
 	
@@ -27,9 +28,7 @@ public class CodePane extends TabPane{
 				Optional<String> result = dialog.showAndWait();
 				result.ifPresent(name -> {
 					getTabs().remove(plusTabIndex);
-					addClass(name);
-					getSelectionModel().select(plusTabIndex);
-					plusTabIndex++;
+					addTab(name);
 					addPlus();
 					if(plusTabIndex > 1) getTabs().get(0).setClosable(true);
 					if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
@@ -38,7 +37,13 @@ public class CodePane extends TabPane{
 		}
 	}
 	
-	private void addClass(String className){ //TODO Klassen Name gross schreiben.
+	public void addTab(String name){
+		addNewClass(name);
+		getSelectionModel().select(plusTabIndex);
+		plusTabIndex++;
+	}
+	
+	private void addNewClass(String className){ //TODO Klassen Name gross schreiben.
 		TextArea text = new TextArea();
 		Tab classTab = new Tab(className);
 		classTab.setOnClosed(e->{
@@ -59,6 +64,11 @@ public class CodePane extends TabPane{
 		});
 		getTabs().addAll(plusTab);
 	}
+	
+	public void run(){
+		addPlus();
+	}
+	
 	public void setEditable(boolean edit){
 		for(int i = 0;i<getTabs().size()-1; i++){
 			((TextArea)getTabs().get(i).getContent()).setEditable(edit);
