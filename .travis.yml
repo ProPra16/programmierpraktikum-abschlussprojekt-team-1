@@ -5,6 +5,7 @@ script:
   - cd TDD-Trainer
   - gradle clean build
   - echo "Done!"
+#Fix for Travis not recognizing JavaFX (http://www.stevenschwenke.de/cannotFindSymbolInTravisAndShippable)
 addons:
   apt:
     packages:
