@@ -18,6 +18,19 @@ import javafx.stage.Stage;
 
 public class ProjectSettings extends Stage {
 	private Project project = ConstantsManager.getConstants().getProject();
+	private BorderPane root;
+	private HBox bottom;
+	private Button ok;
+	private GridPane center;
+	private Text projectNameText;
+	private TextField projectNameBox;
+	private Text projectDescriptionText;
+	private TextArea projectDescriptionArea;
+	private GridPane babysteps_pane;
+	private CheckBox babystepsCheckBox;
+	private Text durationText;
+	private TextField durationField;
+	private CheckBox tracking;
 	
 	public ProjectSettings(){
 		super();
@@ -26,71 +39,95 @@ public class ProjectSettings extends Stage {
 	}
 	
 	private Scene create_scene(){
-		return new Scene(create_root(), 500, 500);
+		create_root();
+		return new Scene(root, 500, 500);
 	}
 	
-	private BorderPane create_root(){
-		BorderPane root = new BorderPane();
-		root.setBottom(create_bottom());
-		root.setCenter(create_center());
-		
-		return root;
+	private void create_root(){
+		root = new BorderPane();
+		create_bottom();
+		create_center();
+		root.setBottom(bottom);
+		root.setCenter(center);
 	}
 	
-	private HBox create_bottom(){
-		HBox bottom = new HBox();
+	private void create_bottom(){
+		bottom = new HBox();
 		bottom.setAlignment(Pos.CENTER_RIGHT);
 		
-		Button ok = new Button("OK");
+		ok = new Button("OK");
 		bottom.getChildren().add(ok);
 		
 		ok.setOnAction(e -> {
 			close();
 		});
-		
-		return bottom;
 	}
 	
-	private GridPane create_center(){
-		GridPane center = new GridPane();
+	private void create_center(){
+		center = new GridPane();
 		center.setPadding(new Insets(10, 10, 10, 10));
 		center.setHgap(10d);
 		center.setVgap(10d);
 		
-		//Label Project Name in 0,0
-		Text projectNameText = new Text("Project name:");
+		projectNameText = new Text("Project name:");
 		center.add(projectNameText, 0, 0);
 		
-		//Textfeld Project Name in 1,0
-		TextField projectNameBox = new TextField(project.getName());
+		projectNameBox = new TextField(project.getName());
 		center.add(projectNameBox, 1, 0);
 		center.setHgrow(projectNameBox, Priority.ALWAYS);
 		
-		//Label Project Description in 0,1
-		Text projectDescriptionText = new Text("Project description:");
+		projectDescriptionText = new Text("Project description:");
 		center.add(projectDescriptionText, 0, 1);
 		
-		//TextArea Project Description in 0,2
-		TextArea projectDescriptionArea = new TextArea(project.getDescription());
+		projectDescriptionArea = new TextArea(project.getDescription());
 		center.add(projectDescriptionArea, 0, 2, 2, 1);
 		
-		//Hbox Babysteps in 0,3
-		HBox babysteps_hbox = new HBox();
-		CheckBox babystepsCheckBox = new CheckBox("Use Babysteps");
-		babystepsCheckBox.setSelected(project.getBabysteps());
+		babysteps_pane = new GridPane();
+		babysteps_pane.setVgap(10d);
+		babysteps_pane.setHgap(10d);
+		babystepsCheckBox = new CheckBox("Use Babysteps");
 		
-		Text durationText = new Text("Duration per Stage:");
-		TextField durationField = new TextField(String.valueOf(project.getDuration()));
+		//Prevents text from overrunning
+		babystepsCheckBox.setMinSize(babystepsCheckBox.USE_PREF_SIZE, babystepsCheckBox.USE_PREF_SIZE);
+		
+		durationText = new Text("Duration per Stage:");
+		durationField = new TextField(String.valueOf(project.getDuration()));
 		durationField.setPromptText("Banane");
 		
-		babysteps_hbox.getChildren().addAll(durationText, durationField);
-		center.add(babysteps_hbox, 0, 3);
+		babystepsCheckBox.selectedProperty().addListener((event) -> {
+			hide_show_duration_settings();
+		});
 		
-		//Checkbox Tracking in 0,4
-		CheckBox tracking = new CheckBox("Use Tracking");
+		babystepsCheckBox.setSelected(project.getBabysteps());
+		hide_show_duration_settings();
+		
+		babysteps_pane.add(babystepsCheckBox, 0, 0);
+		babysteps_pane.add(durationText, 1, 0);
+		babysteps_pane.add(durationField, 2, 0);
+		center.add(babysteps_pane, 0, 3);
+		
+		tracking = new CheckBox("Use Tracking");
 		tracking.setSelected(project.getTracking());
 		center.add(tracking, 0, 4);
-		
-		return center;
+	}
+	
+	/**
+	 * Überprüft, ob die {@link #babystepsCheckBox} gerade positiv oder negativ ist,
+	 * und zeigt bzw. versteckt die dazugehörigen Elemente, um die Dauer der Babysteps
+	 * zu konfigurieren.
+	 * 
+	 * @see #babystepsCheckBox
+	 * @see #durationText
+	 * @see #durationField
+	 */
+	
+	private void hide_show_duration_settings(){
+		if (babystepsCheckBox.selectedProperty().getValue()){
+			durationText.setVisible(true);
+			durationField.setVisible(true);
+		} else {
+			durationText.setVisible(false);
+			durationField.setVisible(false);
+		}
 	}
 }
