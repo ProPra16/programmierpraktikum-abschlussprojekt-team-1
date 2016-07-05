@@ -4,7 +4,9 @@ import javafx.scene.text.Text;
 
 /**
  * Repräsentiert den Timer, der die verbleibende Zeit (bei Verwendung von Babysteps) im Programm
- * anzeigt. Enthält den dazu notwendigen Timer-Thread, und aktualisiert sich selbstständig.
+ * anzeigt. Zählt in festgesetzten Intervallen von einem festgesetzten Wert herunter. Die Inter-
+ * valle entsprechen den Aktualisierungsintervallen der Anzeige. Enthält den dazu notwendigen
+ * Timer-Thread, und aktualisiert sich selbstständig.
  */
 
 public class Timer extends Text implements Runnable{
