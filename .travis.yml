@@ -3,7 +3,7 @@ jdk: oraclejdk8
 script:
 - cd TDD-Trainer
 - gradle clean build
-- cd
+- cd ..
 - pwd
 - ls
 addons:
