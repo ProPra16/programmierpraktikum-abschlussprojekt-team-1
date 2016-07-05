@@ -1,0 +1,2 @@
+# GitHub pages for TDD-Trainer by ( ͡° ͜ʖ ͡°)
+This branch hosts the GitHub pages for the TDD-Trainer project hostet at [master branch](https://github.com/ProPra16/programmierpraktikum-abschlussprojekt-team-1) in this repository. The GitHub pages are supposed to show the javadoc documentation of our project. Click [here](https://propra16.github.io/programmierpraktikum-abschlussprojekt-team-1/) to access the GitHub page.
