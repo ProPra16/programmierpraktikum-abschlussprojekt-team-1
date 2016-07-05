@@ -28,7 +28,7 @@ public class Gui extends Application{
 	TestPane test_pane;
 	ConsolePane console_pane;
 	Button next, run, test;
-	Text phase1, phase2, phase3;
+	Text phase1, phase2, phase3, task;
 	/* field askForBabysteps: Variable that states if the application should
 	 * continue asking for babysteps setting. Is set to false after a correct
 	 * answer occurred.
@@ -132,10 +132,10 @@ public class Gui extends Application{
 		phase1 = new Text("Write failing Test");
 		phase2 = new Text("Write passing Code");
 		phase3 = new Text("Refactor");
-		phase1.setFill(Color.GREEN);
-		grid.addColumn(1, phase1, phase2, phase3, compile, test, next);
+		task = new Text("");
+		grid.addColumn(1, phase1, phase2, phase3, task, compile, test, next);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
-		
+		setPhaseTest();
 		compile.setOnAction(e->{
 			//TODO: run programm & put console output in console tab
 		});
@@ -149,7 +149,7 @@ public class Gui extends Application{
 			else if(phase.get() == Phase.CODE && project.tests_ok()){ //TODO: i-was das true zurückgibt wenns lauft ins if
 				setPhaseRefactor();
 			}
-			else if(phase.get() == Phase.REFACTOR){ //TODO: tests muessen laufen
+			else if(phase.get() == Phase.REFACTOR && project.tests_ok()){ //TODO: tests muessen laufen
 				setPhaseTest();
 			}
 		});
@@ -169,11 +169,12 @@ public class Gui extends Application{
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die TestPhase erfolgen
-	 * (aendert Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
+	 * (aendert Infotext & Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
 	 */
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
-		phase.next_phase(); // TODO: zeug disablen
+		task.setText("Write passing code.");
+		phase.next_phase();
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
 		code_pane.setDisable(false);
@@ -181,22 +182,24 @@ public class Gui extends Application{
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Codephase erfolgen
-	 * (aendert Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
+	 * (aendert Infotext & Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
 	 */
 
 	private void setPhaseRefactor(){
-		phase.next_phase(); //TODO: zeug disablen
+		phase.next_phase();
+		task.setText("Restucture and simplify your code.");
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen
-	 * (aendert Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
+	 * (aendert Infotext & Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
 	 */
 
 	private void setPhaseTest(){
 		if(project.getBabysteps()) timer.reset();
-		phase.next_phase(); //TODO: zeug disablen
+		task.setText("Write a failing test.");
+		phase.next_phase();
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
 		code_pane.setDisable(true);
