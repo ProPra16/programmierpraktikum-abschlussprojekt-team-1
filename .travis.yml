@@ -4,6 +4,7 @@ script:
 - cd TDD-Trainer
 - gradle clean build
 - cd ..
+- chmod a+x ./util/publish-javadoc.sh
 - pwd
 - ls
 addons:
