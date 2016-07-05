@@ -1,0 +1,7 @@
+language: java
+jdk: oraclejdk8
+script:
+  - echo "I'm running!"
+  - cd TDD-Trainer
+  - gradle clean build
+  - echo "Done!"

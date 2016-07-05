@@ -6,10 +6,14 @@ import data.Class;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -23,6 +27,15 @@ public class Gui extends Application{
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
+	Button next, run, test;
+	Text phase1, phase2, phase3;
+	/* field askForBabysteps: Variable that states if the application should
+	 * continue asking for babysteps setting. Is set to false after a correct
+	 * answer occurred.
+	 */
+	private boolean askForBabysteps = true;
+	private Button compile;
+	
 	public static void main(String[] args){
 		launch();
 	}
@@ -90,12 +103,13 @@ public class Gui extends Application{
 		}
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
-		Button compile = new Button("compile");
-		Button test = new Button("test");
-		Button next = new Button("next");
-		Text phase1 = new Text("Write failing Test");
-		Text phase2 = new Text("Write passing Code");
-		Text phase3 = new Text("Refactor");
+		run = new Button("run");
+		test = new Button("test");
+		next = new Button("next");
+		compile = new Button("compile");
+		phase1 = new Text("Write failing Test");
+		phase2 = new Text("Write passing Code");
+		phase3 = new Text("Refactor");
 		phase1.setFill(Color.GREEN);
 		grid.addColumn(1, phase1, phase2, phase3, compile, test, next);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
@@ -108,23 +122,13 @@ public class Gui extends Application{
 		});
 		next.setOnAction(e->{
 			if(phase.get()==Phase.TESTS){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
-				phase.next_phase();
-				phase1.setFill(Color.BLACK);
-				phase2.setFill(Color.GREEN);
-				code_pane.setEditable(true);
-				test_pane.setEditable(false);
+				setPhaseTest();
 			}
 			else if(phase.get() == Phase.CODE){ //TODO: i-was das true zurückgibt wenns lauft ins if
-				phase.next_phase();
-				phase2.setFill(Color.BLACK);
-				phase3.setFill(Color.GREEN);
+				setPhaseCode();
 			}
 			else if(phase.get() == Phase.REFACTOR){ //TODO: tests muessen laufen
-				phase.next_phase();
-				phase3.setFill(Color.BLACK);
-				phase1.setFill(Color.GREEN);
-				code_pane.setEditable(false);
-				test_pane.setEditable(true);
+				setPhaseRefactor();
 			}
 		});
 		return grid;
@@ -134,5 +138,27 @@ public class Gui extends Application{
 		for(Class klasse : project.getClassList()) code_pane.addTab(klasse.getName());
 		code_pane.run();
 		
+	}
+	
+	private void setPhaseTest(){
+		phase.next_phase(); // TODO: zeug disablen
+		phase1.setFill(Color.BLACK);
+		phase2.setFill(Color.GREEN);
+		code_pane.setDisable(false);
+		test_pane.setDisable(true);
+	}
+	
+	private void setPhaseCode(){
+		phase.next_phase(); //TODO: zeug disablen
+		phase2.setFill(Color.BLACK);
+		phase3.setFill(Color.GREEN);
+	}
+	
+	private void setPhaseRefactor(){
+		phase.next_phase(); //TODO: zeug disablen
+		phase3.setFill(Color.BLACK);
+		phase1.setFill(Color.GREEN);
+		code_pane.setDisable(true);
+		test_pane.setDisable(false);
 	}
 }
