@@ -53,7 +53,8 @@ public class Gui extends Application{
 			Catalog catalog = new Catalog();
 			catalog.showAndWait();
 			//TODO load Exercise
-			ConstantsManager.getConstants().setProject(catalog.getProject());
+			project = catalog.getProject();
+			ConstantsManager.getConstants().setProject(project);
 			stage.setScene(main_scene());
 			fillWithContent(ConstantsManager.getConstants().getProject());
 			stage.show();
@@ -133,13 +134,17 @@ public class Gui extends Application{
 		});
 		return grid;
 	}
-	private void fillWithContent(Project project){
-		
+	
+	/** Zeigt die im Project gespeicherten Inhalte im Code- und TestPane an.
+	 * 
+	 * @param project: das aktuelle  Projekt
+	 */
+	private void fillWithContent(Project project){ //TODO: eventuell in test und class aufteilen?
 		for(Class klasse : project.getClassList()){
-			code_pane.addTab(klasse.getName());
-			//code_pane
+			code_pane.addTabWithContent(klasse.getName(), klasse.getContent());
 		}
 		code_pane.run();
+		test_pane.setText(project.getTestList().get(0).toString());//TODO: nicht dauerhaft 0...
 		
 	}
 	

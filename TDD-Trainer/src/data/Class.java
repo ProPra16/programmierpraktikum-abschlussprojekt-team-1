@@ -20,4 +20,7 @@ public class Class {
 	public String getName(){
 		return name;
 	}
+	public String getContent(){
+		return code;
+	}
 }
