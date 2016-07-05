@@ -37,8 +37,8 @@ public class Gui extends Application{
 	private boolean askForBabysteps = true;
 	private Button compile;
 	
-	 /** Startet die Gui
-	  * @param args: Kommandozeilenargumente
+	 /** Startet das Programm.
+	  * @param args: Eventuell übergebene Kommandozeilenargumente (werden zumindest bisher nicht weiter beachtet).
 	  */
 	
 	public static void main(String[] args){
