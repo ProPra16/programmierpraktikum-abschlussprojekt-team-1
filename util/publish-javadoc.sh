@@ -8,6 +8,7 @@ git config --global user.name "travis-ci"
 git clone --branch=gh-pages https://${GH_TOKEN}@github.com/ProPra16/programmierpraktikum-abschlussprojekt-team-1
 ls -ahl
 ls -ahl programmierpraktikum-abschlussprojekt-team-1/
+cd programmierpraktikum-abschlussprojekt-team-1/
 
 # Commit and Push the Changes
 cd gh-pages
