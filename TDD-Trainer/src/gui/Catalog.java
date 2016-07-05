@@ -1,15 +1,17 @@
 package gui;
 
 import java.io.File;
-
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
+import data.Class;
+import data.Project;
+import data.Test;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -26,44 +28,43 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class Catalog extends Stage{
-	static Scene scene;
-	static BorderPane root = new BorderPane();
+	private Scene scene;
+	private BorderPane root = new BorderPane();
 	
-	static Label exerciseName, description, babysteps, timetracking;
-	static TextArea classes;
-	static TextArea tests;
-	static Button laden;
+	private Label exerciseName, description, babysteps, timetracking;
+	private TextArea classes;
+	private TextArea tests;
+	private Button laden;
 	
-	static Document doc = null;
+	private String source = "./res/exercise.xml";
+	private Document doc = null;
 	
-	static int currentExercise = 0;
-	static int numberOfExercises = 0;
-	boolean geladen = false;
+	private int currentExercise = 0;
+	private int numberOfExercises = 0;
+	
+	public Catalog(String source){
+		super();
+		this.source = source;
+		setScene(create_scene());
+		loadExcercises();
+		showExcercise(currentExercise);
+	}
 	
 	public Catalog(){
 		super();
 		setScene(create_scene());
 		loadExcercises();
 		showExcercise(currentExercise);
-		klickOnLaden();
 	}
 	
-	private void klickOnLaden(){
-		laden.setOnAction(e->{
-			//TODO laden
-			geladen = true;
-			close();
-		});
+	private void clickOnLaden(){
+		close();
 	}
 	
-	public boolean wurdeGeladen(){
-		return geladen;
-	}
-	
-	private static void loadExcercises(){
+	private void loadExcercises(){
 		File input = null;
 	    try {
-	    	input = new File("./res/exercise.xml");
+	    	input = new File(source);
 	    	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	    	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 	    	doc = dBuilder.parse(input);
@@ -83,18 +84,19 @@ public class Catalog extends Stage{
 	}
 	
 	
-	private static Scene create_scene(){
+	private Scene create_scene(){
 		root = create_root();
 		scene = new Scene(root,600,600);
 		return scene;
 	}
-	private static BorderPane create_root(){
+	
+	private BorderPane create_root(){
 		root.setTop(create_top());
 		root.setCenter(create_center());
 		return root;
 	}
 	
-	private static GridPane create_center() {
+	private GridPane create_center() {
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
 		grid.setVgap(10);
@@ -165,7 +167,7 @@ public class Catalog extends Stage{
 		return grid;
 	}
 
-	private static HBox create_top(){
+	private HBox create_top(){
 		HBox hbox = new HBox();
 		hbox.setPadding(new Insets(10, 50, 10, 50));
 	    hbox.setSpacing(15);
@@ -174,6 +176,9 @@ public class Catalog extends Stage{
 	    Button zurueck = new Button("Previous");
 		Button weiter = new Button("Next");
 		laden = new Button("Load this!");
+		laden.setOnAction(e->{
+			clickOnLaden();
+		});
 		
 		zurueck.setOnAction(e->{
 			currentExercise = ((currentExercise-1)+numberOfExercises)%numberOfExercises;
@@ -189,7 +194,7 @@ public class Catalog extends Stage{
 	    return hbox;
 	}
 
-	private static void showExcercise(int index) {
+	private void showExcercise(int index) {
 		NodeList nList = doc.getElementsByTagName("exercise");
     	Node nNode = nList.item(index);
     	Element eElement = (Element) nNode;
@@ -236,6 +241,48 @@ public class Catalog extends Stage{
     	
     	NodeList trackingList = eElement.getElementsByTagName("timetracking");
     	timetracking.setText(((Element)trackingList.item(0)).getAttribute("value")+ "" );
+	}
+	
+	public Project getProject(){
+		NodeList nList = doc.getElementsByTagName("exercise");
+    	Node nNode = nList.item(currentExercise);
+    	Element eElement = (Element) nNode;
     	
+    	
+    	NodeList classList = eElement.getElementsByTagName("class");
+    	List<Class> klassenListe = new ArrayList<Class>();
+    	for(int i = 0; i < classList.getLength(); i++){
+    		data.Class klasse = new data.Class(classList.item(i).getChildNodes().item(0).getNodeValue(), (String)((Element)classList.item(i)).getAttribute("name"));
+    		klassenListe.add(klasse);
+    	}
+    	
+    	NodeList testList = eElement.getElementsByTagName("test");
+    	List<Test> tests = new ArrayList<Test>();
+    	for(int i = 0; i < testList.getLength(); i++){
+    		Test test = new Test((String)(((Element)testList.item(i)).getAttribute("name")),testList.item(i).getChildNodes().item(0).getNodeValue());
+    		tests.add(test);
+    	}
+    	
+    	NodeList babyList = eElement.getElementsByTagName("babysteps");
+    	boolean babysteps = false;
+    	int duration = 0;
+    	if(((Element)babyList.item(0)).getAttribute("value").equals("True")){
+    		babysteps = true;
+    		duration = 0;	//((Element)babyList.item(0)).getAttribute("time") ; 
+    						//TODO duration in der xml datei zu einem String machen oder in Project die Zeit als String speichern
+    	}
+    	
+    	NodeList trackingList = eElement.getElementsByTagName("timetracking");
+    	boolean tracking = false;
+    	if(((Element)trackingList.item(0)).getAttribute("value").equals("True")){
+    		tracking = true;
+    	}
+    	
+    	
+    	Project project = new Project(tests, klassenListe, eElement.getElementsByTagName("description").item(0).getTextContent(),eElement.getAttribute("name"),babysteps,duration, tracking);
+    	
+		
+		
+		return project;
 	}
 }

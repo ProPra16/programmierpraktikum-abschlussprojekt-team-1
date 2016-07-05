@@ -3,13 +3,16 @@
 	<exercise name="Römische Zahlen">
 		<description>Konvertiert arabische in römische Zahlen.</description>
 		<classes>
-			<class name="RomanNumberConverter">public class RomanNumberConverter {
+			<class name="RomanNumberConverter">
+public class RomanNumberConverter {
 
 
-}</class>
+}
+		</class>
 	</classes>
 	<tests>
-		<test name="RomanNumberConverterTest">import static org.junit.Assert.*;
+		<test name="RomanNumberConverterTest">
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class RomanNumbersTest {
@@ -18,7 +21,8 @@ public class RomanNumbersTest {
 	public void testSomething() {
 	
 	}
-}</test>
+}
+			</test>
 		</tests>
 		<config>
 			<babysteps value="False" />
@@ -28,12 +32,15 @@ public class RomanNumbersTest {
 	<exercise name="Römische Zahlen">
 		<description>Konvertiert arabische in römische Zahlen.</description>
 		<classes>
-			<class name="RomanNumberConverter">public class RomanNumberConverter {
+			<class name="RomanNumberConverter">
+public class RomanNumberConverter {
 
-}</class>
+}
+		</class>
 	</classes>
 	<tests>
-		<test name="RomanNumberConverterTest">import static org.junit.Assert.*;
+		<test name="RomanNumberConverterTest">
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class RomanNumbersTest {
@@ -41,7 +48,8 @@ public class RomanNumbersTest {
 @Test
 public void testSomething() {
 }
-}</test>
+}
+			</test>
 		</tests>
 		<config>
 			<babysteps value="True" time="2:00" />

@@ -1,33 +1,33 @@
 package gui;
 
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import javafx.scene.paint.Color;
 
 public class TestPane extends GridPane{ 
-	private TextArea eingabe;
-	private ScrollPane all_tests;
-	private Label tests_content;
+	private TextArea eingabe, angenommeneTests;
 	
 	public TestPane(){
 		eingabe = new TextArea();
-		all_tests = new ScrollPane();
-		tests_content = new Label(); // TODO:spaeter html-editor zum syntax-highlighten?
-		label_styling();
-		all_tests.setContent(tests_content);
+		angenommeneTests = new TextArea();
+		add(angenommeneTests,0,0);
 		add(eingabe,0,1);
-		add(all_tests,0,0);
-		super.setVgrow(all_tests, Priority.ALWAYS);
+		setGridLinesVisible(true);
+		super.setVgrow(angenommeneTests, Priority.ALWAYS);
+		super.setHgrow(angenommeneTests, Priority.ALWAYS);
+		angenommeneTests.setEditable(false);
 	}
-	private void label_styling(){
-		tests_content.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+	public void setEditable(boolean edit){
+		eingabe.setEditable(edit);
+	}
+	public void clear(){
+		eingabe.clear();
+	}
+	public void setText(String tests){
+		angenommeneTests.setText(tests);
+	}
+	public String getNewTest(){
+		return eingabe.getText();
 	}
 
 }

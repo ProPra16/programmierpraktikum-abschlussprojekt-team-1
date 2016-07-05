@@ -1,16 +1,14 @@
 package gui;
 
+import data.ConstantsManager;
+import data.Project;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -19,9 +17,8 @@ import javafx.stage.Stage;
 
 public class Gui extends Application{
 	private Phase phase;
-	private int duration;
 	private Timer timer;
-	private boolean babysteps;
+	private Project project;
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
@@ -38,14 +35,33 @@ public class Gui extends Application{
 	}
 	
 	public void start(Stage stage){
-		laden_neu(stage);
-		if(babysteps) {
+		AlertHandler.newProject_alert();
+		project = ConstantsManager.getConstants().getProject();
+		switch (AlertHandler.returnValue){
+		case AlertHandler.NEW_PROJECT:
+			new ProjectSettings();
+			stage.setScene(main_scene());
+			stage.show();
+			break;
+		case AlertHandler.LOAD_TEMPLATE:
+			Catalog catalog = new Catalog();
+			catalog.showAndWait();
+			//TODO load Exercise
+			stage.setScene(main_scene());
+			stage.show();
+			break;
+		case AlertHandler.LOAD_PROJECT:
+			break;
+		}
+
+		if(ConstantsManager.getConstants().getProject().getBabysteps()) {
 			stage.setOnCloseRequest(e->{
 			timer.stop();
 			});
 		}
 	}
 	
+<<<<<<< HEAD
 	private void laden_neu(Stage stage){
 		Alert loadOrNew = new Alert(AlertType.CONFIRMATION);
 		loadOrNew.setHeaderText("Load an exercise?");
@@ -71,7 +87,8 @@ public class Gui extends Application{
 		});
 	}
 	
-	private Scene create_scene(){
+	private Scene main_scene(){
+>>>>>>> origin/master
 		phase = new Phase();
 		BorderPane root = new BorderPane();
 		TabPane main = create_buttons_top(); //TODO: doofer name
@@ -96,41 +113,35 @@ public class Gui extends Application{
 		test.setContent(test_pane);
 		console.setContent(console_pane);
 		menue.getTabs().addAll(code, test, console);
-//	    menue.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>()
-//	    {
-//	    	//TODO: denkfehler - brauchte es doch ned -.- kann mans ansonsten zu i-was gebrauchen?
-//	        @Override 
-//	        public void changed(ObservableValue<? extends Tab> arg0, Tab arg1, Tab selected_tab){
-//	        	if(selected_tab == code){
-//	        	}
-//	        	if(selected_tab == test){
-//	        	}
-//	        	if(selected_tab == console){
-//	        		
-//	        	}
-//	        }
-//	    });
-
 		return menue;
 	}
 	private GridPane create_right_side(){
-		if (babysteps){
-			timer= new Timer(duration, phase);
+		if (project.getBabysteps()){
+			timer= new Timer(project.getDuration(), phase);
 			timer.start();
 		}
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
+<<<<<<< HEAD
 		run = new Button("run");
 		test = new Button("test");
 		next = new Button("next");
 		phase1 = new Text("Write failing Test");
 		phase2 = new Text("Write passing Code");
 		phase3 = new Text("Refactor");
+=======
+		Button compile = new Button("compile");
+		Button test = new Button("test");
+		Button next = new Button("next");
+		Text phase1 = new Text("Write failing Test");
+		Text phase2 = new Text("Write passing Code");
+		Text phase3 = new Text("Refactor");
+>>>>>>> origin/master
 		phase1.setFill(Color.GREEN);
-		grid.addColumn(1, phase1, phase2, phase3, run, test, next);
-		if(babysteps) grid.add(timer,2, 2);
+		grid.addColumn(1, phase1, phase2, phase3, compile, test, next);
+		if(project.getBabysteps()) grid.add(timer,2, 2);
 		
-		run.setOnAction(e->{
+		compile.setOnAction(e->{
 			//TODO: run programm & put console output in console tab
 		});
 		test.setOnAction(e->{
@@ -138,6 +149,7 @@ public class Gui extends Application{
 		});
 		next.setOnAction(e->{
 			if(phase.get()==Phase.TESTS){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
+<<<<<<< HEAD
 				setPhaseTest();
 			}
 			else if(phase.get() == Phase.CODE){ //TODO: i-was das true zurückgibt wenns lauft ins if
@@ -145,10 +157,30 @@ public class Gui extends Application{
 			}
 			else if(phase.get() == Phase.REFACTOR){ //TODO: tests muessen laufen
 				setPhaseRefactor();
+=======
+				phase.next_phase();
+				phase1.setFill(Color.BLACK);
+				phase2.setFill(Color.GREEN);
+				code_pane.setEditable(true);
+				test_pane.setEditable(false);
+			}
+			else if(phase.get() == Phase.CODE){ //TODO: i-was das true zurückgibt wenns lauft ins if
+				phase.next_phase();
+				phase2.setFill(Color.BLACK);
+				phase3.setFill(Color.GREEN);
+			}
+			else if(phase.get() == Phase.REFACTOR){ //TODO: tests muessen laufen
+				phase.next_phase();
+				phase3.setFill(Color.BLACK);
+				phase1.setFill(Color.GREEN);
+				code_pane.setEditable(false);
+				test_pane.setEditable(true);
+>>>>>>> origin/master
 			}
 		});
 		return grid;
 	}
+<<<<<<< HEAD
 	private void babysteps_alert(){
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText("Use Babysteps?");
@@ -205,4 +237,6 @@ public class Gui extends Application{
 		code_pane.setDisable(true);
 		test_pane.setDisable(false);
 	}
+=======
+>>>>>>> origin/master
 }
