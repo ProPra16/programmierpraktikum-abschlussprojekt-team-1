@@ -1,4 +1,6 @@
 # TDD-Trainer of group ( ͡° ͜ʖ ͡°)
+![Travis status image](https://travis-ci.org/ProPra16/programmierpraktikum-abschlussprojekt-team-1.svg?branch=master)
+
 *This the final project for pracital programming course at HHU university, 2016.*
 
 An Application that teaches computer science students to use "test-driven development" in java development. The user has the ability to write a failing JUnit test for his application, get them executed, and write code until all tests are passing. When build is passing, the user should improve his code for simplicity and correctness. At any time, a visualisation shows the user in which stage he currently is.
