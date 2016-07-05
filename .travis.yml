@@ -5,6 +5,8 @@ script:
 - cd TDD-Trainer
 - gradle clean build
 - echo "Done!"
+- pwd
+- ls
 addons:
   apt:
     packages:
