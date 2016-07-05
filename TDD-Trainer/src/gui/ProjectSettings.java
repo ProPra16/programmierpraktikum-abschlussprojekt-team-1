@@ -112,8 +112,8 @@ public class ProjectSettings extends Stage {
 	}
 	
 	/**
-	 * Überprüft, ob die {@link #babystepsCheckBox} gerade positiv oder negativ ist,
-	 * und zeigt bzw. versteckt die dazugehörigen Elemente, um die Dauer der Babysteps
+	 * Ueberprueft, ob die {@link #babystepsCheckBox} gerade positiv oder negativ ist,
+	 * und zeigt bzw. versteckt die dazugehï¿½rigen Elemente, um die Dauer der Babysteps
 	 * zu konfigurieren.
 	 * 
 	 * @see #babystepsCheckBox
