@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,6 @@ import javafx.scene.control.TextInputDialog;
 public class CodePane extends TabPane{
 	Tab plusTab;
 	int plusTabIndex = 0;
-	List <TextArea> list;
 	private boolean editable = true; //TODO später müsste es klappen wenn editable = false
 	
 	public CodePane(){
@@ -40,13 +40,19 @@ public class CodePane extends TabPane{
 	}
 	
 	public void addTab(String name){
-		addNewClass(name);
+		addNewClass(name, "");
+		getSelectionModel().select(plusTabIndex);
+		plusTabIndex++;
+	}
+	public void addTabWithContent(String name, String content){
+		addNewClass(name, content);
 		getSelectionModel().select(plusTabIndex);
 		plusTabIndex++;
 	}
 	
-	private void addNewClass(String className){ //TODO Klassen Name gross schreiben.
+	private void addNewClass(String className, String content){ //TODO Klassen Name gross schreiben.
 		TextArea text = new TextArea();
+		text.setText(content);
 		Tab classTab = new Tab(className);
 		classTab.setOnClosed(e->{
 			plusTabIndex--;
@@ -78,7 +84,28 @@ public class CodePane extends TabPane{
 			editable = edit;
 		}
 	}
-	public void setText(String text){
-		
+	
+	/**
+	 * Setter der TextArea-Inhalte des CodePanes
+	 */
+
+	public void setText(String[] text_neu){
+		for(int i = 0;i<getTabs().size()-1; i++){
+			((TextArea)getTabs().get(i).getContent()).setText(text_neu[i]);
+		}
+	}
+	
+	/**
+	 * Getter der TextArea-Inhalte des CodePanes
+	 * @return Gibt eine String-Liste mit allen Code-Strings zurueck.
+	 */
+	
+	public List<String> getText(){
+		List<String> list = new ArrayList<String>();
+		for(int i = 0;i<getTabs().size()-1; i++){
+			list.add(((TextArea)getTabs().get(i).getContent()).getText());
+		}
+		return list;
+
 	}
 }
