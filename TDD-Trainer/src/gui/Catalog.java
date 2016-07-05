@@ -252,7 +252,7 @@ public class Catalog extends Stage{
     	NodeList classList = eElement.getElementsByTagName("class");
     	List<Class> klassenListe = new ArrayList<Class>();
     	for(int i = 0; i < classList.getLength(); i++){
-    		data.Class klasse = new data.Class(classList.item(i).getChildNodes().item(0).getNodeValue(), (String)((Element)classList.item(i)).getAttribute("name"));
+    		Class klasse = new Class(classList.item(i).getChildNodes().item(0).getNodeValue(), (String)((Element)classList.item(i)).getAttribute("name"));
     		klassenListe.add(klasse);
     	}
     	
@@ -278,11 +278,8 @@ public class Catalog extends Stage{
     		tracking = true;
     	}
     	
+    	Project project = new Project(tests, klassenListe, eElement.getElementsByTagName("description").item(0).getTextContent(),eElement.getAttribute("name"),babysteps, duration, tracking);
     	
-    	Project project = new Project(tests, klassenListe, eElement.getElementsByTagName("description").item(0).getTextContent(),eElement.getAttribute("name"),babysteps,duration, tracking);
-    	
-		
-		
 		return project;
 	}
 }

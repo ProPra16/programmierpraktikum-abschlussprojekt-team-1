@@ -39,6 +39,7 @@ public class Gui extends Application{
 			Catalog catalog = new Catalog();
 			catalog.showAndWait();
 			//TODO load Exercise
+			ConstantsManager.getConstants().setProject(catalog.getProject());
 			stage.setScene(main_scene());
 			stage.show();
 			break;
