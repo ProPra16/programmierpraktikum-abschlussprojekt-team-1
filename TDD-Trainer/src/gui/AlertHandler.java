@@ -8,6 +8,11 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Enthält statische Methoden zum Anzeigen von im Projekt benötigten Alerts (Hinweise, Abfrage von Daten etc.)
+ *
+ */
+
 public class AlertHandler {
 	public static final int LOAD_PROJECT = 2;
 	public static final int LOAD_TEMPLATE = 1;

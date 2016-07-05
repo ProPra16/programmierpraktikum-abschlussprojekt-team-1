@@ -2,6 +2,7 @@ package gui;
 
 import data.ConstantsManager;
 import data.Project;
+//import io.XMLHandler;
 import data.Class;
 import javafx.application.Application;
 import javafx.geometry.Pos;
@@ -20,6 +21,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Repräsentiert die Hauptanwendung. Initialisiert das Hauptfenster und für die Hauptanwendung notwendige Komponenten.
+ *
+ */
+
 public class Gui extends Application{
 	private Phase phase;
 	private Timer timer;
@@ -36,8 +42,8 @@ public class Gui extends Application{
 	private boolean askForBabysteps = true;
 	private Button compile;
 	
-	 /** Startet die Gui
-	  * @param args: Kommandozeilenargumente
+	 /** Startet das Programm.
+	  * @param args: Eventuell übergebene Kommandozeilenargumente (werden zumindest bisher nicht weiter beachtet).
 	  */
 	
 	public static void main(String[] args){

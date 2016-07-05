@@ -16,6 +16,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * ReprÃ¤sentiert ein Fenster, mit dem die Projekteinstellungen bearbeitet werden kÃ¶nnen.
+ *
+ */
+
 public class ProjectSettings extends Stage {
 	private Project project = ConstantsManager.getConstants().getProject();
 	private BorderPane root;
@@ -112,8 +117,8 @@ public class ProjectSettings extends Stage {
 	}
 	
 	/**
-	 * Überprüft, ob die {@link #babystepsCheckBox} gerade positiv oder negativ ist,
-	 * und zeigt bzw. versteckt die dazugehörigen Elemente, um die Dauer der Babysteps
+	 * Ueberprueft, ob die {@link #babystepsCheckBox} gerade positiv oder negativ ist,
+	 * und zeigt bzw. versteckt die dazugehï¿½rigen Elemente, um die Dauer der Babysteps
 	 * zu konfigurieren.
 	 * 
 	 * @see #babystepsCheckBox

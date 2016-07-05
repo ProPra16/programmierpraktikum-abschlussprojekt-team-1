@@ -4,6 +4,11 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 
+/**
+ * Repräsentiert ein Panel, welches die Console im Programm beherbergt und anzeigt.
+ *
+ */
+
 public class ConsolePane extends GridPane{
 	private TextArea text;
 	public ConsolePane(){
