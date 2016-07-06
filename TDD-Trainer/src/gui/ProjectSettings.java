@@ -55,6 +55,7 @@ public class ProjectSettings extends Stage {
 		create_center();
 		root.setBottom(bottom);
 		root.setCenter(center);
+	
 	}
 	
 	private void create_bottom(){
@@ -80,8 +81,10 @@ public class ProjectSettings extends Stage {
 		
 		//TextField in 1, 0
 		projectNameBox = new TextField(project.getName());
+//		projectNameBox.setMinWidth(Double.MAX_VALUE);
 		center.add(projectNameBox, 1, 0);
-		center.setHgrow(projectNameBox, Priority.ALWAYS);
+		center.setFillWidth(projectNameBox, true);
+		GridPane.setHgrow(projectNameBox, Priority.ALWAYS);
 		
 		//Label in 0, 1
 		projectDescriptionText = new Text("Project description:");
@@ -114,7 +117,7 @@ public class ProjectSettings extends Stage {
 		babysteps_pane.add(babystepsCheckBox, 0, 0);
 		babysteps_pane.add(durationText, 1, 0);
 		babysteps_pane.add(durationField, 2, 0);
-		center.add(babysteps_pane, 0, 3);
+		center.add(babysteps_pane, 0, 3, 2, 1);
 		
 		//CheckBox in 0, 4
 		tracking = new CheckBox("Use Tracking");
