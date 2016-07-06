@@ -50,6 +50,7 @@ public class ProjectSettings extends Stage {
 	
 	private void create_root(){
 		root = new BorderPane();
+		root.setPadding(new Insets(10, 10, 10, 10));
 		create_bottom();
 		create_center();
 		root.setBottom(bottom);
@@ -70,23 +71,27 @@ public class ProjectSettings extends Stage {
 	
 	private void create_center(){
 		center = new GridPane();
-		center.setPadding(new Insets(10, 10, 10, 10));
 		center.setHgap(10d);
 		center.setVgap(10d);
 		
+		//Label in 0, 0
 		projectNameText = new Text("Project name:");
 		center.add(projectNameText, 0, 0);
 		
+		//TextField in 1, 0
 		projectNameBox = new TextField(project.getName());
 		center.add(projectNameBox, 1, 0);
 		center.setHgrow(projectNameBox, Priority.ALWAYS);
 		
+		//Label in 0, 1
 		projectDescriptionText = new Text("Project description:");
 		center.add(projectDescriptionText, 0, 1);
 		
+		//TextArea in 0, 2
 		projectDescriptionArea = new TextArea(project.getDescription());
 		center.add(projectDescriptionArea, 0, 2, 2, 1);
 		
+		//GridPane in 0, 3
 		babysteps_pane = new GridPane();
 		babysteps_pane.setVgap(10d);
 		babysteps_pane.setHgap(10d);
@@ -111,14 +116,15 @@ public class ProjectSettings extends Stage {
 		babysteps_pane.add(durationField, 2, 0);
 		center.add(babysteps_pane, 0, 3);
 		
+		//CheckBox in 0, 4
 		tracking = new CheckBox("Use Tracking");
 		tracking.setSelected(project.getTracking());
 		center.add(tracking, 0, 4);
 	}
 	
 	/**
-	 * Ueberprueft, ob die {@link #babystepsCheckBox} gerade positiv oder negativ ist,
-	 * und zeigt bzw. versteckt die dazugeh�rigen Elemente, um die Dauer der Babysteps
+	 * Überprüft, ob die {@link #babystepsCheckBox} gerade positiv oder negativ ist,
+	 * und zeigt bzw. versteckt die dazugehörigen Elemente, um die Dauer der Babysteps
 	 * zu konfigurieren.
 	 * 
 	 * @see #babystepsCheckBox
