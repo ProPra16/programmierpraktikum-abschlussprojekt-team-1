@@ -22,7 +22,8 @@ import javafx.stage.Stage;
  */
 
 public class ProjectSettings extends Stage {
-	/** Das aktuelle Project wird aus dem {@link data.ConstantsManager} abgefragt und in dieser Variable zwischengespeichert. */
+	/** Das aktuelle Project wird aus dem {@link data.ConstantsManager} abgefragt und in
+	 * dieser Variable zwischengespeichert. */
 	private Project project = ConstantsManager.getConstants().getProject();
 	/** Das root-Element der Stage, die durch diese Klasse repräsentiert wird. */
 	private BorderPane root;
@@ -30,12 +31,25 @@ public class ProjectSettings extends Stage {
 	private HBox bottom;
 	/** Der Knopf mit der Aufschrift "OK", welcher die Eingaben übernimmt und das Fenster schließt. */
 	private Button ok;
+	/** Der Knopf mit der Aufschrift "Cancel", welcher die Eingaben verwirft und das Fenster schließt. */
+	private Button cancel;
+	/** Das GridPane, welches die wesentlichen Steuerelemente im Fenster enthält. */
 	private GridPane center;
+	/** Ein Label, welches das nachstehende Textfeld als Projektnamen beschreibt. */
 	private Text projectNameText;
+	/** Ein TextFeld, in welchem der Projektname eingegeben wird */
 	private TextField projectNameBox;
+	/** Ein Label, welches das nachstehende Textfeld als Projektbeschreibung beschreibt. */
 	private Text projectDescriptionText;
+	/** Eine TextArea, in das die Projektbeschreibung eingegeben werden kann. */
 	private TextArea projectDescriptionArea;
+	/** Ein Panel, welches in das Hauptpanel hineingesetzt wird, und die Steuerelemente für die
+	 * Konfiguration der Babysteps enthält.
+	 */
 	private GridPane babysteps_pane;
+	/** Eine CheckBox, die für das Aktivieren / Deaktivieren der Babysteps steht. Bei Aktivieren
+	 * zeigt sie zusätzliche Steuerelemente zur Konfiguration der Babysteps. @see #hide_show_duration_settings
+	 */
 	private CheckBox babystepsCheckBox;
 	private Text durationText;
 	private TextField durationField;
@@ -69,9 +83,17 @@ public class ProjectSettings extends Stage {
 		ok = new Button("OK");
 		bottom.getChildren().add(ok);
 		
+		cancel = new button("Cancel");
+		bottom.getChildren().add(cancel);
+		
 		ok.setOnAction(e -> {
+			//Schließt das Fenster, speichert vorher
 			saveValues();
 			close();
+		});
+		
+		cancel.setOnAction((event) -> {
+			close(); //Schließt das Fenster einfach nur
 		});
 	}
 	
