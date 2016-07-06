@@ -49,4 +49,28 @@ public class RomanNumbersTest {
 			<timetracking value="True" />
 		</config>
 	</exercise>
+	<exercise name="Median">
+		<description>Berechnet den Median von 5 eingegebenen Zahlen</description>
+		<classes>
+			<class name="MedianCalculator">public class MedianCalculator {
+
+}</class>
+	</classes>
+	<tests>
+		<test name="MedianCalculatorTest">import static org.junit.Assert.*;
+import org.junit.Test;
+
+public class MedianCalculatorTest {
+
+	@Test
+	public void testSomething() {
+
+	}
+}</test>
+		</tests>
+		<config>
+			<babysteps value="True" time="200" />
+			<timetracking value="False" />
+		</config>
+	</exercise>
 </excercises>
