@@ -83,7 +83,7 @@ public class ProjectSettings extends Stage {
 		ok = new Button("OK");
 		bottom.getChildren().add(ok);
 		
-		cancel = new button("Cancel");
+		cancel = new Button("Cancel");
 		bottom.getChildren().add(cancel);
 		
 		ok.setOnAction(e -> {
