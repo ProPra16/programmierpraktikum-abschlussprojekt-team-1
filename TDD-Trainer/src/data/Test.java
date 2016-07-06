@@ -29,5 +29,6 @@ public class Test implements Code{
 	}
 	public void overrideOldCode(){
 		code = code+new_test;
+		new_test = "";
 	}
 }

@@ -2,6 +2,10 @@ package gui;
 
 import data.ConstantsManager;
 import data.Project;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //import io.XMLHandler;
 import data.Class;
 import data.Code;
@@ -15,6 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -145,25 +150,34 @@ public class Gui extends Application{
 		if(project.getBabysteps()) grid.add(timer,2, 2);
 		setPhaseTest();
 		compile.setOnAction(e->{
-			//TODO: run programm & put console output in console tab
+			updateProject(project.CLASS);
+			project.compile();
 		});
 		test.setOnAction(e->{
-			//TODO: run tests & put console output in console tab
+			updateProject(project.CLASS);
+			updateProject(project.TEST);
+			project.test();
 		});
 		next.setOnAction(e->{
-			if(phase.get()==Phase.TESTS && (!project.tests_ok() || project.hasCompileErrors())){
-				setPhaseCode();
+			if(phase.get()==Phase.TESTS){
+				updateProject(project.TEST);
+				if(!project.tests_ok() || project.hasCompileErrors()) setPhaseCode();
 			}
-			else if(phase.get() == Phase.CODE && project.tests_ok()){
-				setPhaseRefactor();
-			}
-			else if(phase.get() == Phase.REFACTOR && project.tests_ok()){ 
-				setPhaseTest();
+			else{
+				updateProject(project.CLASS);
+				if(phase.get() == Phase.CODE && project.tests_ok()) setPhaseRefactor();
+				else if(phase.get() == Phase.REFACTOR && project.tests_ok())setPhaseTest();
 			}
 		});
 		return grid;
 	}
-	
+	private void updateProject(int type){
+		for(int i= 0;i<code_pane.getTabs().size();i++){
+			String content = ((TextArea) code_pane.getTabs().get(i).getContent()).getText();
+			project.setNewTestOrClassCode(i, content,type);
+		}
+
+	}
 	/** Zeigt die im Project gespeicherten Inhalte im Code- und TestPane an.
 	 * @param project: das aktuelle  Projekt
 	 */
@@ -187,6 +201,8 @@ public class Gui extends Application{
 		phase2.setFill(Color.GREEN);
 		code_pane.setDisable(false);
 		test_pane.setDisable(true);
+		project.overrideOldCode(project.TEST);
+		test_pane.clear();
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Codephase erfolgen
@@ -198,6 +214,7 @@ public class Gui extends Application{
 		task.setText("Restucture and simplify your code.");
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
+		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen
@@ -212,5 +229,7 @@ public class Gui extends Application{
 		phase1.setFill(Color.GREEN);
 		code_pane.setDisable(true);
 		test_pane.setDisable(false);
+		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
+
 	}
 }

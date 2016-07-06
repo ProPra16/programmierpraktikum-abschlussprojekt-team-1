@@ -7,9 +7,9 @@ import io.Testing;
 import vk.core.api.CompilationUnit;
 
 public class Project {
-	private final int CLASS = 0;
-	private final int TEST = 1;
-	private List<Code> all_tests;
+	public final int CLASS = 0;
+	public final int TEST = 1;
+	private List<Code> tests;
 	private List<Code> all_class;
 	private String description, name;
 	private boolean babysteps;
@@ -28,7 +28,7 @@ public class Project {
 	 */
 	public Project(List<Code> all_tests, List<Code> klasse, String description, 
 					String name, boolean babysteps, int duration, boolean tracking){
-		this.all_tests = all_tests;
+		this.tests = all_tests;
 		this.all_class = klasse;
 		this.description = description;
 		this.name = name;
@@ -40,7 +40,7 @@ public class Project {
 	 * Erstellt ein leeres Project-Objekt
 	 */
 	public Project(){
-		all_tests = new ArrayList<Code>();
+		tests = new ArrayList<Code>();
 		all_class = new ArrayList<Code>();
 		name = "New exercise";
 		description = "A new exercise.";
@@ -58,7 +58,7 @@ public class Project {
 	}
 	
 	private List<CompilationUnit> getCompilationUnits(int type){
-		List<Code> all = (type == TEST ? all_tests : all_class);
+		List<Code> all = (type == TEST ? tests : all_class);
 		List<CompilationUnit> cus = new ArrayList<CompilationUnit>();
 		for(int i = 0; i<all.size();i++){
 			cus.add(all.get(i).getCompilationUnit());
@@ -80,6 +80,15 @@ public class Project {
 		if(Testing.tests_passed((CompilationUnit[])cus.toArray())) return true;
 		return false;
 	}
+	public void overrideOldCode(int type){
+		List<Code> code = (type == TEST ? tests : all_class);
+		for(Code klasse: code){
+			klasse.overrideOldCode();
+		}
+	}
+	public void setNewTestOrClassCode(int index, String new_content, int type){ //klappt das so?
+		(type == TEST ? tests : all_class).get(index).setCode(new_content);
+	}
 	public void addClass(Class klasse){
 		all_class.add(klasse);
 	}
@@ -89,11 +98,11 @@ public class Project {
 	}
 	
 	public void addTest(Test test){
-		all_tests.add(test);
+		tests.add(test);
 	}
 	
 	public List<Code> getTestList(){
-		return all_tests;
+		return tests;
 	}
 	
 	public void setBabysteps(boolean babysteps){
