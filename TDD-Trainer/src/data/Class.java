@@ -27,4 +27,7 @@ public class Class implements Code{
 	public void setCode(String code){
 		this.code=code;
 	}
+	public void overrideOldCode(){
+		old_code = code;
+	}
 }

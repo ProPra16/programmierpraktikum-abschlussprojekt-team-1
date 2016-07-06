@@ -8,4 +8,5 @@ public interface Code {
 	public String getName();
 	public void backToOldCode();
 	public void setCode(String code);
+	public void overrideOldCode();
 }

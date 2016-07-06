@@ -151,13 +151,13 @@ public class Gui extends Application{
 			//TODO: run tests & put console output in console tab
 		});
 		next.setOnAction(e->{
-			if(phase.get()==Phase.TESTS && !project.tests_ok()){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
+			if(phase.get()==Phase.TESTS && (!project.tests_ok() || project.hasCompileErrors())){
 				setPhaseCode();
 			}
-			else if(phase.get() == Phase.CODE && project.tests_ok()){ //TODO: i-was das true zurückgibt wenns lauft ins if
+			else if(phase.get() == Phase.CODE && project.tests_ok()){
 				setPhaseRefactor();
 			}
-			else if(phase.get() == Phase.REFACTOR && project.tests_ok()){ //TODO: tests muessen laufen
+			else if(phase.get() == Phase.REFACTOR && project.tests_ok()){ 
 				setPhaseTest();
 			}
 		});
