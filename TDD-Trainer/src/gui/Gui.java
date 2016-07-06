@@ -5,6 +5,7 @@ import data.Project;
 //import io.XMLHandler;
 import data.Class;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -17,6 +18,7 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -33,7 +35,7 @@ public class Gui extends Application{
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
-	Button next, run, test;
+	Button next, run, test, settings;
 	Text phase1, phase2, phase3;
 	/* field askForBabysteps: Variable that states if the application should
 	 * continue asking for babysteps setting. Is set to false after a correct
@@ -81,6 +83,7 @@ public class Gui extends Application{
 			});
 		}
 	}
+	
 	/** Erstellt ein Scene-Objekt, das ein Borderpane-Objekt mit einem Tabpane im Zentrum ({@link #create_center()})
 	 *  und eimem Gridpane auf der rechten Seite{@link #create_right_side()} erthaelt.
 	 * 
@@ -91,10 +94,24 @@ public class Gui extends Application{
 		BorderPane root = new BorderPane();
 		TabPane main = create_center();
 		root.setCenter(main);
+		root.setBottom(create_bottom());
 		root.setRight(create_right_side());
 		Scene scene = new Scene(root,700,700); //TODO: groesse von bildschirmgroesse abhaengig machen
 		return scene;
 	}
+	
+	private HBox create_bottom(){
+		HBox hBox = new HBox();
+		Button settings = new Button("Settings...");
+		settings.setOnAction((event) -> {
+			new ProjectSettings();
+		});
+		hBox.getChildren().add(settings);
+		hBox.setAlignment(Pos.CENTER_RIGHT);
+		hBox.setPadding(new Insets(10, 10, 10, 10));
+		return hBox;
+	}
+	
 	/** Erstellt ein Tabpane, das in drei Tabs ein leeres Test-, Code-, und Konsolenpane enthaelt
 	 * Die Tabs koennen nicht geschlossen werden.
 	 * @return gibt das ertellte Tabpane zurueck
