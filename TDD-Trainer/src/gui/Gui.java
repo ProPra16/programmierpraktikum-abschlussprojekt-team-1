@@ -4,6 +4,7 @@ import data.ConstantsManager;
 import data.Project;
 //import io.XMLHandler;
 import data.Class;
+import data.Code;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -49,7 +50,8 @@ public class Gui extends Application{
 	public static void main(String[] args){
 		launch();
 	}
-	/**
+	/**Ruft {@link AlertHandler#newProject_alert()} und {@link ConstantsManager#getConstants()} auf.
+	 * 
 	 * 
 	 */
 	public void start(Stage stage){
@@ -165,12 +167,12 @@ public class Gui extends Application{
 	/** Zeigt die im Project gespeicherten Inhalte im Code- und TestPane an.
 	 * @param project: das aktuelle  Projekt
 	 */
-	private void fillWithContent(Project project){ //TODO: eventuell in test und class aufteilen?
-		for(Class klasse : project.getClassList()){
+	private void fillWithContent(Project project){ //TODO: eventuell in test und class aufteilen? projektuebergabe noetig?
+		for(Code klasse : project.getClassList()){
 			code_pane.addTabWithContent(klasse.getName(), klasse.getContent());
 		}
 		code_pane.run();
-		test_pane.setText(project.getTestList().get(0).toString());//TODO: nicht dauerhaft 0...
+		test_pane.setText(project.getTestList().get(0).getContent());//TODO: nicht dauerhaft 0...
 		
 	}
 	

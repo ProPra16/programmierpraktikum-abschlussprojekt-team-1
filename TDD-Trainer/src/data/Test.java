@@ -2,7 +2,7 @@ package data;
 
 import vk.core.api.CompilationUnit;
 
-public class Test {
+public class Test implements Code{
 	private String code;
 	private String old_code;
 	private String name;
@@ -11,7 +11,7 @@ public class Test {
 		this.name = name;
 		this.code = code;
 	}
-	public String toString(){
+	public String getContent(){
 		return code;
 	}
 	public String getName(){
@@ -22,5 +22,8 @@ public class Test {
 	}
 	public void backToOldCode(){
 		code = old_code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 }

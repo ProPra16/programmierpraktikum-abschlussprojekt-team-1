@@ -10,7 +10,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 
 /**
- * Repräsentiert ein Panel, welches im Programm dazu gedacht ist, das Textfeld mit
+ * Repräsentiert ein Panel, welches im Programm dazu gedacht ist, das Textfelder mit
  * dem Programmcode zu beherbergen.
  *
  */
@@ -25,7 +25,9 @@ public class CodePane extends TabPane{
 		//addPlus(); TODO mach nicht vergessen sagt Rebecca :D
 		
 	}
-	
+	/**
+	 * 
+	 */
 	private void clickOnPlus(){
 		if(editable){
 			if(plusTab.isSelected()){
@@ -55,7 +57,11 @@ public class CodePane extends TabPane{
 		getSelectionModel().select(plusTabIndex);
 		plusTabIndex++;
 	}
-	
+	/**
+	 * 
+	 * @param className Der Name der Klasse die hinzugefuegt wird.
+	 * @param content 
+	 */
 	private void addNewClass(String className, String content){ //TODO Klassen Name gross schreiben.
 		TextArea text = new TextArea();
 		text.setText(content);
