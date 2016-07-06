@@ -22,12 +22,20 @@ public class TestPane extends GridPane{
 		super.setHgrow(angenommeneTests, Priority.ALWAYS);
 		angenommeneTests.setEditable(false);
 	}
+	/**
+	 * Erlaubt oder Verbietet die bearbeitung des Textareas.
+	 * @param edit Zeigt an ob der Text bearbeitet werden darf.
+	 */
 	public void setEditable(boolean edit){
 		eingabe.setEditable(edit);
 	}
+	/**
+	 * Loescht den Text aus dem Eingabefeld.
+	 */
 	public void clear(){
 		eingabe.clear();
 	}
+	
 	public void setText(String tests){
 		angenommeneTests.setText(tests);
 	}

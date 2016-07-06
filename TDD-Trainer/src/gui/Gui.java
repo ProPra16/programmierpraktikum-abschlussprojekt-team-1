@@ -2,8 +2,13 @@ package gui;
 
 import data.ConstantsManager;
 import data.Project;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //import io.XMLHandler;
 import data.Class;
+import data.Code;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,6 +20,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -36,7 +42,7 @@ public class Gui extends Application{
 	TestPane test_pane;
 	ConsolePane console_pane;
 	Button next, run, test, settings;
-	Text phase1, phase2, phase3;
+	Text phase1, phase2, phase3, task;
 	/* field askForBabysteps: Variable that states if the application should
 	 * continue asking for babysteps setting. Is set to false after a correct
 	 * answer occurred.
@@ -51,7 +57,8 @@ public class Gui extends Application{
 	public static void main(String[] args){
 		launch();
 	}
-	/**
+	/**Ruft {@link AlertHandler#newProject_alert()} und {@link ConstantsManager#getConstants()} auf.
+	 * 
 	 * 
 	 */
 	public void start(Stage stage){
@@ -155,74 +162,91 @@ public class Gui extends Application{
 		phase1 = new Text("Write failing Test");
 		phase2 = new Text("Write passing Code");
 		phase3 = new Text("Refactor");
-		phase1.setFill(Color.GREEN);
-		grid.addColumn(1, phase1, phase2, phase3, compile, test, next);
+		task = new Text("");
+		grid.addColumn(1, phase1, phase2, phase3, task, compile, test, next);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
-		
+		setPhaseTest();
 		compile.setOnAction(e->{
-			//TODO: run programm & put console output in console tab
+			updateProject(project.CLASS);
+			project.compile();
 		});
 		test.setOnAction(e->{
-			//TODO: run tests & put console output in console tab
+			updateProject(project.CLASS);
+			updateProject(project.TEST);
+			project.test();
 		});
 		next.setOnAction(e->{
-			if(phase.get()==Phase.TESTS && !project.tests_ok()){ //TODO: i-was das false zurückgibt, wenns ned klappt ins if
-				setPhaseCode();
+			if(phase.get()==Phase.TESTS){
+				updateProject(project.TEST);
+				if(!project.tests_ok() || project.hasCompileErrors()) setPhaseCode();
 			}
-			else if(phase.get() == Phase.CODE && project.tests_ok()){ //TODO: i-was das true zurückgibt wenns lauft ins if
-				setPhaseRefactor();
-			}
-			else if(phase.get() == Phase.REFACTOR){ //TODO: tests muessen laufen
-				setPhaseTest();
+			else{
+				updateProject(project.CLASS);
+				if(phase.get() == Phase.CODE && project.tests_ok()) setPhaseRefactor();
+				else if(phase.get() == Phase.REFACTOR && project.tests_ok())setPhaseTest();
 			}
 		});
 		return grid;
 	}
-	
+	private void updateProject(int type){
+		for(int i= 0;i<code_pane.getTabs().size();i++){
+			String content = ((TextArea) code_pane.getTabs().get(i).getContent()).getText();
+			project.setNewTestOrClassCode(i, content,type);
+		}
+
+	}
 	/** Zeigt die im Project gespeicherten Inhalte im Code- und TestPane an.
 	 * @param project: das aktuelle  Projekt
 	 */
-	private void fillWithContent(Project project){ //TODO: eventuell in test und class aufteilen?
-		for(Class klasse : project.getClassList()){
+	private void fillWithContent(Project project){ //TODO: eventuell in test und class aufteilen? projektuebergabe noetig?
+		for(Code klasse : project.getClassList()){
 			code_pane.addTabWithContent(klasse.getName(), klasse.getContent());
 		}
 		code_pane.run();
-		test_pane.setText(project.getTestList().get(0).toString());//TODO: nicht dauerhaft 0...
+		test_pane.setText(project.getTestList().get(0).getContent());//TODO: nicht dauerhaft 0...
 		
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die TestPhase erfolgen
-	 * (aendert Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
+	 * (aendert Infotext & Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
 	 */
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
-		phase.next_phase(); // TODO: zeug disablen
+		task.setText("Write passing code.");
+		phase.next_phase();
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
 		code_pane.setDisable(false);
 		test_pane.setDisable(true);
+		project.overrideOldCode(project.TEST);
+		test_pane.clear();
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Codephase erfolgen
-	 * (aendert Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
+	 * (aendert Infotext & Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
 	 */
 
 	private void setPhaseRefactor(){
-		phase.next_phase(); //TODO: zeug disablen
+		phase.next_phase();
+		task.setText("Restucture and simplify your code.");
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
+		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen
-	 * (aendert Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
+	 * (aendert Infotext & Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
 	 */
 
 	private void setPhaseTest(){
 		if(project.getBabysteps()) timer.reset();
-		phase.next_phase(); //TODO: zeug disablen
+		task.setText("Write a failing test.");
+		phase.next_phase();
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
 		code_pane.setDisable(true);
 		test_pane.setDisable(false);
+		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
+
 	}
 }

@@ -14,6 +14,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import data.Class;
+import data.Code;
 import data.Project;
 import data.Test;
 import javafx.scene.control.Alert;
@@ -39,14 +40,14 @@ public class XMLHandler {
 	
 	public static Project XMLtoProject(Element element){
     	NodeList classList = element.getElementsByTagName("class");
-    	List<Class> klassenListe = new ArrayList<Class>();
+    	List<Code> klassenListe = new ArrayList<Code>();
     	for(int i = 0; i < classList.getLength(); i++){
     		Class klasse = new Class(classList.item(i).getChildNodes().item(0).getNodeValue(), (String)((Element)classList.item(i)).getAttribute("name"));
     		klassenListe.add(klasse);
     	}
     	
     	NodeList testList = element.getElementsByTagName("test");
-    	List<Test> tests = new ArrayList<Test>();
+    	List<Code> tests = new ArrayList<Code>();
     	for(int i = 0; i < testList.getLength(); i++){
     		Test test = new Test((String)(((Element)testList.item(i)).getAttribute("name")),testList.item(i).getChildNodes().item(0).getNodeValue());
     		tests.add(test);
