@@ -2,6 +2,7 @@ package gui;
 
 import data.ConstantsManager;
 import data.Project;
+import data.Test;
 import io.FunPictures;
 
 import java.util.ArrayList;
@@ -219,7 +220,7 @@ public class Gui extends Application{
 			code_pane.addTabWithContent(klasse.getName(), klasse.getContent());
 		}
 		code_pane.run();
-		test_pane.setText(project.getTestList().get(0).getContent());//TODO: nicht dauerhaft 0...
+		test_pane.setText(((Test)project.getTestList().get(0)).getCode());//TODO: nicht dauerhaft 0...
 		
 	}
 	
