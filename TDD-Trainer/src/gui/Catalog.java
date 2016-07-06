@@ -10,6 +10,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import data.Class;
+import data.Code;
 import data.Project;
 import data.Test;
 import io.XMLHandler;
@@ -33,7 +34,6 @@ import javafx.stage.Stage;
  * und laden kann.
  *
  */
-
 public class Catalog extends Stage{
 	private Scene scene;
 	private BorderPane root = new BorderPane();
@@ -46,6 +46,7 @@ public class Catalog extends Stage{
 	private String source = "./res/exercise.xml";
 	private Document doc = null;
 	
+	private List<Project> projects;
 	private int currentExercise = 0;
 	private int numberOfExercises = 0;
 	
@@ -64,10 +65,17 @@ public class Catalog extends Stage{
 		showExcercise(currentExercise);
 	}
 	
+	/**
+	 * Das Katalog-Fenster wird geschlossen.
+	 */
 	private void clickOnLaden(){
 		close();
 	}
 	
+	/**
+	 * Es wird versucht die XML-Datei zu laden. Jedes Projekt von der XML-Datei
+	 * wird, mithilfe des XMLHandlers,in ein Projekt Objekt eingelesen und in einer Liste gespeichert.
+	 */
 	private void loadExcercises(){
 		File input = null;
 	    try {
@@ -80,6 +88,14 @@ public class Catalog extends Stage{
 	    	
 	    	NodeList nList = doc.getElementsByTagName("exercise");
 	    	numberOfExercises = nList.getLength();
+	    	
+		    projects = new ArrayList<Project>();
+		    for(int i = 0; i < numberOfExercises; i++){
+		    	Node nNode = nList.item(i);
+		    	Element element = (Element) nNode;
+		    	
+		    	projects.add(XMLHandler.XMLtoProject(element));
+		    }
 
 	    } catch (Exception e) {
 	        Alert alert = new Alert(AlertType.ERROR);
@@ -90,19 +106,32 @@ public class Catalog extends Stage{
 	    }
 	}
 	
-	
+	/**
+	 * Erstellt ein Scene-Objekt das ein BorderPane{@link #create_root()} inne hat.
+	 * @return gibt die erstelle Scene für den Katalog zurück.
+	 */
 	private Scene create_scene(){
 		root = create_root();
 		scene = new Scene(root,600,600);
 		return scene;
 	}
 	
+	/**
+	 * Erstellt die obere Leiste{@link #create_top()} des Kataloges und erstellt das 
+	 * Anzeigefenster{@link #create_center()} des Kataloges und fügt diese einem BorderPane hinzu.
+	 * @return das erstellte BorderPane wird zurück gegeben.
+	 */
 	private BorderPane create_root(){
-		root.setTop(create_top());
-		root.setCenter(create_center());
-		return root;
+		BorderPane all = new BorderPane();
+		all.setTop(create_top());
+		all.setCenter(create_center());
+		return all;
 	}
 	
+	/**
+	 * Erstellt ein GridPane mit Anzeigemöglichkeiten und Beschriftungen um ein Projekt anzuzeigen.
+	 * @return das erstellte GridPane wird zurück gegeben.
+	 */
 	private GridPane create_center() {
 		GridPane grid = new GridPane();
 		grid.setHgap(10);
@@ -138,6 +167,7 @@ public class Catalog extends Stage{
 	    // TextArea in column 1, row 4
 	    classes = new TextArea();
 	    classes.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+	    classes.setEditable(false);
 	    grid.add(classes, 0, 3, 2, 1);
 	    
 	    // Text in column 1, row 5
@@ -148,6 +178,7 @@ public class Catalog extends Stage{
 	    // TextArea in column 1, row 6
 	    tests = new TextArea();
 	    tests.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+	    tests.setEditable(false);
 	    grid.add(tests, 0, 5, 2, 1);
 	    
 	    // Text in column 1, row 7
@@ -170,10 +201,16 @@ public class Catalog extends Stage{
 	    timetracking.setFont(Font.font("Arial", FontWeight.NORMAL, 13));
 	    grid.add(timetracking, 1, 7);
 	    
-	    
 		return grid;
 	}
 
+	/**
+	 * Eine Leiste mit den Knöpfen "Previous", "Next" und "Load this!" wird erstellt.
+	 * "Previous" nimmt das vorherige Projekt aus der Liste und zeigt{@link #showExcercise(int)} dieses an.
+	 * "Next" nimmt das nächste Projekt aus der Liste und zeigt{@link #showExcercise(int)} dieses an. 
+	 * "Load this" schließt das Programm{@link #clickOnLaden()}.
+	 * @return
+	 */
 	private HBox create_top(){
 		HBox hbox = new HBox();
 		hbox.setPadding(new Insets(10, 50, 10, 50));
@@ -201,61 +238,47 @@ public class Catalog extends Stage{
 	    return hbox;
 	}
 
+	/**
+	 * Zeigt ein Projekt an, indem ein "Project" Objekt ausgelesen wird und die jeweiligen
+	 * Informationen in die jeweiligen Labels oder TextAreas geschrieben werden.
+	 * @param index des Project aus der Gespeicherten Liste welches angezeigt werden soll.
+	 */
 	private void showExcercise(int index) {
-		NodeList nList = doc.getElementsByTagName("exercise");
-    	Node nNode = nList.item(index);
-    	Element eElement = (Element) nNode;
-    	if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-    		exerciseName.setText(eElement.getAttribute("name")+"");
-    		description.setText(eElement.getElementsByTagName("description").item(0).getTextContent());
+		Project project = projects.get(index);
+		
+		exerciseName.setText(project.getName());
+		description.setText(project.getDescription());
+		
+		String hilfe = "";
+		List<Code> klasse = project.getClassList();
+		for(int i = 0; i < klasse.size(); i++){
+    		hilfe = hilfe + klasse.get(i).getName() + "\n";
+    		hilfe = hilfe + klasse.get(i).getContent() + "\n\n";
     	}
+		classes.setText(hilfe);
     	
-    	NodeList classList = eElement.getElementsByTagName("class");
-    	String hilfe = "";
-    	for(int i = 0; i < classList.getLength(); i++){
-    		hilfe = hilfe + ((Element)classList.item(i)).getAttribute("name") + "\n";
-    		
-    		for(int j = 0; j < classList.item(i).getChildNodes().getLength(); j++){
-    			hilfe = hilfe + classList.item(i).getChildNodes().item(j).getNodeValue();
-        	}
-    		hilfe = hilfe + "\n\n";
+		List<Code> test = project.getTestList();
+		hilfe = "";
+		for(int i = 0; i < test.size(); i++){
+    		hilfe = hilfe + test.get(i).getName() + "\n";
+    		hilfe = hilfe + ((Test)test.get(i)).getCode() + "\n\n";
     	}
-    	classes.setText(hilfe);
-    	classes.setEditable(false);
-    	hilfe = "";
-    	
-    	NodeList testList = eElement.getElementsByTagName("test");
-    	for(int i = 0; i < testList.getLength(); i++){
-    		hilfe = hilfe + ((Element)testList.item(i)).getAttribute("name") + "\n";
-    		
-    		for(int j = 0; j < testList.item(i).getChildNodes().getLength(); j++){
-    			hilfe = hilfe + testList.item(i).getChildNodes().item(j).getNodeValue();
-        	}
-    		hilfe = hilfe + "\n\n";
-    	}
-    	tests.setText(hilfe);
-    	tests.setEditable(false);
-    	hilfe = "";
-    	
-    	NodeList babyList = eElement.getElementsByTagName("babysteps");
-    	if(((Element)babyList.item(0)).getAttribute("value").equals("True")){
-    		hilfe = ((Element)babyList.item(0)).getAttribute("value")+ "    time: "+ ((Element)babyList.item(0)).getAttribute("time") ;
-    		babysteps.setText(hilfe);
+		tests.setText(hilfe);
+		
+		if(project.getBabysteps()){
+    		babysteps.setText(project.getBabysteps() + "    time: "+ project.getDuration());
     		
     	} else {
-    		babysteps.setText(((Element)babyList.item(0)).getAttribute("value")+ "" );
+    		babysteps.setText(project.getBabysteps()+"");
     	}
-    	
-    	NodeList trackingList = eElement.getElementsByTagName("timetracking");
-    	timetracking.setText(((Element)trackingList.item(0)).getAttribute("value")+ "" );
+		timetracking.setText(project.getTracking()+"" );
 	}
 	
-	public Project getProject(){
-		NodeList nList = doc.getElementsByTagName("exercise");
-    	Node nNode = nList.item(currentExercise);
-    	
-    	Element element = (Element) nNode;
-    	
-		return XMLHandler.XMLtoProject(element);
+	/**
+	 * Gibt das "Project" zurück das beim klicken auf Laden gerade angezeigt wurde.
+	 * @return das ausgewählte Projekt.
+	 */
+	public Project getProject(){    	
+		return projects.get(currentExercise);
 	}
 }

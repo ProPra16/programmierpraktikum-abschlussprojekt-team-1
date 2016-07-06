@@ -38,6 +38,12 @@ public class XMLHandler {
 		return false;
 		}
 	
+	/**
+	 * Liest ein Element einer XML-Datei nach "class", "test", "description" usw aus 
+	 * und speichert diese in einem "Project"-Objekt. 
+	 * @param element
+	 * @return das erstellte "Project"-Objekt wird zurück gegeben.
+	 */
 	public static Project XMLtoProject(Element element){
     	NodeList classList = element.getElementsByTagName("class");
     	List<Code> klassenListe = new ArrayList<Code>();
