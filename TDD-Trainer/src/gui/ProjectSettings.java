@@ -51,8 +51,11 @@ public class ProjectSettings extends Stage {
 	 * zeigt sie zusätzliche Steuerelemente zur Konfiguration der Babysteps. @see #hide_show_duration_settings
 	 */
 	private CheckBox babystepsCheckBox;
+	/** Ein Label, welches das nachfolgende Textfeld zur Eingabe der Duration (Integer-Zahl) auffordert. */
 	private Text durationText;
+	/** Ein Textfeld, in das die Dauer der Babysteps eingegeben werden kann. */
 	private TextField durationField;
+	/** Eine CheckBox, welche den Status der aktuellen Tracking-Einstellungen repräsentiert und modifizieren lässt. */
 	private CheckBox tracking;
 	
 	public ProjectSettings(){
