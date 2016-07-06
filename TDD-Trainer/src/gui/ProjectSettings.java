@@ -51,8 +51,8 @@ public class ProjectSettings extends Stage {
 	private void create_root(){
 		root = new BorderPane();
 		root.setPadding(new Insets(10, 10, 10, 10));
-		create_bottom();
 		create_center();
+		create_bottom();
 		root.setBottom(bottom);
 		root.setCenter(center);
 	
@@ -66,6 +66,7 @@ public class ProjectSettings extends Stage {
 		bottom.getChildren().add(ok);
 		
 		ok.setOnAction(e -> {
+			saveValues();
 			close();
 		});
 	}
@@ -134,7 +135,6 @@ public class ProjectSettings extends Stage {
 	 * @see #durationText
 	 * @see #durationField
 	 */
-	
 	private void hide_show_duration_settings(){
 		if (babystepsCheckBox.selectedProperty().getValue()){
 			durationText.setVisible(true);
@@ -143,5 +143,18 @@ public class ProjectSettings extends Stage {
 			durationText.setVisible(false);
 			durationField.setVisible(false);
 		}
+	}
+	
+	private void saveValues(){
+		project.setName(projectNameBox.getText());
+		project.setDescription(projectDescriptionArea.getText());
+		project.setBabysteps(babystepsCheckBox.selectedProperty().getValue());
+		try {
+			project.setDuration(Integer.parseInt(durationField.getText()));
+
+		} catch (NumberFormatException ex){
+			//TODO: Fehlermeldung werfen!
+		}
+		project.setTracking(tracking.selectedProperty().getValue());
 	}
 }
