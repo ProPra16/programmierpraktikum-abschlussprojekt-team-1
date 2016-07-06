@@ -15,6 +15,9 @@ public class Test implements Code{
 	public String getContent(){
 		return code+new_test+code_end;
 	}
+	public String getCode(){
+		return code;
+	}
 	public String getName(){
 		return name;
 	}
