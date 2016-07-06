@@ -58,6 +58,12 @@ public class ProjectSettings extends Stage {
 	/** Eine CheckBox, welche den Status der aktuellen Tracking-Einstellungen repräsentiert und modifizieren lässt. */
 	private CheckBox tracking;
 	
+	
+	/**
+	 * Der Konstruktor dieser Klasse erzeugt ein neues Fenster zur Einstellung der Projekteinstellungen,
+	 * und zeigt es sofort an. Das Fenster bleibt so lange offen, bis es manuell geschlossen wird, dies
+	 * geschieht entweder durch den Schließen-Button des Betriebssystems oder den Abbrechen-Button
+	 */
 	public ProjectSettings(){
 		super();
 		setScene(create_scene());
