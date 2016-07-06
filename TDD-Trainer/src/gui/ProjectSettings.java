@@ -22,9 +22,13 @@ import javafx.stage.Stage;
  */
 
 public class ProjectSettings extends Stage {
+	/** Das aktuelle Project wird aus dem {@link data.ConstantsManager} abgefragt und in dieser Variable zwischengespeichert. */
 	private Project project = ConstantsManager.getConstants().getProject();
+	/** Das root-Element der Stage, die durch diese Klasse repräsentiert wird. */
 	private BorderPane root;
+	/** Eine HBox, die die Steuerelemente am unteren Fensterrand beherbergt (OK-Button). */
 	private HBox bottom;
+	/** Der Knopf mit der Aufschrift "OK", welcher die Eingaben übernimmt und das Fenster schließt. */
 	private Button ok;
 	private GridPane center;
 	private Text projectNameText;
