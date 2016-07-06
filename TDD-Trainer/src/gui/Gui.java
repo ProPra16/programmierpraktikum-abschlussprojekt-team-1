@@ -2,6 +2,7 @@ package gui;
 
 import data.ConstantsManager;
 import data.Project;
+import io.FunPictures;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +34,14 @@ import javafx.stage.Stage;
  */
 
 public class Gui extends Application{
+	private FunPictures fun; //fun
 	private Phase phase;
 	private Timer timer;
 	private Project project;
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
-	Button next, run, test;
+	Button next, run, test, fun_b;
 	Text phase1, phase2, phase3, task;
 	/* field askForBabysteps: Variable that states if the application should
 	 * continue asking for babysteps setting. Is set to false after a correct
@@ -60,6 +62,7 @@ public class Gui extends Application{
 	 * 
 	 */
 	public void start(Stage stage){
+		fun = new FunPictures();
 		AlertHandler.newProject_alert();
 		project = ConstantsManager.getConstants().getProject();
 		switch (AlertHandler.returnValue){
@@ -141,6 +144,7 @@ public class Gui extends Application{
 		run = new Button("run");
 		test = new Button("test");
 		next = new Button("next");
+		fun_b = new Button("fun");
 		compile = new Button("compile");
 		phase1 = new Text("Write failing Test");
 		phase2 = new Text("Write passing Code");
@@ -149,6 +153,10 @@ public class Gui extends Application{
 		grid.addColumn(1, phase1, phase2, phase3, task, compile, test, next);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
 		setPhaseTest();
+		fun_b.setOnAction(e->{
+			fun.showRandom();
+		});
+
 		compile.setOnAction(e->{
 			updateProject(project.CLASS);
 			project.compile();
