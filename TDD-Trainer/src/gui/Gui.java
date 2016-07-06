@@ -144,7 +144,7 @@ public class Gui extends Application{
 		run = new Button("run");
 		test = new Button("test");
 		next = new Button("next");
-		fun_b = new Button("fun");
+		fun_b = new Button("fun"); //fun
 		compile = new Button("compile");
 		phase1 = new Text("Write failing Test");
 		phase2 = new Text("Write passing Code");
@@ -153,7 +153,7 @@ public class Gui extends Application{
 		grid.addColumn(1, phase1, phase2, phase3, task, compile, test, next);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
 		setPhaseTest();
-		fun_b.setOnAction(e->{
+		fun_b.setOnAction(e->{//fun
 			fun.showRandom();
 		});
 

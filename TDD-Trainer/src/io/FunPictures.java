@@ -26,7 +26,9 @@ public class FunPictures {
 		});
 		}catch (IOException e1) {
 			e1.printStackTrace();
-		}		
+		}catch (IllegalArgumentException e2){
+			e2.printStackTrace();
+		}
 	}
 	public void showRandom(){
 		Stage fun = new Stage();
