@@ -22,7 +22,7 @@ public class FunPictures {
 			Stream<Path> list = Files.list(source);
 			images = new ArrayList<Image>();
 			list.forEach(e->{
-			images.add(new Image(e.toString()));
+			images.add(new Image(e.toString())); //TODO: hier entsteht'n fehler -> fixen
 		});
 		}catch (IOException e1) {
 			e1.printStackTrace();

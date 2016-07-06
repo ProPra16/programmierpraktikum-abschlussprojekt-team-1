@@ -43,7 +43,7 @@ public class Gui extends Application{
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
-	Button next, run, test, settings, fun_b;
+	Button next, run, test, back, settings, fun_b;
 	Text phase1, phase2, phase3, task;
 	/* field askForBabysteps: Variable that states if the application should
 	 * continue asking for babysteps setting. Is set to false after a correct
@@ -161,6 +161,7 @@ public class Gui extends Application{
 		run = new Button("run");
 		test = new Button("test");
 		next = new Button("next");
+		back = new Button("back");
 		fun_b = new Button("fun"); //fun
 		compile = new Button("compile");
 		phase1 = new Text("Write failing Test");
@@ -182,6 +183,13 @@ public class Gui extends Application{
 			updateProject(project.CLASS);
 			updateProject(project.TEST);
 			project.test();
+		});
+		/**
+		 * 
+		 */
+		back.setOnAction(e->{
+			phase.back();
+			project.backToOldCode(project.CLASS);
 		});
 		next.setOnAction(e->{
 			if(phase.get()==Phase.TESTS){
@@ -221,7 +229,7 @@ public class Gui extends Application{
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
 		task.setText("Write passing code.");
-		phase.next_phase();
+		phase.next();
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
 		code_pane.setDisable(false);
@@ -235,7 +243,7 @@ public class Gui extends Application{
 	 */
 
 	private void setPhaseRefactor(){
-		phase.next_phase();
+		phase.next();
 		task.setText("Restucture and simplify your code.");
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
@@ -249,7 +257,7 @@ public class Gui extends Application{
 	private void setPhaseTest(){
 		if(project.getBabysteps()) timer.reset();
 		task.setText("Write a failing test.");
-		phase.next_phase();
+		phase.next();
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
 		code_pane.setDisable(true);

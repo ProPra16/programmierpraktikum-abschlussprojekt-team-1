@@ -85,7 +85,15 @@ public class Project {
 		for(Code klasse: code){
 			klasse.overrideOldCode();
 		}
+		
 	}
+	public void backToOldCode(int type){
+		List<Code> code = (type == TEST ? tests : all_class);
+		for(Code klasse: code){
+			klasse.backToOldCode();
+		}
+	}
+
 	public void setNewTestOrClassCode(int index, String new_content, int type){ //klappt das so?
 		(type == TEST ? tests : all_class).get(index).setCode(new_content);
 	}

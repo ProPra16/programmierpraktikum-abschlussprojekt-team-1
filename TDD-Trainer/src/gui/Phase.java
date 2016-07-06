@@ -17,8 +17,12 @@ public class Phase {
 		this.phase = 0;
 	}
 	
-	public void next_phase(){
+	public void next(){
 		this.phase = (this.phase+1)%3;
+	}
+	public void back(){
+		if(phase-1<0) phase = 2;
+		else phase--;
 	}
 	
 	public int get(){
