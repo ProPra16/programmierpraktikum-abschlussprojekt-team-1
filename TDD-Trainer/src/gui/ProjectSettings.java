@@ -106,7 +106,6 @@ public class ProjectSettings extends Stage {
 		
 		durationText = new Text("Duration per Stage:");
 		durationField = new TextField(String.valueOf(project.getDuration()));
-		durationField.setPromptText("Banane");
 		
 		babystepsCheckBox.selectedProperty().addListener((event) -> {
 			hide_show_duration_settings();
@@ -153,7 +152,7 @@ public class ProjectSettings extends Stage {
 			project.setDuration(Integer.parseInt(durationField.getText()));
 
 		} catch (NumberFormatException ex){
-			//TODO: Fehlermeldung werfen!
+			//TODO: Fehlermeldung anzeigen!
 		}
 		project.setTracking(tracking.selectedProperty().getValue());
 	}
