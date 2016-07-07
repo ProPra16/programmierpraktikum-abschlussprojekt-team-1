@@ -52,6 +52,7 @@ public class Gui extends Application{
 	public static void main(String[] args){
 		launch();
 	}
+	
 	/**Ruft {@link AlertHandler#newProject_alert()} und {@link ConstantsManager#getConstants()} auf.
 	 * 
 	 * 
@@ -69,12 +70,13 @@ public class Gui extends Application{
 		case AlertHandler.LOAD_TEMPLATE:
 			Catalog catalog = new Catalog();
 			catalog.showAndWait();
-			//TODO load Exercise
-			project = catalog.getProject();
-			ConstantsManager.getConstants().setProject(project);
-			stage.setScene(main_scene());
-			fillWithContent(ConstantsManager.getConstants().getProject());
-			stage.show();
+			if(catalog.load()){
+				project = catalog.getProject();
+				ConstantsManager.getConstants().setProject(project);
+				stage.setScene(main_scene());
+				fillWithContent(ConstantsManager.getConstants().getProject());
+				stage.show();
+			}
 			break;
 		case AlertHandler.LOAD_PROJECT:
 			break;

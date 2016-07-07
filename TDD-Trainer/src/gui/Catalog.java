@@ -48,6 +48,7 @@ public class Catalog extends Stage{
 	private List<Project> projects;
 	private int currentExercise = 0;
 	private int numberOfExercises = 0;
+	private boolean load = false;
 	
 	public Catalog(String source){
 		super();
@@ -68,7 +69,16 @@ public class Catalog extends Stage{
 	 * Das Katalog-Fenster wird geschlossen.
 	 */
 	private void clickOnLaden(){
+		load = true;
 		close();
+	}
+	
+	/**
+	 * Gibt zuück ob eine Datei geladen werden soll.
+	 * @return
+	 */
+	public boolean load(){
+		return load;
 	}
 	
 	/**
