@@ -191,4 +191,8 @@ public class ProjectSettings extends Stage {
 		}
 		project.setTracking(tracking.selectedProperty().getValue());
 	}
+	
+	public Project getProject(){
+		return project;
+	}
 }

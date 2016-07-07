@@ -63,8 +63,12 @@ public class Gui extends Application{
 		project = ConstantsManager.getConstants().getProject();
 		switch (AlertHandler.returnValue){
 		case AlertHandler.NEW_PROJECT:
-			new ProjectSettings();
+			ProjectSettings projectSettings = new ProjectSettings();
+			project = projectSettings.getProject();
+			ConstantsManager.getConstants().setProject(project);
+			
 			stage.setScene(main_scene());
+			fillWithContent(ConstantsManager.getConstants().getProject());
 			stage.show();
 			break;
 		case AlertHandler.LOAD_TEMPLATE:
@@ -214,7 +218,10 @@ public class Gui extends Application{
 			code_pane.addTabWithContent(klasse.getName(), klasse.getContent());
 		}
 		code_pane.run();
-		test_pane.setText(((Test)project.getTestList().get(0)).getCode());//TODO: nicht dauerhaft 0...
+		if(project.getTestList().size() != 0){
+			test_pane.setText(((Test)project.getTestList().get(0)).getCode());//TODO: nicht dauerhaft 0...
+		}
+		code_pane.setEditable(false);
 		
 	}
 	
@@ -227,7 +234,7 @@ public class Gui extends Application{
 		phase.next();
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
-		code_pane.setDisable(false);
+		code_pane.setEditable(false);
 		test_pane.setDisable(true);
 		project.overrideOldCode(project.TEST);
 		test_pane.clear();
@@ -255,7 +262,7 @@ public class Gui extends Application{
 		phase.next();
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
-		code_pane.setDisable(true);
+		code_pane.setEditable(true);
 		test_pane.setDisable(false);
 		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
 
