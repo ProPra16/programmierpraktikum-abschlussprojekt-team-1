@@ -23,10 +23,8 @@ public class FunPictures {
 			Stream<Path> list = Files.list(source);
 			images = new ArrayList<Image>();
 			list.forEach(e->{
-			System.out.println(e.toString());
 			images.add(new Image("file:"+e.toString()));
 			});
-			System.out.println(images.size());
 		}catch (IOException e1) {
 			e1.printStackTrace();
 		}catch (IllegalArgumentException e2){
@@ -38,7 +36,7 @@ public class FunPictures {
 		StackPane pane = new StackPane();
 		Image random = images.get(random());
 		pane.getChildren().add(new ImageView(random));
-		Scene fun2 = new Scene(pane,500,500);
+		Scene fun2 = new Scene(pane,random.getWidth(),random.getHeight());
 		fun.setScene(fun2);
 		fun.show();
 		fun.setOnCloseRequest(e->{
