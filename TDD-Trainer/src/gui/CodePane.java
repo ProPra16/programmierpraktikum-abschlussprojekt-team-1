@@ -41,8 +41,6 @@ public class CodePane extends TabPane{
 					getTabs().remove(plusTabIndex);
 					addTab(name);
 					addPlus();
-					if(plusTabIndex > 1) getTabs().get(0).setClosable(true);
-					if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
 				});
 			}
 		}
