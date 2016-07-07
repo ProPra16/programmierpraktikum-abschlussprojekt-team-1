@@ -1,7 +1,6 @@
 package io;
 
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,10 +22,8 @@ public class FunPictures {
 			Stream<Path> list = Files.list(source);
 			images = new ArrayList<Image>();
 			list.forEach(e->{
-			System.out.println(e.toString());
-			images.add(new Image("file:"+e.toString()));
+				images.add(new Image("file:"+e.toString()));
 			});
-			System.out.println(images.size());
 		}catch (IOException e1) {
 			e1.printStackTrace();
 		}catch (IllegalArgumentException e2){
