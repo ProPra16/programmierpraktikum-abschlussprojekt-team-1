@@ -1,6 +1,7 @@
 package io;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,8 +23,10 @@ public class FunPictures {
 			Stream<Path> list = Files.list(source);
 			images = new ArrayList<Image>();
 			list.forEach(e->{
-			images.add(new Image(e.toString())); //TODO: hier entsteht'n fehler -> fixen
-		});
+			System.out.println(e.toString());
+			images.add(new Image("file:"+e.toString()));
+			});
+			System.out.println(images.size());
 		}catch (IOException e1) {
 			e1.printStackTrace();
 		}catch (IllegalArgumentException e2){
@@ -36,6 +39,11 @@ public class FunPictures {
 		Image random = images.get(random());
 		pane.getChildren().add(new ImageView(random));
 		Scene fun2 = new Scene(pane,500,500);
+		fun.setScene(fun2);
+		fun.show();
+		fun.setOnCloseRequest(e->{
+			showRandom();
+		});
 	}
 	private int random(){
 		return (int) (Math.random()*images.size());

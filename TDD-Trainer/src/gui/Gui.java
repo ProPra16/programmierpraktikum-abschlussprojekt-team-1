@@ -171,7 +171,7 @@ public class Gui extends Application{
 		phase2 = new Text("Write passing Code");
 		phase3 = new Text("Refactor");
 		task = new Text("");
-		grid.addColumn(1, phase1, phase2, phase3, task, compile, test, next);
+		grid.addColumn(1, phase1, phase2, phase3, task, compile, test, next, fun_b);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
 		setPhaseTest();
 		fun_b.setOnAction(e->{//fun
