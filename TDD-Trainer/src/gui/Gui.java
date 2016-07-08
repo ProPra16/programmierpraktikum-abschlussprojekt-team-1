@@ -63,7 +63,7 @@ public class Gui extends Application{
 		project = ConstantsManager.getConstants().getProject();
 		switch (AlertHandler.returnValue){
 		case AlertHandler.NEW_PROJECT:
-			ProjectSettings projectSettings = new ProjectSettings();
+			ProjectSettings projectSettings = new ProjectSettings();//TODO:lukaaas -  muss das dahin? oder wird das auch so gespeichert? :)
 			project = projectSettings.getProject();
 			ConstantsManager.getConstants().setProject(project);
 			

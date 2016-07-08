@@ -1,5 +1,6 @@
 package gui;
 
+import io.Testing;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -17,6 +18,7 @@ public class ConsolePane extends GridPane{
 		text.setEditable(false);
 		super.setVgrow(text, Priority.ALWAYS);
 		super.setHgrow(text, Priority.ALWAYS);
+		Testing.setConsole(this);
 	}
 	
 	public void set_text(String content){

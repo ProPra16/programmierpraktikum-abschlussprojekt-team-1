@@ -13,6 +13,10 @@ import vk.core.internal.InternalCompiler;
 public class Testing {
 	private static ConsolePane console;
 	
+	public static void setConsole(ConsolePane console1){//TODO: schoener machen
+		console = console1;
+	}
+	
 	public static void compile(CompilationUnit[] comp_uns){ //gibt fehlermeldungen, wenn vorhanden auf die console aus
 		JavaStringCompiler comp = getJSC(comp_uns);
 		CompilerResult comp_res = comp.getCompilerResult();
@@ -60,7 +64,12 @@ public class Testing {
 
 	private static JavaStringCompiler getJSC(CompilationUnit[] comp_uns){ //erzeugt JSC und ruftcompileAndRunTests() auf
 		JavaStringCompiler comp = new InternalCompiler(comp_uns);
-		comp.compileAndRunTests();
+		try{
+			comp.compileAndRunTests();
+		}catch(RuntimeException e){
+			console.set_text("RuntimeException - Class not found"); //nicht alle runtimeexcep. abfangen, nur die eine
+			//TODO: mach was
+		}
 		return comp;
 	}
 }

@@ -48,20 +48,21 @@ public class Project {
 		duration = 0;
 		tracking = false;
 	}
-	private CompilationUnit[] listToArray(int type){
-		List<CompilationUnit> list = getCompilationUnits(type);
+	private CompilationUnit[] listToArray(int type1, int type2){
+		List<CompilationUnit> list = getCompilationUnits(type1);
+		if(type1 != type2) list.addAll(getCompilationUnits(type2));
 		CompilationUnit[] array = new CompilationUnit[list.size()];
 		for(int i=0;i<list.size();i++){
+			System.out.println(list.get(i).getClassName());
 			array[i] = list.get(i);
 		}
 		return array;
 	}
 	public void compile(){
-		Testing.compile(listToArray(CLASS));
+		Testing.compile(listToArray(CLASS, CLASS));
 	}
 	public boolean hasCompileErrors(){
-		CompilationUnit[] cus = (CompilationUnit[]) getCompilationUnits(CLASS).toArray(); 
-		return Testing.hasCompileErrors(cus);
+		return Testing.hasCompileErrors(listToArray(CLASS, CLASS));
 	}
 	
 	private List<CompilationUnit> getCompilationUnits(int type){
@@ -77,14 +78,10 @@ public class Project {
 	 * 
 	 */
 	public void test(){
-		List<CompilationUnit> cus = getCompilationUnits(CLASS);
-		cus.addAll(getCompilationUnits(TEST));
-		Testing.test((CompilationUnit[])cus.toArray());
+		Testing.test(listToArray(CLASS, TEST));
 	}
 	public boolean tests_ok(){
-		List<CompilationUnit> cus = getCompilationUnits(CLASS);
-		cus.addAll(getCompilationUnits(TEST));
-		if(Testing.tests_passed((CompilationUnit[])cus.toArray())) return true;
+		if(Testing.tests_passed(listToArray(CLASS, TEST))) return true;
 		return false;
 	}
 	public void overrideOldCode(int type){
