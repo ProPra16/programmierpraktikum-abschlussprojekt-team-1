@@ -203,8 +203,11 @@ public class Gui extends Application{
 		return grid;
 	}
 	private void updateProject(int type){
-		for(int i= 0;i<code_pane.getTabs().size();i++){
-			String content = ((TextArea) code_pane.getTabs().get(i).getContent()).getText();
+		for(int i= 0;i<code_pane.getTabs().size()-1;i++){ //-1, da der letzte der "+"-Tab ist
+			String content = "";
+			if(( code_pane.getTabs().get(i).getContent()) != null){
+				content = ((TextArea) code_pane.getTabs().get(i).getContent()).getText();
+			};
 			project.setNewTestOrClassCode(i, content,type);
 		}
 

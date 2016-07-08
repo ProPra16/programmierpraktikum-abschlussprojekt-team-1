@@ -48,9 +48,16 @@ public class Project {
 		duration = 0;
 		tracking = false;
 	}
-	
+	private CompilationUnit[] listToArray(int type){
+		List<CompilationUnit> list = getCompilationUnits(type);
+		CompilationUnit[] array = new CompilationUnit[list.size()];
+		for(int i=0;i<list.size();i++){
+			array[i] = list.get(i);
+		}
+		return array;
+	}
 	public void compile(){
-		Testing.compile((CompilationUnit[]) getCompilationUnits(CLASS).toArray());
+		Testing.compile(listToArray(CLASS));
 	}
 	public boolean hasCompileErrors(){
 		CompilationUnit[] cus = (CompilationUnit[]) getCompilationUnits(CLASS).toArray(); 
@@ -95,6 +102,7 @@ public class Project {
 	}
 
 	public void setNewTestOrClassCode(int index, String new_content, int type){ //klappt das so?
+		System.out.println(index);
 		(type == TEST ? tests : all_class).get(index).setCode(new_content);
 	}
 	public void addClass(Class klasse){
