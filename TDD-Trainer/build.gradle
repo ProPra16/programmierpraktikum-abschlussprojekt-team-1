@@ -28,7 +28,7 @@ task wrapper(type: Wrapper) {
 }
 
 task myJavadoc(type: Javadoc){
-	compile "de.hhu.stups:virtual-kata-lib:1.0.1"
+	classpath "de.hhu.stups:virtual-kata-lib:1.0.1"
 	source = sourceSets.main.java
 	options.memberLevel = JavadocMemberLevel.PRIVATE
 	destinationDir = file("./doc/")
