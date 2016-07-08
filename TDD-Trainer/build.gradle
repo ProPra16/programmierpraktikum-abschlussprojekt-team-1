@@ -20,15 +20,16 @@ repositories {
 
 dependencies {
 	testCompile "junit:junit:4.8.2"
-	classpath "de.hhu.stups:virtual-kata-lib:1.0.1"
+	compile "de.hhu.stups:virtual-kata-lib:1.0.1"
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.14'
+	gradleVersion = '2.14'
 }
 
 task myJavadoc(type: Javadoc){
-  source = sourceSets.main.java
-  options.memberLevel = JavadocMemberLevel.PRIVATE
-  destinationDir = file("./doc/")
+	compile "de.hhu.stups:virtual-kata-lib:1.0.1"
+	source = sourceSets.main.java
+	options.memberLevel = JavadocMemberLevel.PRIVATE
+	destinationDir = file("./doc/")
 }
