@@ -3,10 +3,13 @@ package gui;
 import data.Constants;
 import data.ConstantsManager;
 import data.Project;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
+import javafx.stage.Window;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
 
 /**
  * Enthält statische Methoden zum Anzeigen von im Projekt benötigten Alerts (Hinweise, Abfrage von Daten etc.)
@@ -17,21 +20,28 @@ public class AlertHandler {
 	public static final int LOAD_PROJECT = 2;
 	public static final int LOAD_TEMPLATE = 1;
 	public static final int NEW_PROJECT = 0;
-	public static int returnValue = NEW_PROJECT;
+	public static final int CLOSE = 4;
+	public static int returnValue = CLOSE;
+	public static Alert loadOrNew;
 	
 	public static int newProject_alert(){
-		Alert loadOrNew = new Alert(AlertType.CONFIRMATION);
+		loadOrNew = new Alert(AlertType.CONFIRMATION);
 		loadOrNew.setHeaderText(null);
 		loadOrNew.setContentText("Load an exercise or create a new program?");
 		ButtonType loadTemplate = new ButtonType("Load a template");
 		ButtonType loadProject = new ButtonType("Load existing project");
 		ButtonType newProject = new ButtonType("New project");
+		
+		Window window = loadOrNew.getDialogPane().getScene().getWindow();
+		window.setOnCloseRequest(event ->{
+			window.hide();
+		});
+		
 		loadOrNew.getButtonTypes().setAll(loadTemplate, loadProject, newProject);
 		loadOrNew.showAndWait().ifPresent((event) -> {
 			if(event == loadTemplate) returnValue = LOAD_TEMPLATE;
 			else if(event == loadProject) returnValue = LOAD_PROJECT;
 			else if(event == newProject) returnValue = NEW_PROJECT;
-			
 		});
 		return returnValue;
 	}
