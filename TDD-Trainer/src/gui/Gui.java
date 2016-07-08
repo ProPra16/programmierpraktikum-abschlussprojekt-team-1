@@ -37,7 +37,7 @@ public class Gui extends Application{
 	TestPane test_pane;
 	ConsolePane console_pane;
 	Button next, run, test, back, settings, fun_b;
-	Text phase1, phase2, phase3, task;
+	Text phase1, phase2, phase3;
 	/* field askForBabysteps: Variable that states if the application should
 	 * continue asking for babysteps setting. Is set to false after a correct
 	 * answer occurred.
@@ -166,8 +166,7 @@ public class Gui extends Application{
 		phase1 = new Text("Write failing Test");
 		phase2 = new Text("Write passing Code");
 		phase3 = new Text("Refactor");
-		task = new Text("");
-		grid.addColumn(1, phase1, phase2, phase3, task, compile, test, next, fun_b);
+		grid.addColumn(1, phase1, phase2, phase3, compile, test, next, fun_b);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
 		setPhaseTest();
 		fun_b.setOnAction(e->{//fun
@@ -230,7 +229,6 @@ public class Gui extends Application{
 	 */
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
-		task.setText("Write passing code.");
 		phase.next();
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
@@ -238,6 +236,7 @@ public class Gui extends Application{
 		test_pane.setDisable(true);
 		project.overrideOldCode(project.TEST);
 		test_pane.clear();
+		back.setDisable(false);
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Codephase erfolgen
@@ -246,10 +245,10 @@ public class Gui extends Application{
 
 	private void setPhaseRefactor(){
 		phase.next();
-		task.setText("Restucture and simplify your code.");
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
 		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
+		back.setDisable(true);
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen
@@ -258,13 +257,13 @@ public class Gui extends Application{
 
 	private void setPhaseTest(){
 		if(project.getBabysteps()) timer.reset();
-		task.setText("Write a failing test.");
 		phase.next();
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
 		code_pane.setEditable(true);
 		test_pane.setDisable(false);
 		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
+		back.setDisable(true);
 
 	}
 }
