@@ -1,13 +1,17 @@
 package io;
 
 import java.io.File;
-import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -17,26 +21,156 @@ import data.Class;
 import data.Code;
 import data.Project;
 import data.Test;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 
 public class XMLHandler {
+	private static File file;
+	private static boolean newFile = false;
+	
+	
 	public static void writeProject(Project project){
+		Document doc = null;
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+    	DocumentBuilder dBuilder;
+    	
+    	checkFile("./res/myTasks.xml");
+    	
+		if(newFile){
+			try {
+				dBuilder = dbFactory.newDocumentBuilder();
+				doc = dBuilder.newDocument();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Element exercises = doc.createElementNS(null,"exercises");
+			doc.appendChild(exercises);
+			
+			exercises.appendChild(createExerciseElement(project,doc,exercises));
+			
+            
+            
+            Transformer transformer;
+			try {
+				transformer = TransformerFactory.newInstance().newTransformer();
+				transformer.setOutputProperty(OutputKeys.INDENT, "yes"); 
+	            DOMSource source = new DOMSource(doc);
+	            StreamResult console = new StreamResult(file);
+	            transformer.transform(source, console);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} else {
+			try {
+				dBuilder = dbFactory.newDocumentBuilder();
+				doc = dBuilder.parse(file);
+				Element exercises = doc.getDocumentElement();
+				exercises.appendChild(createExerciseElement(project, doc, exercises));
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 Transformer transformer;
+				try {
+					transformer = TransformerFactory.newInstance().newTransformer();
+					transformer.setOutputProperty(OutputKeys.INDENT, "yes"); 
+		            DOMSource source = new DOMSource(doc);
+		            StreamResult console = new StreamResult(file);
+		            transformer.transform(source, console);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+		}
 		
 	}
 	
-	private static boolean checkFile(File file){
-		if (file != null) {
-			try {
-				file.createNewFile();
-				} catch (IOException e) {
-					System.err.println("Error creating " + file.toString());
-					}
-			if (file.isFile() && file.canWrite() && file.canRead())
-				return true;
-			}
-		return false;
+	/**
+	 * Es wird ein neues exercise Element erstellt, indem das gesamte Project gespeichert wird und dieses
+	 * Element wird zurück gegeben.
+	 * @param project
+	 * @param doc
+	 * @param exercises
+	 * @return
+	 */
+	private static Element createExerciseElement(Project project, Document doc, Element exercises){
+		Element exercise = doc.createElement("exercise");
+		exercise.setAttribute("name", project.getName());
+		
+		// füge description hinzu.
+		Element description = doc.createElement("description");
+		description.appendChild(doc.createTextNode(project.getDescription()));
+		exercise.appendChild(description);
+		
+		// füge classes hinzu.
+		Element classes = doc.createElement("classes");
+		exercise.appendChild(classes);
+		List<Code> klassen = project.getClassList();
+		for(int i = 0; i < klassen.size(); i++ ){
+			Element klasse = doc.createElement("class");
+			klasse.setAttribute("name",klassen.get(i).getName());
+			klasse.appendChild(doc.createTextNode(klassen.get(i).getContent()));
+			classes.appendChild(klasse);
 		}
+		
+		// füge tests hinzu.
+		Element tests = doc.createElement("tests");
+		exercise.appendChild(tests);
+		List<Code> testsList = project.getTestList();
+		for(int i = 0; i < testsList.size(); i++ ){
+			Element test = doc.createElement("test");
+			test.setAttribute("name",testsList.get(i).getName());
+			test.appendChild(doc.createTextNode(((Test)testsList.get(i)).getCode()));
+			tests.appendChild(test);
+		}
+		
+		// fügt config hinzu.
+		Element config = doc.createElement("config");
+		Element babysteps = doc.createElement("babysteps");
+		if(project.getBabysteps()){
+			babysteps.setAttribute("time", ""+project.getDuration());
+			babysteps.setAttribute("value", "True");
+		} else {
+			babysteps.setAttribute("value", "False");
+		}
+		config.appendChild(babysteps);
+		
+		Element timetracking = doc.createElement("timetracking");
+		if(project.getTracking()){
+			timetracking.setAttribute("value", "True");
+
+		} else {
+			timetracking.setAttribute("value", "False");
+
+		}
+		config.appendChild(timetracking);
+		
+		exercise.appendChild(config);
+		
+		
+		return exercise;
+	}
+	
+	/**
+	 * Überprüft ob die Datei mit dem mitgegebenen source, ob diese existiert und wenn sie nicht existiert,
+	 * dann wird die datei erstellt.
+	 * @param source
+	 */
+	public static void checkFile(String source){
+		file = new File(source);
+	      if(!file.exists()){
+	        try {
+	          PrintWriter creator = new PrintWriter("./res/myTasks.xml");
+	          creator.close();
+	          newFile = true;
+	        }
+	        catch (Exception e) {
+	          System.out.println("Datei konnte nicht erstellt werden");
+	        }
+	      }
+	}
 	
 	/**
 	 * Liest ein Element einer XML-Datei nach "class", "test", "description" usw aus 
