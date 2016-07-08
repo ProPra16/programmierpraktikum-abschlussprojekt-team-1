@@ -20,7 +20,8 @@ repositories {
 
 dependencies {
 	testCompile "junit:junit:4.8.2"
-    compile "de.hhu.stups:virtual-kata-lib:1.0.1"
+	compile "de.hhu.stups:virtual-kata-lib:1.0.1"
+	javadoc "de.hhu.stups:virtual-kata-lib:1.0.1"
 }
 
 task wrapper(type: Wrapper) {
