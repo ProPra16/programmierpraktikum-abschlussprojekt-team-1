@@ -1,11 +1,14 @@
 # TDD-Trainer of group ( ͡° ͜ʖ ͡°)
-![Travis status image](https://travis-ci.org/ProPra16/programmierpraktikum-abschlussprojekt-team-1.svg?branch=master)
+[![Travis status image](https://travis-ci.org/ProPra16/programmierpraktikum-abschlussprojekt-team-1.svg?branch=master)](https://travis-ci.org/ProPra16/programmierpraktikum-abschlussprojekt-team-1)
 
 *This the final project for pracital programming course at HHU university, 2016.*
 
 An Application that teaches computer science students to use "test-driven development" in java development. The user has the ability to write a failing JUnit test for his application, get them executed, and write code until all tests are passing. When build is passing, the user should improve his code for simplicity and correctness. At any time, a visualisation shows the user in which stage he currently is.
 
 For more information on test-driven development, see [the Wikipedia article](https://en.wikipedia.org/wiki/Test-driven_development]) or [this blog post (German)](http://www.frankwestphal.de/TestgetriebeneEntwicklung.html).
+
+##Travis
+This project is automatically built using the travis-CI. You can check the build status using the status image above or on [this project's travis page](https://travis-ci.org/ProPra16/programmierpraktikum-abschlussprojekt-team-1).
 
 ## Gradle
 For information on how to build with gradle, see [gradle-HOWTO.md](gradle-HOWTO.md)

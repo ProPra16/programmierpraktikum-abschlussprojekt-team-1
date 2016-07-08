@@ -1,9 +1,11 @@
 package gui;
 
 import java.util.ArrayList;
+import data.Class;
 import java.util.List;
 import java.util.Optional;
 
+import data.ConstantsManager;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
@@ -40,6 +42,7 @@ public class CodePane extends TabPane{
 				result.ifPresent(name -> {
 					getTabs().remove(plusTabIndex);
 					addTab(name);
+					ConstantsManager.getConstants().getProject().addClass(new Class("",name));
 					addPlus();
 				});
 			}

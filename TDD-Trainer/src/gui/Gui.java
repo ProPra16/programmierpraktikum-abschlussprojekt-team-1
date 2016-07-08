@@ -229,8 +229,11 @@ public class Gui extends Application{
 		return grid;
 	}
 	private void updateProject(int type){
-		for(int i= 0;i<code_pane.getTabs().size();i++){
-			String content = ((TextArea) code_pane.getTabs().get(i).getContent()).getText();
+		for(int i= 0;i<code_pane.getTabs().size()-1;i++){ //-1, da der letzte der "+"-Tab ist
+			String content = "";
+			if(( code_pane.getTabs().get(i).getContent()) != null){
+				content = ((TextArea) code_pane.getTabs().get(i).getContent()).getText();
+			};
 			project.setNewTestOrClassCode(i, content,type);
 		}
 
@@ -255,7 +258,6 @@ public class Gui extends Application{
 	 */
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
-		task.setText("Write passing code.");
 		phase.next();
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
@@ -263,6 +265,7 @@ public class Gui extends Application{
 		test_pane.setDisable(true);
 		project.overrideOldCode(project.TEST);
 		test_pane.clear();
+		back.setDisable(false);
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Codephase erfolgen
@@ -271,10 +274,10 @@ public class Gui extends Application{
 
 	private void setPhaseRefactor(){
 		phase.next();
-		task.setText("Restucture and simplify your code.");
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
 		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
+		back.setDisable(true);
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen
@@ -283,13 +286,13 @@ public class Gui extends Application{
 
 	private void setPhaseTest(){
 		if(project.getBabysteps()) timer.reset();
-		task.setText("Write a failing test.");
 		phase.next();
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
 		code_pane.setEditable(true);
 		test_pane.setDisable(false);
 		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
+		back.setDisable(true);
 
 	}
 }
