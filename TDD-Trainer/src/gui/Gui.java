@@ -4,9 +4,6 @@ import data.ConstantsManager;
 import data.Project;
 import data.Test;
 import io.FunPictures;
-import io.XMLHandler;
-
-import java.io.File;
 
 //import io.XMLHandler;
 import data.Code;
@@ -14,13 +11,11 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -41,8 +36,8 @@ public class Gui extends Application{
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
-	Button next, run, test, back, settings, fun_b, save;
-	Text phase1, phase2, phase3, task;
+	Button next, run, test, back, settings, fun_b;
+	Text phase1, phase2, phase3;
 	/* field askForBabysteps: Variable that states if the application should
 	 * continue asking for babysteps setting. Is set to false after a correct
 	 * answer occurred.
@@ -71,7 +66,6 @@ public class Gui extends Application{
 			ProjectSettings projectSettings = new ProjectSettings();//TODO:lukaaas -  muss das dahin? oder wird das auch so gespeichert? :)
 			project = projectSettings.getProject();
 			ConstantsManager.getConstants().setProject(project);
-			
 			stage.setScene(main_scene());
 			fillWithContent(ConstantsManager.getConstants().getProject());
 			stage.show();
@@ -85,24 +79,10 @@ public class Gui extends Application{
 				stage.setScene(main_scene());
 				fillWithContent(ConstantsManager.getConstants().getProject());
 				stage.show();
+				System.out.println(project.getTestList().get(0).getContent());
 			}
 			break;
 		case AlertHandler.LOAD_PROJECT:
-			File file = new File("./res/myTasks.xml");
-			if(file.exists()){
-				Catalog catalog1 = new Catalog("./res/myTasks.xml");
-				catalog1.showAndWait();
-				project = catalog1.getProject();
-				XMLHandler.writeProject(project);
-			} else {
-				//TODO show alert
-				Alert alert = new Alert(AlertType.ERROR);
-		        alert.setTitle("Error");
-		        alert.setHeaderText("Es wurden noch nichts gespeichert"); //TODO in english please 
-		        alert.setContentText("Bitte speichern sie zuerst ein Projekt!");
-		        alert.showAndWait();
-				start(stage);
-			}
 			break;
 		}
 
@@ -182,13 +162,11 @@ public class Gui extends Application{
 		next = new Button("next");
 		back = new Button("back");
 		fun_b = new Button("fun"); //fun
-		save = new Button("save");
 		compile = new Button("compile");
 		phase1 = new Text("Write failing Test");
 		phase2 = new Text("Write passing Code");
 		phase3 = new Text("Refactor");
-		task = new Text("");
-		grid.addColumn(1, phase1, phase2, phase3, task, compile, test, next,save , fun_b);
+		grid.addColumn(1, phase1, phase2, phase3, compile, test, next, fun_b);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
 		setPhaseTest();
 		fun_b.setOnAction(e->{//fun
@@ -207,10 +185,6 @@ public class Gui extends Application{
 		/**
 		 * 
 		 */
-		
-		save.setOnAction(e ->{
-			XMLHandler.writeProject(project);
-		});
 		back.setOnAction(e->{
 			phase.back();
 			project.backToOldCode(project.CLASS);
@@ -218,7 +192,7 @@ public class Gui extends Application{
 		next.setOnAction(e->{
 			if(phase.get()==Phase.TESTS){
 				updateProject(project.TEST);
-				if(!project.tests_ok() || project.hasCompileErrors()) setPhaseCode();
+				if(!project.tests_ok() || project.hasCompileErrors()) setPhaseCode(); //TODO: testbedingt - muss weg
 			}
 			else{
 				updateProject(project.CLASS);
@@ -276,7 +250,7 @@ public class Gui extends Application{
 		phase.next();
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
-		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
+		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
 	}
 	
@@ -291,7 +265,7 @@ public class Gui extends Application{
 		phase1.setFill(Color.GREEN);
 		code_pane.setEditable(true);
 		test_pane.setDisable(false);
-		project.overrideOldCode(project.CLASS);//TODO: sachen aus gui einlesen
+		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
 
 	}

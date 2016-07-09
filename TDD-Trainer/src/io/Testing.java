@@ -25,7 +25,7 @@ public class Testing {
 				Collection<CompileError> errors = comp_res.getCompilerErrorsForCompilationUnit(cu);
 				print_errors_to_console(errors);
 			}
-		}
+		}else console.set_text("No Compilationerrors");
 	}
 	
 	private static void print_errors_to_console(Collection<CompileError> errors){ //gibt compileerrors auf console aus
@@ -67,7 +67,7 @@ public class Testing {
 		try{
 			comp.compileAndRunTests();
 		}catch(RuntimeException e){
-			console.set_text("RuntimeException - Class not found"); //nicht alle runtimeexcep. abfangen, nur die eine
+			console.set_text("RuntimeException - Class not found"); //TODO: nicht alle runtimeexcep. abfangen, nur die eine
 			//TODO: mach was
 		}
 		return comp;

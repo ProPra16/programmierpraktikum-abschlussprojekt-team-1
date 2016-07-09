@@ -53,7 +53,10 @@ public class Project {
 		if(type1 != type2) list.addAll(getCompilationUnits(type2));
 		CompilationUnit[] array = new CompilationUnit[list.size()];
 		for(int i=0;i<list.size();i++){
-			System.out.println(list.get(i).getClassName());
+			System.out.println(list.get(i).getClassName());//TODO: zum testausgaben finden
+			System.out.println(list.get(i).getClassContent());
+			System.out.println(list.get(i).isATest()+" test");
+			System.out.println();
 			array[i] = list.get(i);
 		}
 		return array;
@@ -99,7 +102,6 @@ public class Project {
 	}
 
 	public void setNewTestOrClassCode(int index, String new_content, int type){ //klappt das so?
-		System.out.println(index);
 		(type == TEST ? tests : all_class).get(index).setCode(new_content);
 	}
 	public void addClass(Class klasse){

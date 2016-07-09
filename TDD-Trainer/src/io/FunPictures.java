@@ -40,7 +40,6 @@ public class FunPictures {
 		fun.show();
 		fun.setOnCloseRequest(e->{
 			showRandom();
-			showRandom();
 		});
 	}
 	private int random(){
