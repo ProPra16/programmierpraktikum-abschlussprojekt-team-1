@@ -79,7 +79,6 @@ public class Gui extends Application{
 				stage.setScene(main_scene());
 				fillWithContent(ConstantsManager.getConstants().getProject());
 				stage.show();
-				System.out.println(project.getTestList().get(0).getContent());
 			}
 			break;
 		case AlertHandler.LOAD_PROJECT:
@@ -174,12 +173,12 @@ public class Gui extends Application{
 		});
 
 		compile.setOnAction(e->{
-			updateProject(project.CLASS);
+			updateClassProject();
 			project.compile();
 		});
 		test.setOnAction(e->{
-			updateProject(project.CLASS);
-			updateProject(project.TEST);
+			updateClassProject();
+			updateTestProject();
 			project.test();
 		});
 		/**
@@ -190,28 +189,58 @@ public class Gui extends Application{
 			project.backToOldCode(project.CLASS);
 		});
 		next.setOnAction(e->{
+			System.out.println(phase.get());
 			if(phase.get()==Phase.TESTS){
-				updateProject(project.TEST);
-				if(!project.tests_ok() || project.hasCompileErrors()) setPhaseCode(); //TODO: testbedingt - muss weg
+				System.out.println("test-phase");
+				updateTestProject();
+				if(project.hasCompileErrors()){
+					System.out.println("test-phase-comp");
+					phase.next();
+					setPhaseCode();
+				}
+				else if(!project.tests_ok()) {
+					System.out.println("test-phase-fail");
+					phase.next();
+					setPhaseCode();
+				}
 			}
 			else{
-				updateProject(project.CLASS);
-				if(phase.get() == Phase.CODE && project.tests_ok()) setPhaseRefactor();
-				else if(phase.get() == Phase.REFACTOR && project.tests_ok())setPhaseTest();
+				updateClassProject();
+				if(phase.get() == Phase.CODE && project.tests_ok()){
+					phase.next();
+					setPhaseRefactor();
+				}
+				else if(phase.get() == Phase.REFACTOR && project.tests_ok()){
+					phase.next();
+					setPhaseTest();
+				}
 			}
 		});
 		return grid;
 	}
-	private void updateProject(int type){
+	private void updateTestProject(){
+		String content = "";
+		System.out.println("tabzahl "+code_pane.getTabs().size());
 		for(int i= 0;i<code_pane.getTabs().size()-1;i++){ //-1, da der letzte der "+"-Tab ist
-			String content = "";
+			System.out.println("updatecounter "+i);
 			if(( code_pane.getTabs().get(i).getContent()) != null){
 				content = ((TextArea) code_pane.getTabs().get(i).getContent()).getText();
 			};
-			project.setNewTestOrClassCode(i, content,type);
+			project.setNewTestOrClassCode(i, content,project.TEST);
 		}
 
 	}
+	private void updateClassProject(){
+		String content = "";
+		for(int i= 0;i<code_pane.getTabs().size()-1;i++){ //-1, da der letzte der "+"-Tab ist
+			if(( code_pane.getTabs().get(i).getContent()) != null){
+				content = ((TextArea) code_pane.getTabs().get(i).getContent()).getText();
+			};
+			project.setNewTestOrClassCode(i, content,project.CLASS);
+		}
+
+	}
+
 	/** Zeigt die im Project gespeicherten Inhalte im Code- und TestPane an.
 	 * @param project: das aktuelle  Projekt
 	 */
@@ -232,7 +261,6 @@ public class Gui extends Application{
 	 */
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
-		phase.next();
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
 		code_pane.setEditable(false);
@@ -247,7 +275,6 @@ public class Gui extends Application{
 	 */
 
 	private void setPhaseRefactor(){
-		phase.next();
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
 		project.overrideOldCode(project.CLASS);
@@ -260,7 +287,6 @@ public class Gui extends Application{
 
 	private void setPhaseTest(){
 		if(project.getBabysteps()) timer.reset();
-		phase.next();
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
 		code_pane.setEditable(true);

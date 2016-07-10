@@ -25,7 +25,7 @@ public class Testing {
 				Collection<CompileError> errors = comp_res.getCompilerErrorsForCompilationUnit(cu);
 				print_errors_to_console(errors);
 			}
-		}else console.set_text("No Compilationerrors");
+		}else console.set_textln("No Compilationerrors");
 	}
 	
 	private static void print_errors_to_console(Collection<CompileError> errors){ //gibt compileerrors auf console aus
@@ -35,7 +35,7 @@ public class Testing {
 		}
 	}
 	
-	public static boolean hasCompileErrors(CompilationUnit[] comp_uns){ //fuer next-button
+	public static boolean testHasCompileErrors(CompilationUnit[] comp_uns){ //fuer next-button
 		JavaStringCompiler comp = getJSC(comp_uns);
 		CompilerResult comp_res = comp.getCompilerResult();
 		return comp_res.hasCompileErrors();
@@ -44,7 +44,7 @@ public class Testing {
 	public static boolean tests_passed(CompilationUnit[] comp_uns){ //fuer next-button
 		JavaStringCompiler comp = getJSC(comp_uns);
 		TestResult test_res = comp.getTestResult();
-		return(test_res.getNumberOfFailedTests() ==0);
+		return(test_res.getNumberOfFailedTests()+test_res.getNumberOfIgnoredTests() ==0);
 	}
 	
 	public static void test(CompilationUnit[] comp_uns){ //gibt testergebnisse auf console aus
@@ -55,10 +55,10 @@ public class Testing {
 		Collection<TestFailure> fails = test_res.getTestFailures();
 		console.set_text("OK: "+tests_ok+" FAIL: "+tests_fail);
 		for(TestFailure fail: fails){  //TODO: gucken was da ausgegeben wird und dann anpassen (von der formatierung her)
-			console.set_text(fail.getTestClassName());
-			console.set_text(fail.getMethodName());
-			console.set_text(fail.getMessage());
-			console.set_text(fail.getExceptionStackTrace());
+			console.set_textln(fail.getTestClassName());
+			console.set_textln(fail.getMethodName());
+			console.set_textln(fail.getMessage());
+			console.set_textln(fail.getExceptionStackTrace());
 		}
 	}
 
@@ -67,7 +67,7 @@ public class Testing {
 		try{
 			comp.compileAndRunTests();
 		}catch(RuntimeException e){
-			console.set_text("RuntimeException - Class not found"); //TODO: nicht alle runtimeexcep. abfangen, nur die eine
+			console.set_textln("RuntimeException - Class not found"); //TODO: nicht alle runtimeexcep. abfangen, nur die eine
 			//TODO: mach was
 		}
 		return comp;

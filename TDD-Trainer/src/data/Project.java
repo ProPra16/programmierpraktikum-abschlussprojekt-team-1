@@ -15,6 +15,7 @@ public class Project {
 	private boolean babysteps;
 	private int duration;
 	private boolean tracking;
+	private boolean first_class = true;
 	
 	/**
 	 * 
@@ -53,9 +54,6 @@ public class Project {
 		if(type1 != type2) list.addAll(getCompilationUnits(type2));
 		CompilationUnit[] array = new CompilationUnit[list.size()];
 		for(int i=0;i<list.size();i++){
-			System.out.println(list.get(i).getClassName());//TODO: zum testausgaben finden
-			System.out.println(list.get(i).getClassContent());
-			System.out.println(list.get(i).isATest()+" test");
 			System.out.println();
 			array[i] = list.get(i);
 		}
@@ -63,9 +61,10 @@ public class Project {
 	}
 	public void compile(){
 		Testing.compile(listToArray(CLASS, CLASS));
+		
 	}
 	public boolean hasCompileErrors(){
-		return Testing.hasCompileErrors(listToArray(CLASS, CLASS));
+		return Testing.testHasCompileErrors(listToArray(TEST,TEST));
 	}
 	
 	private List<CompilationUnit> getCompilationUnits(int type){
@@ -102,10 +101,17 @@ public class Project {
 	}
 
 	public void setNewTestOrClassCode(int index, String new_content, int type){ //klappt das so?
+		System.out.println("classlistsize: "+all_class.size());
+		System.out.println("testlistsize: "+tests.size());
 		(type == TEST ? tests : all_class).get(index).setCode(new_content);
 	}
 	public void addClass(Class klasse){
 		all_class.add(klasse);
+		if(first_class){
+			String name = klasse.getName();
+			String head = "public class "+name+"Test {";
+			tests.add(new Test(klasse.getName()+"Test",head));
+		}
 	}
 	
 	public List<Code> getClassList(){

@@ -2,16 +2,18 @@ package data;
 
 import vk.core.api.CompilationUnit;
 
-public class Test implements Code{ 
+public class Test implements Code{
 	private String code;
 	private String new_test;
 	private String name;
 	private final String code_end = "\n}";//TODO: wie ganau sachen dranhaengen? 
 	
 	public Test(String name, String code){
-		this.name = name;
+		code = "import static org.junit.Assert.*\nimport org.junit.Test;";
+		this.name = this.name+name;
 		this.code = code;
 		new_test = "";
+		System.out.println(code+code_end);
 	}
 	public String getContent(){
 		return code+new_test+code_end;

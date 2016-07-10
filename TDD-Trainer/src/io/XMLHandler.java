@@ -189,7 +189,10 @@ public class XMLHandler {
     	NodeList testList = element.getElementsByTagName("test");
     	List<Code> tests = new ArrayList<Code>();
     	for(int i = 0; i < testList.getLength(); i++){
-    		Test test = new Test((String)(((Element)testList.item(i)).getAttribute("name")),testList.item(i).getChildNodes().item(0).getNodeValue());
+    		String content = testList.item(i).getChildNodes().item(0).getNodeValue();
+    		content.trim();
+    		content = content.substring(0, content.length()-2); //entfernt "}" um anhaengen von tests zu ermoeglichen
+    		Test test = new Test((String)(((Element)testList.item(i)).getAttribute("name")), content);
     		tests.add(test);
     	}
     	

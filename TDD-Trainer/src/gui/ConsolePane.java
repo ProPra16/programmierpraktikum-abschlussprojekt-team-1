@@ -24,7 +24,10 @@ public class ConsolePane extends GridPane{
 	public void set_text(String content){
 		text.appendText(content);
 	}
-	
+	public void set_textln(String content){
+		text.appendText(content+"\n");
+	}
+
 	public void clear(){
 		text.clear();
 	}
