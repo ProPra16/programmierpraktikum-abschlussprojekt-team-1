@@ -249,15 +249,20 @@ public class Gui extends Application{
 			code_pane.addTabWithContent(klasse.getName(), klasse.getContent());
 		}
 		code_pane.run();
-		if(project.getTestList().size() != 0){
-			test_pane.setText(((Test)project.getTestList().get(0)).getCode());//TODO: nicht dauerhaft 0...
+		if(project.getTestList().size() == 0){
+			project.addTest(new Test(project.getName()));//TODO: macht das katalog einlesen kaputt?
 		}
+		test_pane.setText(((Test)project.getTestList().get(0)).getContent());//TODO: nicht dauerhaft 0...
 		code_pane.setEditable(false);
+		System.out.println(project.getTestList().get(0).getContent());
 		
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die TestPhase erfolgen
-	 * (aendert Infotext & Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas)
+	 * 
+	 * (aendert Infotext & Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas,
+	 * aktualisiert Project)
+	 * 
 	 */
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();

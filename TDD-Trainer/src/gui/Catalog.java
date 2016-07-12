@@ -270,7 +270,7 @@ public class Catalog extends Stage{
 		hilfe = "";
 		for(int i = 0; i < test.size(); i++){
     		hilfe = hilfe + test.get(i).getName() + "\n";
-    		hilfe = hilfe + ((Test)test.get(i)).getCode() + "\n\n";
+    		hilfe = hilfe + test.get(i).getContent() + "\n\n";
     	}
 		tests.setText(hilfe);
 		

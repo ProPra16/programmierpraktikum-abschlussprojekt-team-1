@@ -14,18 +14,15 @@ public class Test implements Code{
 		new_test = "";
 	}
 	public Test(String name){
-		code = "import static org.junit.Assert.*\n"
-				+ "import org.junit.Test;\n"
-				+ "	public class "+name+"Test{";
 		this.name = name;
+		code = "import static org.junit.Assert.*\n"
+				+ "import org.junit.Test;"
+				+ "\n	public class "+name+"Test{";
 		new_test = "";
 
 	}
 	public String getContent(){
 		return code+new_test+code_end;
-	}
-	public String getCode(){
-		return code;
 	}
 	public String getName(){
 		return name;

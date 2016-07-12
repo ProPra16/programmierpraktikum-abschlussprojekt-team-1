@@ -15,7 +15,6 @@ public class Project {
 	private boolean babysteps;
 	private int duration;
 	private boolean tracking;
-	private boolean first_class = true;
 	
 	/**
 	 * 
@@ -107,11 +106,6 @@ public class Project {
 	}
 	public void addClass(Class klasse){
 		all_class.add(klasse);
-		if(first_class){
-			String name = klasse.getName();
-			String head = "public class "+name+"Test {";
-			tests.add(new Test(klasse.getName()+"Test",head));
-		}
 	}
 	
 	public List<Code> getClassList(){

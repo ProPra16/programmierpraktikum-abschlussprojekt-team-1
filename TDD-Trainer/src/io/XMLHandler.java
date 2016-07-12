@@ -122,7 +122,7 @@ public class XMLHandler {
 		for(int i = 0; i < testsList.size(); i++ ){
 			Element test = doc.createElement("test");
 			test.setAttribute("name",testsList.get(i).getName());
-			test.appendChild(doc.createTextNode(((Test)testsList.get(i)).getCode()));
+			test.appendChild(doc.createTextNode(testsList.get(i).getContent()));
 			tests.appendChild(test);
 		}
 		
