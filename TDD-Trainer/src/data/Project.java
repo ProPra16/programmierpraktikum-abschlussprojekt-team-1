@@ -81,8 +81,7 @@ public class Project {
 		Testing.test(listToArray(CLASS, TEST));
 	}
 	public boolean tests_ok(){
-		if(Testing.tests_passed(listToArray(CLASS, TEST))) return true;
-		return false;
+		return Testing.tests_passed(listToArray(CLASS, TEST));
 	}
 	public void overrideOldCode(int type){
 		List<Code> code = (type == TEST ? tests : all_class);

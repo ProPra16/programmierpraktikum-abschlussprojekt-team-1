@@ -204,15 +204,13 @@ public class Gui extends Application{
 					setPhaseCode();
 				}
 			}
-			else if(phase.get()==Phase.TESTS && test.getNewTestCount()==1){
-				if(phase.get() == Phase.CODE && project.tests_ok()){
-					phase.next();
-					setPhaseRefactor();
-				}
-				else if(phase.get() == Phase.REFACTOR && project.tests_ok()){
-					phase.next();
-					setPhaseTest();
-				}
+			else if(phase.get() == Phase.CODE && project.tests_ok()){
+				phase.next();
+				setPhaseRefactor();
+			}
+			else if(phase.get() == Phase.REFACTOR && project.tests_ok()){
+				phase.next();
+				setPhaseTest();
 			}
 		});
 		return grid;
