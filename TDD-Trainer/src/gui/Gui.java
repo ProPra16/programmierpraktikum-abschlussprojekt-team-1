@@ -270,8 +270,8 @@ public class Gui extends Application{
 		if(project.getBabysteps()) timer.reset();
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
-		code_pane.setEditable(false);
-		test_pane.setDisable(true);
+		code_pane.setEditable(true);
+		test_pane.setEditable(false);
 		project.overrideOldCode(project.TEST);
 		test_pane.clear();
 		back.setDisable(false);
@@ -296,8 +296,8 @@ public class Gui extends Application{
 		if(project.getBabysteps()) timer.reset();
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
-		code_pane.setEditable(true);
-		test_pane.setDisable(false);
+		code_pane.setEditable(false);
+		test_pane.setEditable(true);
 		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
 
