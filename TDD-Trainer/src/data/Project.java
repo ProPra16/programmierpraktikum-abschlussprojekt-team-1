@@ -63,8 +63,8 @@ public class Project {
 		Testing.compile(listToArray(CLASS, CLASS));
 		
 	}
-	public boolean hasCompileErrors(){
-		return Testing.testHasCompileErrors(listToArray(TEST,TEST));
+	public boolean testHasCompileErrors(){
+		return Testing.hasCompileErrors(listToArray(TEST,TEST));
 	}
 	
 	private List<CompilationUnit> getCompilationUnits(int type){

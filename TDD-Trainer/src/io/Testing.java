@@ -35,7 +35,7 @@ public class Testing {
 		}
 	}
 	
-	public static boolean testHasCompileErrors(CompilationUnit[] comp_uns){ //fuer next-button
+	public static boolean hasCompileErrors(CompilationUnit[] comp_uns){ //fuer next-button
 		JavaStringCompiler comp = getJSC(comp_uns);
 		CompilerResult comp_res = comp.getCompilerResult();
 		return comp_res.hasCompileErrors();
@@ -68,7 +68,6 @@ public class Testing {
 			comp.compileAndRunTests();
 		}catch(RuntimeException e){
 			console.set_textln("RuntimeException - Class not found"); //TODO: nicht alle runtimeexcep. abfangen, nur die eine
-			//TODO: mach was
 		}
 		return comp;
 	}

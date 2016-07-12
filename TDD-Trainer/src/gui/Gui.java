@@ -38,7 +38,7 @@ public class Gui extends Application{
 	ConsolePane console_pane;
 	Button next, run, test, back, settings, fun_b;
 	Text phase1, phase2, phase3;
-	/* field askForBabysteps: Variable that states if the application should
+	/** field askForBabysteps: Variable that states if the application should
 	 * continue asking for babysteps setting. Is set to false after a correct
 	 * answer occurred.
 	 */
@@ -193,8 +193,8 @@ public class Gui extends Application{
 			if(phase.get()==Phase.TESTS){
 				System.out.println("test-phase");
 				updateTestProject();
-				if(project.hasCompileErrors()){
-					System.out.println("test-phase-comp");
+				if(project.testHasCompileErrors()){
+					System.out.println("test-phase-compfail");
 					phase.next();
 					setPhaseCode();
 				}
