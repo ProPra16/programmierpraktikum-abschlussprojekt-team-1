@@ -34,19 +34,28 @@ public class CodePane extends TabPane{
 	private void clickOnPlus(){
 		if(editable || first){
 			if(plusTab.isSelected()){
-				TextInputDialog dialog = new TextInputDialog();
-				dialog.setTitle("Class name Input Dialog");
-				dialog.setHeaderText("Select a class name");
-				dialog.setContentText("Please enter the class name here:");
-				Optional<String> result = dialog.showAndWait();
-				result.ifPresent(name -> {
-					getTabs().remove(plusTabIndex);
-					addTab(name);
-					ConstantsManager.getConstants().getProject().addClass(new Class("",name));
-					addPlus();
-				});
+				dialog("");
 			}
 		}
+	}
+	
+	private void dialog(String s){
+		TextInputDialog dialog = new TextInputDialog();
+		dialog.setTitle("Class name Input Dialog");
+		dialog.setHeaderText("Select a class name" + s);
+		dialog.setContentText("Please enter the class name here:");
+		Optional<String> result = dialog.showAndWait();
+		result.ifPresent(name -> {
+			if(!(name.contains(" ") || name.equals(""))){
+				getTabs().remove(plusTabIndex);
+				addTab(name);
+				ConstantsManager.getConstants().getProject().addClass(new Class("",name));
+				addPlus();
+			} else {
+				if(name.contains(" ")) dialog("\nDon't use whitespace!");
+				if(name.equals("")) dialog("");
+			}
+		});
 	}
 	
 	public void addTab(String name){
