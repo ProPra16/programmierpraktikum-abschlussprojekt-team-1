@@ -16,7 +16,6 @@ import javafx.scene.control.TextInputDialog;
  * dem Programmcode zu beherbergen.
  *
  */
-
 public class CodePane extends TabPane{
 	Tab plusTab;
 	int plusTabIndex = 0;
@@ -25,9 +24,8 @@ public class CodePane extends TabPane{
 	
 	public CodePane(){
 		super();
-		//addPlus(); TODO mach nicht vergessen sagt Rebecca :D
-		
 	}
+	
 	/**
 	 * 
 	 */
@@ -72,6 +70,7 @@ public class CodePane extends TabPane{
 		if(plusTabIndex > 1) getTabs().get(0).setClosable(true);
 		if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
 	}
+	
 	/**
 	 * 
 	 * @param className Der Name der Klasse die hinzugefuegt wird.
@@ -109,7 +108,7 @@ public class CodePane extends TabPane{
 	public void setEditable(boolean edit){
 		for(int i = 0;i<getTabs().size()-1; i++){
 			((TextArea)getTabs().get(i).getContent()).setEditable(edit);
-			getTabs().get(i).setClosable(edit);
+			if(getTabs().size() > 2) getTabs().get(i).setClosable(edit);
 			editable = edit;
 		}
 	}
@@ -117,7 +116,6 @@ public class CodePane extends TabPane{
 	/**
 	 * Setter der TextArea-Inhalte des CodePanes
 	 */
-
 	public void setText(String[] text_neu){
 		for(int i = 0;i<getTabs().size()-1; i++){
 			((TextArea)getTabs().get(i).getContent()).setText(text_neu[i]);
@@ -128,13 +126,11 @@ public class CodePane extends TabPane{
 	 * Getter der TextArea-Inhalte des CodePanes
 	 * @return Gibt eine String-Liste mit allen Code-Strings zurueck.
 	 */
-	
 	public List<String> getText(){
 		List<String> list = new ArrayList<String>();
 		for(int i = 0;i<getTabs().size()-1; i++){
 			list.add(((TextArea)getTabs().get(i).getContent()).getText());
 		}
 		return list;
-
 	}
 }
