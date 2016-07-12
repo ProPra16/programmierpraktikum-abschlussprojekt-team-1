@@ -189,16 +189,18 @@ public class Gui extends Application{
 			project.backToOldCode(project.CLASS);
 		});
 		next.setOnAction(e->{
-			System.out.println(phase.get());
+			System.out.println("phase: "+phase.get());
 			if(phase.get()==Phase.TESTS){
 				System.out.println("test-phase");
 				updateTestProject();
-				if(project.testHasCompileErrors()){
+				Test test = ((Test)(project.getTestList().get(0)));
+				if(project.testHasCompileErrors() 
+					&& test.getNewTestCount()==1){
 					System.out.println("test-phase-compfail");
 					phase.next();
 					setPhaseCode();
 				}
-				else if(!project.tests_ok()) {
+				else if(!project.tests_ok() && test.getNewTestCount()==1) {
 					System.out.println("test-phase-fail");
 					phase.next();
 					setPhaseCode();

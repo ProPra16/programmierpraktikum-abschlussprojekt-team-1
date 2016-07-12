@@ -40,4 +40,7 @@ public class Test implements Code{
 		code = code+new_test;
 		new_test = "";
 	}
+	public int getNewTestCount(){
+		return (new_test.split("@Test").length-1);
+	}
 }
