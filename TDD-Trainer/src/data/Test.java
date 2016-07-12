@@ -14,10 +14,10 @@ public class Test implements Code{
 		new_test = "";
 	}
 	public Test(String name){
-		this.name = name;
-		code = "import static org.junit.Assert.*\n"
+		this.name = name+"Test";
+		code = "import static org.junit.Assert.*;\n"
 				+ "import org.junit.Test;"
-				+ "\n	public class "+name+"Test{";
+				+ "\n\npublic class "+name+"Test{";
 		new_test = "";
 
 	}

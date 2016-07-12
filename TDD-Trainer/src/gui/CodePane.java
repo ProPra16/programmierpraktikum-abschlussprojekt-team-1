@@ -44,14 +44,17 @@ public class CodePane extends TabPane{
 		dialog.setContentText("Please enter the class name here:");
 		Optional<String> result = dialog.showAndWait();
 		result.ifPresent(name -> {
-			if(!(name.contains(" ") || name.equals(""))){
+			if(!(name.contains(" ") || name.equals("")) && Character.isUpperCase(name.charAt(0))){
 				getTabs().remove(plusTabIndex);
-				addTab(name);
-				ConstantsManager.getConstants().getProject().addClass(new Class("",name));
+				String code = "public class "+ name + "{\n\n}";
+				addTabWithContent(name,code);
+				ConstantsManager.getConstants().getProject().addClass(new Class(code,name));
 				addPlus();
 			} else {
 				if(name.contains(" ")) dialog("\nDon't use whitespace!");
 				if(name.equals("")) dialog("");
+				if(Character.isLowerCase(name.charAt(0))) dialog("\nwith a large initial letter!");
+				
 			}
 		});
 	}
@@ -76,7 +79,7 @@ public class CodePane extends TabPane{
 	 * @param className Der Name der Klasse die hinzugefuegt wird.
 	 * @param content 
 	 */
-	private void addNewClass(String className, String content){ //TODO Klassen Name gross schreiben.
+	private void addNewClass(String className, String content){
 		TextArea text = new TextArea();
 		text.setText(content);
 		Tab classTab = new Tab(className);

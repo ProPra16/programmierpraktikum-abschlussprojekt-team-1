@@ -38,13 +38,15 @@ public class Testing {
 	public static boolean hasCompileErrors(CompilationUnit[] comp_uns){ //fuer next-button
 		JavaStringCompiler comp = getJSC(comp_uns);
 		CompilerResult comp_res = comp.getCompilerResult();
+		compile(comp_uns);
 		return comp_res.hasCompileErrors();
 	}
 	
 	public static boolean tests_passed(CompilationUnit[] comp_uns){ //fuer next-button
 		JavaStringCompiler comp = getJSC(comp_uns);
 		TestResult test_res = comp.getTestResult();
-		return(test_res.getNumberOfFailedTests()+test_res.getNumberOfIgnoredTests() ==0);
+		if(comp == null) System.out.println("sdcslk");
+		return(test_res.getNumberOfFailedTests() == 0);
 	}
 	
 	public static void test(CompilationUnit[] comp_uns){ //gibt testergebnisse auf console aus
@@ -64,11 +66,7 @@ public class Testing {
 
 	private static JavaStringCompiler getJSC(CompilationUnit[] comp_uns){ //erzeugt JSC und ruftcompileAndRunTests() auf
 		JavaStringCompiler comp = new InternalCompiler(comp_uns);
-		try{
-			comp.compileAndRunTests();
-		}catch(RuntimeException e){
-			console.set_textln("RuntimeException - Class not found"); //TODO: nicht alle runtimeexcep. abfangen, nur die eine
-		}
+		comp.compileAndRunTests();
 		return comp;
 	}
 }

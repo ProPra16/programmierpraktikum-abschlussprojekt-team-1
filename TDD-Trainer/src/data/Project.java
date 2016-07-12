@@ -53,7 +53,6 @@ public class Project {
 		if(type1 != type2) list.addAll(getCompilationUnits(type2));
 		CompilationUnit[] array = new CompilationUnit[list.size()];
 		for(int i=0;i<list.size();i++){
-			System.out.println();
 			array[i] = list.get(i);
 		}
 		return array;
@@ -100,8 +99,6 @@ public class Project {
 	}
 
 	public void setNewTestOrClassCode(int index, String new_content, int type){ //klappt das so?
-		System.out.println("classlistsize: "+all_class.size());
-		System.out.println("testlistsize: "+tests.size());
 		(type == TEST ? tests : all_class).get(index).setCode(new_content);
 	}
 	public void addClass(Class klasse){

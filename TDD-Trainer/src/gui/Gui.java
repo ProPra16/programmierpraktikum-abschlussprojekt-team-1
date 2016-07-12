@@ -189,25 +189,22 @@ public class Gui extends Application{
 			project.backToOldCode(project.CLASS);
 		});
 		next.setOnAction(e->{
-			System.out.println("phase: "+phase.get());
-			if(phase.get()==Phase.TESTS){
-				System.out.println("test-phase");
-				updateTestProject();
-				Test test = ((Test)(project.getTestList().get(0)));
-				if(project.testHasCompileErrors() 
-					&& test.getNewTestCount()==1){
+			updateTestProject();
+			updateClassProject();
+			Test test = ((Test)(project.getTestList().get(0)));
+			if(phase.get()==Phase.TESTS && test.getNewTestCount()==1){
+				if(project.testHasCompileErrors()){ 
 					System.out.println("test-phase-compfail");
 					phase.next();
 					setPhaseCode();
 				}
-				else if(!project.tests_ok() && test.getNewTestCount()==1) {
+				else if(!project.tests_ok()) {
 					System.out.println("test-phase-fail");
 					phase.next();
 					setPhaseCode();
 				}
 			}
-			else{
-				updateClassProject();
+			else if(phase.get()==Phase.TESTS && test.getNewTestCount()==1){
 				if(phase.get() == Phase.CODE && project.tests_ok()){
 					phase.next();
 					setPhaseRefactor();
@@ -220,18 +217,11 @@ public class Gui extends Application{
 		});
 		return grid;
 	}
+	
 	private void updateTestProject(){
-		String content = "";
-		System.out.println("tabzahl "+code_pane.getTabs().size());
-		for(int i= 0;i<code_pane.getTabs().size()-1;i++){ //-1, da der letzte der "+"-Tab ist
-			System.out.println("updatecounter "+i);
-			if(( code_pane.getTabs().get(i).getContent()) != null){
-				content = ((TextArea) code_pane.getTabs().get(i).getContent()).getText();
-			};
-			project.setNewTestOrClassCode(i, content,project.TEST);
-		}
-
+		project.setNewTestOrClassCode(0, test_pane.getNewTest(), project.TEST);
 	}
+	
 	private void updateClassProject(){
 		String content = "";
 		for(int i= 0;i<code_pane.getTabs().size()-1;i++){ //-1, da der letzte der "+"-Tab ist
@@ -252,11 +242,10 @@ public class Gui extends Application{
 		}
 		code_pane.run();
 		if(project.getTestList().size() == 0){
-			project.addTest(new Test(project.getName()));//TODO: macht das katalog einlesen kaputt?
+			project.addTest(new Test("Test"));//TODO: macht das katalog einlesen kaputt?
 		}
 		test_pane.setText(((Test)project.getTestList().get(0)).getContent());//TODO: nicht dauerhaft 0...
 		code_pane.setEditable(false);
-		System.out.println(project.getTestList().get(0).getContent());
 		
 	}
 	
@@ -273,7 +262,6 @@ public class Gui extends Application{
 		code_pane.setEditable(true);
 		test_pane.setEditable(false);
 		project.overrideOldCode(project.TEST);
-		test_pane.clear();
 		back.setDisable(false);
 	}
 	
@@ -300,6 +288,7 @@ public class Gui extends Application{
 		test_pane.setEditable(true);
 		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
+		test_pane.clear();
 
 	}
 }
