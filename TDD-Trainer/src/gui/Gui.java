@@ -4,7 +4,7 @@ import data.ConstantsManager;
 import data.Project;
 import data.Test;
 import io.FunPictures;
-
+import io.XMLHandler;
 //import io.XMLHandler;
 import data.Code;
 import javafx.application.Application;
@@ -41,7 +41,7 @@ public class Gui extends Application{
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
-	Button next, run, test, back, settings, fun_b;
+	Button next, run, test, back, settings, save, fun_b;
 	Text phase1, phase2, phase3;
 	/** field askForBabysteps: Variable that states if the application should
 	 * continue asking for babysteps setting. Is set to false after a correct
@@ -86,6 +86,14 @@ public class Gui extends Application{
 			}
 			break;
 		case AlertHandler.LOAD_PROJECT:
+			Catalog myTasks = new Catalog("./res/myTasks.xml");
+			myTasks.showAndWait();
+			if(myTasks.load()){
+				project = myTasks.getProject();
+				stage.setScene(main_scene());
+				fillWithContent(project);
+				stage.show();
+			}
 			break;
 		}
 
@@ -164,17 +172,22 @@ public class Gui extends Application{
 		test = new Button("test");
 		next = new Button("next");
 		back = new Button("back");
+		save = new Button("save");
 		fun_b = new Button("fun"); //fun
 		compile = new Button("compile");
 		phase1 = new Text("Write failing Test");
 		phase2 = new Text("Write passing Code");
 		phase3 = new Text("Refactor");
-		grid.addColumn(1, phase1, phase2, phase3, compile, test, next, back, fun_b);
+		grid.addColumn(1, phase1, phase2, phase3, compile, test, next, back, save, fun_b);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
 		
 		setPhaseTest();
 		fun_b.setOnAction(e->{//fun
 			fun.showRandom();
+		});
+		
+		save.setOnAction(e->{//fun
+			XMLHandler.writeProject(project);
 		});
 
 		compile.setOnAction(e->{
