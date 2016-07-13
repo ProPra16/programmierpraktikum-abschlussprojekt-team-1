@@ -23,6 +23,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import tracking.ErrorEvent;
+import tracking.Event;
+import tracking.PhaseStartEvent;
+import tracking.TrackingHandler;
 
 /**
  * Repräsentiert die Hauptanwendung. Initialisiert das Hauptfenster und für die Hauptanwendung notwendige Komponenten.
