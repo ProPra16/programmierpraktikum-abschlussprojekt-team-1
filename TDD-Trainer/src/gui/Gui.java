@@ -301,6 +301,7 @@ public class Gui extends Application{
 		back.setDisable(true);
 		project.overrideOldCode(project.TEST);
 		updateGui();
+		test_pane.clear();
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen
@@ -316,7 +317,6 @@ public class Gui extends Application{
 		test_pane.setEditable(true);
 		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
-		test_pane.clear();
 
 	}
 }
