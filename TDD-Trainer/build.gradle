@@ -28,7 +28,7 @@ task wrapper(type: Wrapper) {
 }
 
 task myJavadoc(type: Javadoc){
-	source = sourceSets.main.java
 	options.memberLevel = JavadocMemberLevel.PRIVATE
 	destinationDir = file("./doc/")
+	exclude '**/vk/**'
 }
