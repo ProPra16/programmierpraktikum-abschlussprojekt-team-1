@@ -26,9 +26,6 @@ public class CodePane extends TabPane{
 		super();
 	}
 	
-	/**
-	 * 
-	 */
 	private void clickOnPlus(){
 		if(editable || first){
 			if(plusTab.isSelected()){
@@ -60,6 +57,11 @@ public class CodePane extends TabPane{
 		});
 	}
 	
+	/**
+	 * Ein neuer leerer Tab mit dem Namen 'name' wird hinzugefügt.
+	 * Dabei wird addNewClass{@link CodePane#addNewClass(String, String)} genutzt.
+	 * @param name
+	 */
 	public void addTab(String name){
 		addNewClass(name, "");
 		getSelectionModel().select(plusTabIndex);
@@ -67,6 +69,13 @@ public class CodePane extends TabPane{
 		if(plusTabIndex > 1) getTabs().get(0).setClosable(true);
 		if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
 	}
+	
+	/**
+	 * Ein neuer Tab mit dem Namen 'name' und mit dem Inhalt 'content' wird hinzugefügt.
+	 * Dabei wird addNewClass{@link CodePane#addNewClass(String, String)} genutzt.
+	 * @param name
+	 * @param content
+	 */
 	public void addTabWithContent(String name, String content){
 		addNewClass(name, content);
 		getSelectionModel().select(plusTabIndex);
@@ -76,8 +85,10 @@ public class CodePane extends TabPane{
 	}
 	
 	/**
+	 * Es wird ein neuer Tab mit einer TextArea erstellt.
+	 * Der Tab bekommt als Namen 'className' und in die TextArea wird 'content' geschrieben.
 	 * 
-	 * @param className Der Name der Klasse die hinzugefuegt wird.
+	 * @param className
 	 * @param content 
 	 */
 	private void addNewClass(String className, String content){
@@ -106,10 +117,17 @@ public class CodePane extends TabPane{
 		getTabs().addAll(plusTab);
 	}
 	
+	/**
+	 * fügt einen Plus-Tab hinzu. 
+	 */
 	public void run(){
 		addPlus();
 	}
 	
+	/**
+	 * Alle Tabs werden auf den boolean 'edit' gesetzt.
+	 * @param edit
+	 */
 	public void setEditable(boolean edit){
 		for(int i = 0;i<getTabs().size()-1; i++){
 			((TextArea)getTabs().get(i).getContent()).setEditable(edit);

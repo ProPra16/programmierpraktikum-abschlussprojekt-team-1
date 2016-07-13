@@ -208,10 +208,9 @@ public class Gui extends Application{
 		});
 		
 		next.setOnAction(e->{
-			updateTestProject();
-			updateClassProject();
 			Test test = ((Test)(project.getTestList().get(0)));
 			if(phase.get()==Phase.TESTS && test.getNewTestCount()==1){
+				updateTestProject();
 				if(project.testHasCompileErrors()){ 
 					phase.next();
 					setPhaseCode();
@@ -222,10 +221,12 @@ public class Gui extends Application{
 				}
 			}
 			else if(phase.get() == Phase.CODE && project.tests_ok()){
+				updateClassProject();
 				phase.next();
 				setPhaseRefactor();
 			}
 			else if(phase.get() == Phase.REFACTOR && project.tests_ok()){
+				updateClassProject();
 				phase.next();
 				setPhaseTest();
 			}
@@ -233,10 +234,16 @@ public class Gui extends Application{
 		return grid;
 	}
 	
+	/**
+	 * Speichert den neu geschriebenen Test aus der Gui in der Datenstruktur 'project' ein.
+	 */
 	private void updateTestProject(){
 		project.setNewTestOrClassCode(0, test_pane.getNewTest(), project.TEST);
 	}
 	
+	/**
+	 * Speichert die in der Gui geschriebenen Klassen in der Datenstruktur 'project' ein.
+	 */
 	private void updateClassProject(){
 		String content = "";
 		for(int i= 0;i<code_pane.getTabs().size()-1;i++){ //-1, da der letzte der "+"-Tab ist

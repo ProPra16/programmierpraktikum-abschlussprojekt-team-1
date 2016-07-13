@@ -28,7 +28,7 @@ task wrapper(type: Wrapper) {
 }
 
 task myJavadoc(type: Javadoc){
-	source = sourceSets.main.java
-	options.memberLevel = JavadocMemberLevel.PRIVATE
+	classpath = configurations.compile
+	source = source = sourceSets.main.java
 	destinationDir = file("./doc/")
 }

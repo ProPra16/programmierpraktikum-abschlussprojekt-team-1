@@ -31,7 +31,7 @@ public class Testing {
 				Collection<CompileError> errors = comp_res.getCompilerErrorsForCompilationUnit(cu);
 				print_errors_to_console(errors);
 			}
-		}
+		} else console.set_textln("No Compilation errors");
 	}
 	/**
 	 * Gibt übergebene CompileError-Liste auf die programminterne Konsole aus.
