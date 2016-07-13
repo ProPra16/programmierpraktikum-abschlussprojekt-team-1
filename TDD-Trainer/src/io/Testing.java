@@ -44,10 +44,12 @@ public class Testing {
 	}
 	
 	public static boolean tests_passed(CompilationUnit[] comp_uns){ //fuer next-button
-		JavaStringCompiler comp = getJSC(comp_uns);
-		TestResult test_res = comp.getTestResult();
-		if(comp == null) System.out.println("sdcslk");
-		return(test_res.getNumberOfFailedTests() == 0);
+		if(!hasCompileErrors(comp_uns)){
+			JavaStringCompiler comp = getJSC(comp_uns);
+			TestResult test_res = comp.getTestResult();
+			
+			return(test_res.getNumberOfFailedTests() == 0);
+		} else return false;
 	}
 	
 	public static void test(CompilationUnit[] comp_uns){ //gibt testergebnisse auf console aus

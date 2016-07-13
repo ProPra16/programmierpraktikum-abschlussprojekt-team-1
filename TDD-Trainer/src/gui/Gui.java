@@ -80,9 +80,8 @@ public class Gui extends Application{
 			catalog.showAndWait();
 			if(catalog.load()){
 				project = catalog.getProject();
-				ConstantsManager.getConstants().setProject(project);
 				stage.setScene(main_scene());
-				fillWithContent(ConstantsManager.getConstants().getProject());
+				fillWithContent(project);
 				stage.show();
 			}
 			break;
@@ -172,6 +171,7 @@ public class Gui extends Application{
 		phase3 = new Text("Refactor");
 		grid.addColumn(1, phase1, phase2, phase3, compile, test, next, back, fun_b);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
+		
 		setPhaseTest();
 		fun_b.setOnAction(e->{//fun
 			fun.showRandom();
@@ -192,19 +192,22 @@ public class Gui extends Application{
 		back.setOnAction(e->{
 			phase.back();
 			project.backToOldCode(project.CLASS);
+			project.backToOldCode(project.TEST);
+			updateGui();
+			
+			setPhaseTest();
 		});
+		
 		next.setOnAction(e->{
 			updateTestProject();
 			updateClassProject();
 			Test test = ((Test)(project.getTestList().get(0)));
 			if(phase.get()==Phase.TESTS && test.getNewTestCount()==1){
 				if(project.testHasCompileErrors()){ 
-					System.out.println("test-phase-compfail");
 					phase.next();
 					setPhaseCode();
 				}
 				else if(!project.tests_ok()) {
-					System.out.println("test-phase-fail");
 					phase.next();
 					setPhaseCode();
 				}
@@ -252,6 +255,17 @@ public class Gui extends Application{
 		
 	}
 	
+	/**
+	 * Zeigt das aktuelle Projekt in der Gui an.
+	 */
+	private void updateGui(){
+		for(int i = 0; i < project.getClassList().size(); i++){
+			Code klasse = project.getClassList().get(i);
+			code_pane.setText(i, klasse.getContent());
+		}
+		test_pane.setText(((Test)project.getTestList().get(0)).getContent());
+	}
+	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die TestPhase erfolgen
 	 * 
 	 * (aendert Infotext & Textfarbe zum anzeigen aktueller Phase, (dis)abelt Textareas,
@@ -264,7 +278,6 @@ public class Gui extends Application{
 		phase2.setFill(Color.GREEN);
 		code_pane.setEditable(true);
 		test_pane.setEditable(false);
-		project.overrideOldCode(project.TEST);
 		back.setDisable(false);
 	}
 	
@@ -277,6 +290,8 @@ public class Gui extends Application{
 		phase3.setFill(Color.GREEN);
 		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
+		project.overrideOldCode(project.TEST);
+		fillWithContent(project);
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen
@@ -287,6 +302,7 @@ public class Gui extends Application{
 		if(project.getBabysteps()) timer.reset();
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
+		phase2.setFill(Color.BLACK);
 		code_pane.setEditable(false);
 		test_pane.setEditable(true);
 		project.overrideOldCode(project.CLASS);
