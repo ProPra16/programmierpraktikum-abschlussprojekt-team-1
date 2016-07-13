@@ -25,12 +25,13 @@ public class Testing {
 				Collection<CompileError> errors = comp_res.getCompilerErrorsForCompilationUnit(cu);
 				print_errors_to_console(errors);
 			}
-		}else console.set_textln("No Compilationerrors");
+		}
 	}
 	
 	private static void print_errors_to_console(Collection<CompileError> errors){ //gibt compileerrors auf console aus
+		console.set_textln("Compilation-Errors:");
 		for(CompileError error: errors){
-			console.set_text("Line "+error.getCodeLineContainingTheError());
+			console.set_text(error.getCodeLineContainingTheError());
 			console.set_textln(": "+error.getMessage());
 		}
 		console.set_textln("");
@@ -47,7 +48,7 @@ public class Testing {
 		if(!hasCompileErrors(comp_uns)){
 			JavaStringCompiler comp = getJSC(comp_uns);
 			TestResult test_res = comp.getTestResult();
-			
+			test(comp_uns);
 			return(test_res.getNumberOfFailedTests() == 0);
 		} else return false;
 	}
@@ -57,13 +58,15 @@ public class Testing {
 		TestResult test_res = comp.getTestResult();
 		int tests_ok = test_res.getNumberOfSuccessfulTests();
 		int tests_fail = test_res.getNumberOfFailedTests();
+		console.set_textln("Testresult:");
 		Collection<TestFailure> fails = test_res.getTestFailures();
-		console.set_text("OK: "+tests_ok+" FAIL: "+tests_fail);
+		console.set_textln("OK: "+tests_ok+" FAIL: "+tests_fail);
 		for(TestFailure fail: fails){  //TODO: gucken was da ausgegeben wird und dann anpassen (von der formatierung her)
-			console.set_textln(fail.getTestClassName());
-			console.set_textln(fail.getMethodName());
+			console.set_textln("Testname: "+fail.getTestClassName());
+			console.set_textln("Methodname: "+fail.getMethodName());
 			console.set_textln(fail.getMessage());
-			console.set_textln(fail.getExceptionStackTrace());
+			console.set_textln("");
+
 		}
 		console.set_textln("");
 	}
