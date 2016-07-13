@@ -30,9 +30,10 @@ public class Testing {
 	
 	private static void print_errors_to_console(Collection<CompileError> errors){ //gibt compileerrors auf console aus
 		for(CompileError error: errors){
-			console.set_text(error.getCodeLineContainingTheError());
-			console.set_textln(" "+error.getMessage());
+			console.set_text("Line "+error.getCodeLineContainingTheError());
+			console.set_textln(": "+error.getMessage());
 		}
+		console.set_textln("");
 	}
 	
 	public static boolean hasCompileErrors(CompilationUnit[] comp_uns){ //fuer next-button
@@ -62,6 +63,7 @@ public class Testing {
 			console.set_textln(fail.getMessage());
 			console.set_textln(fail.getExceptionStackTrace());
 		}
+		console.set_textln("");
 	}
 
 	private static JavaStringCompiler getJSC(CompilationUnit[] comp_uns){ //erzeugt JSC und ruftcompileAndRunTests() auf
