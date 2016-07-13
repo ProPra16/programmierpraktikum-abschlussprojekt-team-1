@@ -19,7 +19,7 @@ import javafx.scene.control.TextInputDialog;
 public class CodePane extends TabPane{
 	Tab plusTab;
 	int plusTabIndex = 0;
-	private boolean editable = false; //TODO später müsste es klappen wenn editable = false
+	private boolean editable = false;
 	private boolean first = true;
 	
 	public CodePane(){
@@ -48,14 +48,15 @@ public class CodePane extends TabPane{
 				getTabs().remove(plusTabIndex);
 				String code = "public class "+ name + "{\n\n}";
 				addTabWithContent(name,code);
-				ConstantsManager.getConstants().getProject().addClass(new Class(code,name));
+				Class klasse = new Class(code,name);
+				klasse.overrideOldCode();
+				ConstantsManager.getConstants().getProject().addClass(klasse);
 				addPlus();
-			} else {
-				if(name.contains(" ")) dialog("\nDon't use whitespace!");
-				if(name.equals("")) dialog("");
-				if(Character.isLowerCase(name.charAt(0))) dialog("\nwith a large initial letter!");
-				
+			}else{
 			}
+			if(name.contains(" ")) dialog("\nDon't use whitespace!");
+			if(name.equals("")) dialog("");
+			if(Character.isLowerCase(name.charAt(0))) dialog("\nwith a large initial letter!");
 		});
 	}
 	
@@ -85,6 +86,7 @@ public class CodePane extends TabPane{
 		Tab classTab = new Tab(className);
 		classTab.setOnClosed(e->{
 			plusTabIndex--;
+			ConstantsManager.getConstants().getProject().removeClass(className);
 			if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
 		});
 		classTab.setContent(text);
@@ -119,10 +121,8 @@ public class CodePane extends TabPane{
 	/**
 	 * Setter der TextArea-Inhalte des CodePanes
 	 */
-	public void setText(String[] text_neu){
-		for(int i = 0;i<getTabs().size()-1; i++){
-			((TextArea)getTabs().get(i).getContent()).setText(text_neu[i]);
-		}
+	public void setText(int position, String text_neu){
+		((TextArea)getTabs().get(position).getContent()).setText(text_neu);
 	}
 	
 	/**

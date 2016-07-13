@@ -4,10 +4,11 @@ import data.ConstantsManager;
 import data.Project;
 import data.Test;
 import io.FunPictures;
-
+import io.XMLHandler;
 //import io.XMLHandler;
 import data.Code;
 import javafx.application.Application;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -36,7 +37,7 @@ public class Gui extends Application{
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
-	Button next, run, test, back, settings, fun_b;
+	Button next, run, test, back, settings, save, fun_b;
 	Text phase1, phase2, phase3;
 	/** field askForBabysteps: Variable that states if the application should
 	 * continue asking for babysteps setting. Is set to false after a correct
@@ -75,13 +76,20 @@ public class Gui extends Application{
 			catalog.showAndWait();
 			if(catalog.load()){
 				project = catalog.getProject();
-				ConstantsManager.getConstants().setProject(project);
 				stage.setScene(main_scene());
-				fillWithContent(ConstantsManager.getConstants().getProject());
+				fillWithContent(project);
 				stage.show();
 			}
 			break;
 		case AlertHandler.LOAD_PROJECT:
+			Catalog myTasks = new Catalog("./res/myTasks.xml");
+			myTasks.showAndWait();
+			if(myTasks.load()){
+				project = myTasks.getProject();
+				stage.setScene(main_scene());
+				fillWithContent(project);
+				stage.show();
+			}
 			break;
 		}
 
@@ -160,16 +168,22 @@ public class Gui extends Application{
 		test = new Button("test");
 		next = new Button("next");
 		back = new Button("back");
+		save = new Button("save");
 		fun_b = new Button("fun"); //fun
 		compile = new Button("compile");
 		phase1 = new Text("Write failing Test");
 		phase2 = new Text("Write passing Code");
 		phase3 = new Text("Refactor");
-		grid.addColumn(1, phase1, phase2, phase3, compile, test, next, fun_b);
+		grid.addColumn(1, phase1, phase2, phase3, compile, test, next, back, save, fun_b);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
+		
 		setPhaseTest();
 		fun_b.setOnAction(e->{//fun
 			fun.showRandom();
+		});
+		
+		save.setOnAction(e->{//fun
+			XMLHandler.writeProject(project);
 		});
 
 		compile.setOnAction(e->{
@@ -187,18 +201,21 @@ public class Gui extends Application{
 		back.setOnAction(e->{
 			phase.back();
 			project.backToOldCode(project.CLASS);
+			project.backToOldCode(project.TEST);
+			updateGui();
+			
+			setPhaseTest();
 		});
+		
 		next.setOnAction(e->{
 			Test test = ((Test)(project.getTestList().get(0)));
 			if(phase.get()==Phase.TESTS && test.getNewTestCount()==1){
 				updateTestProject();
 				if(project.testHasCompileErrors()){ 
-					System.out.println("test-phase-compfail");
 					phase.next();
 					setPhaseCode();
 				}
 				else if(!project.tests_ok()) {
-					System.out.println("test-phase-fail");
 					phase.next();
 					setPhaseCode();
 				}
@@ -235,17 +252,28 @@ public class Gui extends Application{
 	/** Zeigt die im Project gespeicherten Inhalte im Code- und TestPane an.
 	 * @param project: das aktuelle  Projekt
 	 */
-	private void fillWithContent(Project project){ //TODO: eventuell in test und class aufteilen? projektuebergabe noetig?
+	private void fillWithContent(Project project){
 		for(Code klasse : project.getClassList()){
 			code_pane.addTabWithContent(klasse.getName(), klasse.getContent());
 		}
 		code_pane.run();
 		if(project.getTestList().size() == 0){
-			project.addTest(new Test("Test"));//TODO: macht das katalog einlesen kaputt?
+			project.addTest(new Test("Test"));
 		}
-		test_pane.setText(((Test)project.getTestList().get(0)).getContent());//TODO: nicht dauerhaft 0...
+		test_pane.setText(((Test)project.getTestList().get(0)).getContent());
 		code_pane.setEditable(false);
 		
+	}
+	
+	/**
+	 * Zeigt das aktuelle Projekt in der Gui an.
+	 */
+	private void updateGui(){
+		for(int i = 0; i < project.getClassList().size(); i++){
+			Code klasse = project.getClassList().get(i);
+			code_pane.setText(i, klasse.getContent());
+		}
+		test_pane.setText(((Test)project.getTestList().get(0)).getContent());
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die TestPhase erfolgen
@@ -260,7 +288,6 @@ public class Gui extends Application{
 		phase2.setFill(Color.GREEN);
 		code_pane.setEditable(true);
 		test_pane.setEditable(false);
-		project.overrideOldCode(project.TEST);
 		back.setDisable(false);
 	}
 	
@@ -273,6 +300,8 @@ public class Gui extends Application{
 		phase3.setFill(Color.GREEN);
 		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
+		project.overrideOldCode(project.TEST);
+		updateGui();
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen
@@ -283,6 +312,7 @@ public class Gui extends Application{
 		if(project.getBabysteps()) timer.reset();
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
+		phase2.setFill(Color.BLACK);
 		code_pane.setEditable(false);
 		test_pane.setEditable(true);
 		project.overrideOldCode(project.CLASS);

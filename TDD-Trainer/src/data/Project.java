@@ -103,6 +103,14 @@ public class Project {
 	public void addClass(Class klasse){
 		all_class.add(klasse);
 	}
+	public void removeClass(String name){
+		for(int i = 0; i < all_class.size(); i++){ //Code klasse : all_class){
+			Code klasse = all_class.get(i);
+			if(klasse.getName().equals(name)){
+				all_class.remove(i);
+			}
+		}
+	}
 	
 	public List<Code> getClassList(){
 		return all_class;
