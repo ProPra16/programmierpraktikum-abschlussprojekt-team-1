@@ -242,15 +242,15 @@ public class Gui extends Application{
 	/** Zeigt die im Project gespeicherten Inhalte im Code- und TestPane an.
 	 * @param project: das aktuelle  Projekt
 	 */
-	private void fillWithContent(Project project){ //TODO: eventuell in test und class aufteilen? projektuebergabe noetig?
+	private void fillWithContent(Project project){
 		for(Code klasse : project.getClassList()){
 			code_pane.addTabWithContent(klasse.getName(), klasse.getContent());
 		}
 		code_pane.run();
 		if(project.getTestList().size() == 0){
-			project.addTest(new Test("Test"));//TODO: macht das katalog einlesen kaputt?
+			project.addTest(new Test("Test"));
 		}
-		test_pane.setText(((Test)project.getTestList().get(0)).getContent());//TODO: nicht dauerhaft 0...
+		test_pane.setText(((Test)project.getTestList().get(0)).getContent());
 		code_pane.setEditable(false);
 		
 	}
@@ -291,7 +291,7 @@ public class Gui extends Application{
 		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
 		project.overrideOldCode(project.TEST);
-		fillWithContent(project);
+		updateGui();
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen

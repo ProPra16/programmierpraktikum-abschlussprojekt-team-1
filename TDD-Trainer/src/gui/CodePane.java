@@ -86,6 +86,7 @@ public class CodePane extends TabPane{
 		Tab classTab = new Tab(className);
 		classTab.setOnClosed(e->{
 			plusTabIndex--;
+			ConstantsManager.getConstants().getProject().removeClass(className);
 			if(plusTabIndex == 1) getTabs().get(0).setClosable(false);
 		});
 		classTab.setContent(text);
