@@ -189,10 +189,9 @@ public class Gui extends Application{
 			project.backToOldCode(project.CLASS);
 		});
 		next.setOnAction(e->{
-			updateTestProject();
-			updateClassProject();
 			Test test = ((Test)(project.getTestList().get(0)));
 			if(phase.get()==Phase.TESTS && test.getNewTestCount()==1){
+				updateTestProject();
 				if(project.testHasCompileErrors()){ 
 					System.out.println("test-phase-compfail");
 					phase.next();
@@ -205,10 +204,12 @@ public class Gui extends Application{
 				}
 			}
 			else if(phase.get() == Phase.CODE && project.tests_ok()){
+				updateClassProject();
 				phase.next();
 				setPhaseRefactor();
 			}
 			else if(phase.get() == Phase.REFACTOR && project.tests_ok()){
+				updateClassProject();
 				phase.next();
 				setPhaseTest();
 			}

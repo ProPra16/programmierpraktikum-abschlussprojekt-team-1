@@ -25,7 +25,7 @@ public class Testing {
 				Collection<CompileError> errors = comp_res.getCompilerErrorsForCompilationUnit(cu);
 				print_errors_to_console(errors);
 			}
-		}else console.set_textln("No Compilationerrors");
+		}else console.set_textln("No Compilation errors");
 	}
 	
 	private static void print_errors_to_console(Collection<CompileError> errors){ //gibt compileerrors auf console aus
