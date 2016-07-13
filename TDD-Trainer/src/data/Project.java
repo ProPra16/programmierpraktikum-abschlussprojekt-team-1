@@ -48,6 +48,7 @@ public class Project {
 		duration = 0;
 		tracking = false;
 	}
+	
 	private CompilationUnit[] listToArray(int type1, int type2){
 		List<CompilationUnit> list = getCompilationUnits(type1);
 		if(type1 != type2) list.addAll(getCompilationUnits(type2));
@@ -57,6 +58,7 @@ public class Project {
 		}
 		return array;
 	}
+	
 	public void compile(){
 		Testing.compile(listToArray(CLASS, CLASS));
 		
@@ -80,31 +82,63 @@ public class Project {
 	public void test(){
 		Testing.test(listToArray(CLASS, TEST));
 	}
+	
+	/**
+	 * kontrolliert ob die Tests bestehen.
+	 * @return true wenn die tests bestehen und false wenn nicht.
+	 */
 	public boolean tests_ok(){
 		return Testing.tests_passed(listToArray(CLASS, TEST));
 	}
+	
+	/**
+	 * Der alte code wird mit dem neuen Code überschrieben{@link Code#overrideOldCode()} 
+	 * und kann nun in der Gui nicht mehr geändert werden.
+	 * @param type, gibt an ob die Tests oder die Klassen überschrieben werden sollen. (Class = 0, Test = 1)
+	 */
 	public void overrideOldCode(int type){
 		List<Code> code = (type == TEST ? tests : all_class);
 		for(Code klasse: code){
 			klasse.overrideOldCode();
 		}
-		
 	}
+	
+	/**
+	 * Der neue Code wird gelöscht{@link Code#backToOldCode()}.
+	 * @param type, gibt an ob die Tests oder die Klassen zurückgesetzt werden sollen.
+	 */
 	public void backToOldCode(int type){
 		List<Code> code = (type == TEST ? tests : all_class);
 		for(Code klasse: code){
 			klasse.backToOldCode();
 		}
 	}
-
+	
+	/**
+	 * Speichert neu geschriebenen Code in die Datenstruktur 'Project'.
+	 * 
+	 * @param index, gibt an welches Klassen oder Test Element geändert werden soll.
+	 * @param new_content, gibt an was neu in eingespeichert werden soll.
+	 * @param type, gibt an ob der neue Code in Tests oder Klassen gespeichert werden soll.
+	 */
 	public void setNewTestOrClassCode(int index, String new_content, int type){ //klappt das so?
 		(type == TEST ? tests : all_class).get(index).setCode(new_content);
 	}
+	
+	/**
+	 * Fügt ein Objekt der Klasse 'Class' der Datenstruktur 'Project' hinzu.
+	 * @param klasse
+	 */
 	public void addClass(Class klasse){
 		all_class.add(klasse);
 	}
+	
+	/**
+	 * Die Klasse mit dem Namen 'name' wird aus der Datenstruktur 'Project' entfernt.
+	 * @param name
+	 */
 	public void removeClass(String name){
-		for(int i = 0; i < all_class.size(); i++){ //Code klasse : all_class){
+		for(int i = 0; i < all_class.size(); i++){
 			Code klasse = all_class.get(i);
 			if(klasse.getName().equals(name)){
 				all_class.remove(i);

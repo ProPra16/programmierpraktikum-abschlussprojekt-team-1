@@ -234,10 +234,16 @@ public class Gui extends Application{
 		return grid;
 	}
 	
+	/**
+	 * Speichert den neu geschriebenen Test aus der Gui in der Datenstruktur 'project' ein.
+	 */
 	private void updateTestProject(){
 		project.setNewTestOrClassCode(0, test_pane.getNewTest(), project.TEST);
 	}
 	
+	/**
+	 * Speichert die in der Gui geschriebenen Klassen in der Datenstruktur 'project' ein.
+	 */
 	private void updateClassProject(){
 		String content = "";
 		for(int i= 0;i<code_pane.getTabs().size()-1;i++){ //-1, da der letzte der "+"-Tab ist
