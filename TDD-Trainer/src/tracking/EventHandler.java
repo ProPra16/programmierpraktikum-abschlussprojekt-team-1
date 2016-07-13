@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TrackingHandler {
+public class EventHandler {
 	private static List<Event> events;
 	public static void newEventList(){
 		events = new ArrayList<Event>();
