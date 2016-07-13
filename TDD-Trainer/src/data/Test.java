@@ -27,6 +27,10 @@ public class Test implements Code{
 	public String getName(){
 		return name;
 	}
+	/**
+	 * Erzeugt fürs Testen nötige CompilationUnit aus dem Test.
+	 */
+
 	public CompilationUnit getCompilationUnit(){
 		return new CompilationUnit(name, code+new_test+code_end, true); //TODO: ein besserer name muss her
 	}

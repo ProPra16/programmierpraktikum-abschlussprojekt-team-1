@@ -18,7 +18,10 @@ public class Testing {
 	}
 	/**
 	 * Gibt Compilierfehler (wenn vorhanden) auf die (programminterne) Konsole aus
-	 * @param comp_uns
+	 * 
+	 * Wandelt übergebene Compilationunits mit {@link #getJSC(CompilationUnit[])} in JavaStringCompiler um,
+	 * und gibt Compilierfehler mit {@link #print_errors_to_console(Collection)} auf der programminternen Konsole aus.
+
 	 */
 	public static void compile(CompilationUnit[] comp_uns){ //gibt fehlermeldungen, wenn vorhanden auf die console aus
 		JavaStringCompiler comp = getJSC(comp_uns);
@@ -28,10 +31,10 @@ public class Testing {
 				Collection<CompileError> errors = comp_res.getCompilerErrorsForCompilationUnit(cu);
 				print_errors_to_console(errors);
 			}
-		}
+		} else console.set_textln("No Compilation errors");
 	}
 	/**
-	 * Gibt 
+	 * Gibt übergebene CompileError-Liste auf die programminterne Konsole aus.
 	 */
 	private static void print_errors_to_console(Collection<CompileError> errors){ //gibt compileerrors auf console aus
 		console.set_textln("Compilation-Errors:");
@@ -41,18 +44,19 @@ public class Testing {
 			}
 		console.set_textln("");
 	}
-	
+	/**
+	 * Prüft ob Compilierfehler vorliegen.
+	 */
 	public static boolean hasCompileErrors(CompilationUnit[] comp_uns){ //fuer next-button
-		for(CompilationUnit cu: comp_uns)	System.out.println(cu.getClassName());
 		JavaStringCompiler comp = getJSC(comp_uns);
 		CompilerResult comp_res = comp.getCompilerResult();
 		compile(comp_uns);
 		return comp_res.hasCompileErrors();
 	}
 	/**
-	 * Prüft ob 
-	 * @param comp_uns
-	 * @return
+	 * Prüft ob alle Tests bestanden werden.
+	 * 
+	 * Prüft ob die Compilationunits fehlerlos compilieren und prüft anschließend ob alle enthaltenen Tests erfolgreich sind.
 	 */
 	public static boolean tests_passed(CompilationUnit[] comp_uns){ //fuer next-button
 		if(!hasCompileErrors(comp_uns)){
@@ -63,7 +67,7 @@ public class Testing {
 		} else return false;
 	}
 	/**
-	 * Gibt Testergebnisse auf die (programminterne) Konsole aus
+	 * Gibt Testergebnisse auf die (programminterne) Konsole aus.
 	 * 
 	 * Wandelt übergebene Compilationunits mit {@link #getJSC(CompilationUnit[])} in JavaStringCompiler um,
 	 * bestimmt Anzahl der erfolgreichen und fehlgeschlagenen Tests und gibt dies, sowie genauere Fehlermendungen
@@ -87,7 +91,8 @@ public class Testing {
 
 	}
 	/**
-	 * Erzeugt einen JavaStringcompiler und führt compileAndRunTests() aus (notwendig um Test/CompileResults zu nutzen)
+	 * Erzeugt einen JavaStringcompiler 
+	 * aus einem Compilationunitarray und führt compileAndRunTests() aus (notwendig um Test/CompileResults zu nutzen)
 	 */
 	private static JavaStringCompiler getJSC(CompilationUnit[] comp_uns){ //erzeugt JSC und ruftcompileAndRunTests() auf
 		JavaStringCompiler comp = new InternalCompiler(comp_uns);
