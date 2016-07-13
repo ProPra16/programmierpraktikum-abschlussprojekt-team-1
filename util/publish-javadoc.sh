@@ -8,10 +8,12 @@ git config --global user.name "travis-ci"
 git clone --branch=gh-pages https://${GH_TOKEN}@github.com/ProPra16/programmierpraktikum-abschlussprojekt-team-1 gh-pages
 ls -ahl
 ls -ahl gh-pages
+ls -ahl TDD-Trainer
+ls -ahl TDD-Trainer/doc
 
 # Commit and Push the Changes
 cd gh-pages
-git rm -rf ./javadoc
+#git rm -rf ./javadoc
 cp -Rf ../TDD-Trainer/doc/* .
 git add -f .
 git commit -m "Lastest javadoc on successful travis build $TRAVIS_BUILD_NUMBER auto-pushed to gh-pages"
