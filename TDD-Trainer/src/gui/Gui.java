@@ -8,6 +8,7 @@ import io.FunPictures;
 //import io.XMLHandler;
 import data.Code;
 import javafx.application.Application;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -165,7 +166,7 @@ public class Gui extends Application{
 		phase1 = new Text("Write failing Test");
 		phase2 = new Text("Write passing Code");
 		phase3 = new Text("Refactor");
-		grid.addColumn(1, phase1, phase2, phase3, compile, test, next, fun_b);
+		grid.addColumn(1, phase1, phase2, phase3, compile, test, next, back, fun_b);
 		if(project.getBabysteps()) grid.add(timer,2, 2);
 		setPhaseTest();
 		fun_b.setOnAction(e->{//fun
