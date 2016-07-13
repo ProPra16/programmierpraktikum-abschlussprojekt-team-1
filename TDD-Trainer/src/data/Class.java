@@ -12,6 +12,9 @@ public class Class implements Code{
 		this.name = name;
 		this.code = code;
 	}
+	/**
+	 * Erzeugt fürs Testen nötige CompilationUnit aus der Klasse.
+	 */
 	public CompilationUnit getCompilationUnit(){
 		return new CompilationUnit(name, code, false); //TODO: ein besserer name muss her
 	}
