@@ -34,6 +34,7 @@ public class Testing {
 			console.set_text(error.getCodeLineContainingTheError());
 			console.set_textln(": "+error.getMessage());
 			}
+		console.set_textln("");
 	}
 	
 	public static boolean hasCompileErrors(CompilationUnit[] comp_uns){ //fuer next-button
@@ -66,8 +67,9 @@ public class Testing {
 			console.set_textln("Methodname: "+fail.getMethodName());
 			console.set_textln(fail.getMessage());
 			console.set_textln("");
-
 		}
+		console.set_textln("");
+
 	}
 
 	private static JavaStringCompiler getJSC(CompilationUnit[] comp_uns){ //erzeugt JSC und ruftcompileAndRunTests() auf
