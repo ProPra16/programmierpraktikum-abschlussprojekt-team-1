@@ -37,6 +37,7 @@ public class Testing {
 	}
 	
 	public static boolean hasCompileErrors(CompilationUnit[] comp_uns){ //fuer next-button
+		for(CompilationUnit cu: comp_uns)	System.out.println(cu.getClassName());
 		JavaStringCompiler comp = getJSC(comp_uns);
 		CompilerResult comp_res = comp.getCompilerResult();
 		compile(comp_uns);

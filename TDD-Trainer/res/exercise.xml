@@ -9,7 +9,7 @@
 }</class>
 	</classes>
 	<tests>
-		<test name="RomanNumberConverterTest">import static org.junit.Assert.*;
+		<test name="RomanNumbersTest">import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class RomanNumbersTest {
@@ -33,7 +33,7 @@ public class RomanNumbersTest {
 }</class>
 	</classes>
 	<tests>
-		<test name="RomanNumberConverterTest">import static org.junit.Assert.*;
+		<test name="RomanNumbersTest">import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class RomanNumbersTest {
