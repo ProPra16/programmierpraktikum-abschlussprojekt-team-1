@@ -259,7 +259,6 @@ public class Gui extends Application{
 		phase2.setFill(Color.GREEN);
 		code_pane.setEditable(true);
 		test_pane.setEditable(false);
-		project.overrideOldCode(project.TEST);
 		back.setDisable(false);
 	}
 	
@@ -272,6 +271,8 @@ public class Gui extends Application{
 		phase3.setFill(Color.GREEN);
 		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
+		project.overrideOldCode(project.TEST);
+		fillWithContent(project);
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen
