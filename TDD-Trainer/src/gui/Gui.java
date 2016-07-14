@@ -90,13 +90,15 @@ public class Gui extends Application{
 			break;
 		case AlertHandler.LOAD_PROJECT:
 			Catalog myTasks = new Catalog("./res/myTasks.xml");
-			myTasks.showAndWait();
-			if(myTasks.load()){
-				project = myTasks.getProject();
-				ConstantsManager.getConstants().setProject(myTasks.getProject());
-				stage.setScene(main_scene());
-				fillWithContent(project);
-				stage.show();
+			if(!myTasks.loadXMLfail()){
+				myTasks.showAndWait();
+				if(myTasks.load()){
+					project = myTasks.getProject();
+					ConstantsManager.getConstants().setProject(myTasks.getProject());
+					stage.setScene(main_scene());
+					fillWithContent(project);
+					stage.show();
+				}
 			}
 			break;
 		}

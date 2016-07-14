@@ -49,6 +49,7 @@ public class Catalog extends Stage{
 	private int currentExercise = 0;
 	private int numberOfExercises = 0;
 	private boolean load = false;
+	private boolean fail = false;
 	
 	/**
 	 * Der Konstruktor zeigt das Katalogfenster an, mit den Aufgaben aus der 
@@ -60,7 +61,14 @@ public class Catalog extends Stage{
 		this.source = source;
 		setScene(create_scene());
 		loadExcercises();
-		showExcercise(currentExercise);
+		if(!fail){
+			showExcercise(currentExercise);
+		}
+		
+	}
+	
+	public boolean loadXMLfail(){
+		return fail;
 	}
 	
 	/**
@@ -113,9 +121,11 @@ public class Catalog extends Stage{
 		    	Element element = (Element) nNode;
 		    	
 		    	projects.add(XMLHandler.XMLtoProject(element));
+		    	
 		    }
 
 	    } catch (Exception e) {
+	    	fail = true;
 	        Alert alert = new Alert(AlertType.ERROR);
 	        alert.setTitle("Error");
 	        alert.setHeaderText("Übungen konnten nicht geladen werden");
@@ -261,7 +271,7 @@ public class Catalog extends Stage{
 	 * Informationen in die jeweiligen Labels oder TextAreas geschrieben werden.
 	 * @param index des Project aus der Gespeicherten Liste welches angezeigt werden soll.
 	 */
-	private void showExcercise(int index) {
+	private void showExcercise(int index)  {
 		Project project = projects.get(index);
 		
 		exerciseName.setText(project.getName());
