@@ -99,6 +99,8 @@ public class Gui extends Application{
 					fillWithContent(project);
 					stage.show();
 				}
+			} else {
+				start(stage);
 			}
 			break;
 		}
