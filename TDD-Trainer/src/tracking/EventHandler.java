@@ -5,11 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EventHandler {
-	private static List<Event> events;
+	private static List<Event> events = new ArrayList<Event>();
 	
-	public static void newEmptyEventList(){
-		events = new ArrayList<Event>();
-	}
 	public static void newEventList(List<Event> e){
 		events = e;
 	}
