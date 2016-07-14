@@ -236,8 +236,8 @@ public class Gui extends Application{
 		
 		next.setOnAction(e->{
 			Test test = ((Test)(project.getTestList().get(0)));
+			updateTestProject();
 			if(phase.get()==Phase.TESTS && test.getNewTestCount()==1){
-				updateTestProject();
 				if(project.testHasCompileErrors()){ 
 					phase.next();
 					setPhaseCode();
