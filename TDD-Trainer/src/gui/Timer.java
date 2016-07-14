@@ -1,6 +1,8 @@
 package gui;
 
 import data.Phase;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.text.Text;
 
 /**
@@ -19,8 +21,8 @@ public class Timer extends Text implements Runnable{
 	private Thread t;
 	/** Gibt an, ob der Timer gerade läuft oder gestoppt ist. */
 	private boolean running = false;
-	/** Gibt (vermutlich) an, ob die Zeit abgelaufen ist.*/ //TODO: Wirklich?
-	private boolean time_up;
+	/** Gibt an, ob die Zeit abgelaufen ist.*/ //TODO: Wirklich?
+	private BooleanProperty time_up;
 	/** Gibt die Zeit an, die der Timer herunterzählen soll.*/
 	private long duration;
 	/** Speichert die Phase, die der Timer verwaltet*/ //TODO: Entsprechend ConstantsManager extrahieren.
@@ -30,9 +32,14 @@ public class Timer extends Text implements Runnable{
 		super("Time: 0:00");
 		this.duration = ((sec+1)*1000)-1; //TODO:dieser verzoegerungsfix ist unschoen - das soll ned so bleiben!
 		this.phase = phase;
-		time_up = false;
+		this.set_time_up(false);
 	}
 	public boolean time_up(){
+		return time_up_property().getValue();
+	}
+	
+	public BooleanProperty time_up_property(){
+		if (time_up == null) time_up = new SimpleBooleanProperty(false);
 		return time_up;
 	}
 
@@ -67,7 +74,7 @@ public class Timer extends Text implements Runnable{
 	
 	public void reset(){
 		startMillis = System.currentTimeMillis();
-		time_up = false;
+		this.set_time_up(false);
 	}
 	
 	public String toString(){
@@ -81,7 +88,12 @@ public class Timer extends Text implements Runnable{
 	public void update(){
 		this.setText("Time: " + this.toString());
 		if((System.currentTimeMillis() - startMillis)>=duration){
-			time_up = true;
+			this.set_time_up(true);
 		}
+	}
+	
+	private void set_time_up(boolean value){
+		if (time_up != null) time_up.set(value);
+		else time_up = new SimpleBooleanProperty(value);
 	}
 }
