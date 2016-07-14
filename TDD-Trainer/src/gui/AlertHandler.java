@@ -51,7 +51,7 @@ public class AlertHandler {
 		Project ex = cs.getProject();
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setHeaderText(null);
-		alert.setContentText("Do you want to use 'babysteps'?"); //TODO: besseren text ausdenken...?
+		alert.setContentText("Do you want to use 'babysteps'?");
 		ButtonType yes = new ButtonType("Yes");
 		ButtonType no = new ButtonType("No");
 		alert.getButtonTypes().setAll(yes, no);
@@ -62,7 +62,7 @@ public class AlertHandler {
 		if(ex.getBabysteps()){
 			do {
 				TextInputDialog b_duration = new TextInputDialog();
-				b_duration.setContentText("How many seconds?"); //TODO: besseren text...
+				b_duration.setContentText("How many seconds?");
 				b_duration.setHeaderText(null);
 				b_duration.showAndWait().ifPresent(input ->{
 					try{

@@ -1,6 +1,7 @@
 package gui;
 
 import data.ConstantsManager;
+import data.Phase;
 import data.Project;
 import data.Test;
 import io.FunPictures;
@@ -8,7 +9,10 @@ import io.XMLHandler;
 //import io.XMLHandler;
 import data.Code;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,6 +27,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import tracking.EventHandler;
+import tracking.PhaseStartEvent;
 
 /**
  * Repräsentiert die Hauptanwendung. Initialisiert das Hauptfenster und für die Hauptanwendung notwendige Komponenten.
@@ -161,6 +167,21 @@ public class Gui extends Application{
 		if (project.getBabysteps()){
 			timer= new Timer(project.getDuration(), phase);
 			timer.start();
+			BooleanProperty time_up = new SimpleBooleanProperty(timer.time_up()); //TODO: klappt das so?
+			time_up.addListener(new ChangeListener<Boolean>(){
+				@Override
+				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+					System.out.println("klappt");
+					if(newValue == true){
+						int phase_now = phase.get();
+						next.fire();
+						if(phase.get()==phase_now){
+							project.backToOldCode(phase.get());
+						}
+					}
+				}
+				
+			});
 		}
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
@@ -290,6 +311,7 @@ public class Gui extends Application{
 	 */
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
+		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.CODE));
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
 		code_pane.setEditable(true);
@@ -302,6 +324,7 @@ public class Gui extends Application{
 	 */
 
 	private void setPhaseRefactor(){
+		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.REFACTOR));
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
 		project.overrideOldCode(project.CLASS);
@@ -317,6 +340,7 @@ public class Gui extends Application{
 
 	private void setPhaseTest(){
 		if(project.getBabysteps()) timer.reset();
+		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.TESTS));
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
 		phase2.setFill(Color.BLACK);
@@ -324,6 +348,8 @@ public class Gui extends Application{
 		test_pane.setEditable(true);
 		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
-
+	}
+	public void babysteps(){
+		//TODO: hier i-welche auswertungen
 	}
 }

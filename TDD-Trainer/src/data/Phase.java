@@ -1,7 +1,6 @@
-package gui;
+package data;
 
 
-//TODO: Ist dies nicht eigentlich eine Datentyps-Klasse?
 /**
  * Repräsentiert eine Phase. Ist das hier nicht eigentlich eine Datentyps-Klasse?
  *

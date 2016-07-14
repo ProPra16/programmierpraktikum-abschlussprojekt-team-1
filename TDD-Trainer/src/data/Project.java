@@ -48,7 +48,14 @@ public class Project {
 		duration = 0;
 		tracking = false;
 	}
-	
+	/**
+	 * Gibt ein Array an CompilationUnits zurück
+	 * 
+	 *  
+	 * @param type1
+	 * @param type2
+	 * @return
+	 */
 	private CompilationUnit[] listToArray(int type1, int type2){
 		List<CompilationUnit> list = getCompilationUnits(type1);
 		if(type1 != type2) list.addAll(getCompilationUnits(type2));
@@ -58,15 +65,25 @@ public class Project {
 		}
 		return array;
 	}
-	
+	/**
+	 * Gibt Compilierfehler der Klassen auf der Console aus
+	 * 
+	 * {@link Testing#compile(CompilationUnit[])}
+	 */
 	public void compile(){
 		Testing.compile(listToArray(CLASS, CLASS));
 		
 	}
+	/**
+	 * Gibt zurück ob die Tests compilieren
+	 */
 	public boolean testHasCompileErrors(){
 		return Testing.hasCompileErrors(listToArray(TEST,TEST));
 	}
-	
+	/**
+	 * Erstellt eine Liste aller CompilationUnits der Klassen oder Tests
+	 * @param type Beschreibt ob Tests oder Klassen-CompilationUnit gegeben werden sollen 
+	 */
 	private List<CompilationUnit> getCompilationUnits(int type){
 		List<Code> all = (type == TEST ? tests : all_class);
 		List<CompilationUnit> cus = new ArrayList<CompilationUnit>();
@@ -77,15 +94,15 @@ public class Project {
 	}
 
 	/**
-	 * 
+	 * Gibt Fehler, die beim Testen entstehen auf die Konsole aus.
 	 */
 	public void test(){
 		Testing.test(listToArray(CLASS, TEST));
 	}
 	
 	/**
-	 * kontrolliert ob die Tests bestehen.
-	 * @return true wenn die tests bestehen und false wenn nicht.
+	 * Kontrolliert ob alle Tests bestanden werden.
+	 * @return true true, wenn Tests bestehen, false wenn nicht.
 	 */
 	public boolean tests_ok(){
 		return Testing.tests_passed(listToArray(CLASS, TEST));

@@ -33,7 +33,10 @@ public class CodePane extends TabPane{
 			}
 		}
 	}
-	
+	/**
+	 * Fragt in einem Dialogfenster nach einem Klassennamen und erstellt mit diesem eine neue Klasse, die im Projekt und der GUI hinzugefügt wird
+	 * @param s eine zusätzliche Nachricht die im Header des aufgerufenen Dialog-Fensters angezeigt wird
+	 */
 	private void dialog(String s){
 		TextInputDialog dialog = new TextInputDialog();
 		dialog.setTitle("Class name Input Dialog");
@@ -107,7 +110,10 @@ public class CodePane extends TabPane{
 		});
 		first = false;
 	}
-	
+	/**
+	 * Fügt einen "+"-Tab hinzu
+	 * Dieser ist nicht schließbar und ruft wenn er ausgewählt wird {@link #clickOnPlus()} auf
+	 */
 	private void addPlus(){
 		plusTab = new Tab("+");
 		plusTab.setClosable(false);
@@ -126,7 +132,7 @@ public class CodePane extends TabPane{
 	
 	/**
 	 * Alle Tabs werden auf den boolean 'edit' gesetzt.
-	 * @param edit
+	 * @param edit beschreibt ob Tabinhalte editable sein sollen
 	 */
 	public void setEditable(boolean edit){
 		for(int i = 0;i<getTabs().size()-1; i++){

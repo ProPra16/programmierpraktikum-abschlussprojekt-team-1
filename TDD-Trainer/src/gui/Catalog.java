@@ -50,6 +50,11 @@ public class Catalog extends Stage{
 	private int numberOfExercises = 0;
 	private boolean load = false;
 	
+	/**
+	 * Der Konstruktor zeigt das Katalogfenster an, mit den Aufgaben aus der 
+	 * mitgegebenen source.
+	 * @param source
+	 */
 	public Catalog(String source){
 		super();
 		this.source = source;
@@ -58,6 +63,10 @@ public class Catalog extends Stage{
 		showExcercise(currentExercise);
 	}
 	
+	/**
+	 * Der Konstruktor zeigt das Katalogfenster an, mit den Aufgaben
+	 * aus der source ./res/exercise.xml. 
+	 */
 	public Catalog(){
 		super();
 		setScene(create_scene());
