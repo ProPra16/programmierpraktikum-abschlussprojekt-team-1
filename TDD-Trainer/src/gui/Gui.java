@@ -81,6 +81,7 @@ public class Gui extends Application{
 			Catalog catalog = new Catalog();
 			catalog.showAndWait();
 			if(catalog.load()){
+				ConstantsManager.getConstants().setProject(catalog.getProject());
 				project = catalog.getProject();
 				stage.setScene(main_scene());
 				fillWithContent(project);
@@ -92,6 +93,7 @@ public class Gui extends Application{
 			myTasks.showAndWait();
 			if(myTasks.load()){
 				project = myTasks.getProject();
+				ConstantsManager.getConstants().setProject(myTasks.getProject());
 				stage.setScene(main_scene());
 				fillWithContent(project);
 				stage.show();
