@@ -167,7 +167,7 @@ public class Gui extends Application{
 		if (project.getBabysteps()){
 			timer= new Timer(project.getDuration(), phase);
 			timer.start();
-			BooleanProperty time_up = new SimpleBooleanProperty(timer.time_up()); //TODO: klappt das so?
+			BooleanProperty time_up = timer.time_up_property();
 			time_up.addListener(new ChangeListener<Boolean>(){
 				@Override
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
