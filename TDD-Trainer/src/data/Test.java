@@ -13,6 +13,7 @@ public class Test implements Code{
 		this.code = code;
 		new_test = "";
 	}
+	
 	public Test(String name){
 		this.name = name+"Test";
 		code = "import static org.junit.Assert.*;\n"
@@ -21,29 +22,38 @@ public class Test implements Code{
 		new_test = "";
 
 	}
+	
 	public String getContent(){
 		return code+new_test+code_end;
 	}
+	
 	public String getName(){
 		return name;
 	}
+	
 	/**
 	 * Erzeugt fürs Testen nötige CompilationUnit aus dem Test.
 	 */
-
 	public CompilationUnit getCompilationUnit(){
 		return new CompilationUnit(name, code+new_test+code_end, true); //TODO: ein besserer name muss her
 	}
+	
+	/**
+	 * Der neue Test wird gelöscht.
+	 */
 	public void backToOldCode(){
 		new_test = "";
 	}
+	
 	public void setCode(String new_test) {
 		this.new_test = new_test;
 	}
+	
 	public void overrideOldCode(){
 		code = code+"\n"+new_test;
 		new_test = "";
 	}
+	
 	public int getNewTestCount(){
 		return (new_test.split("@Test").length-1);
 	}

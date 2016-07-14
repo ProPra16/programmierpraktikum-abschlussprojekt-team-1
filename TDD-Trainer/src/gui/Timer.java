@@ -1,5 +1,6 @@
 package gui;
 
+import data.Phase;
 import javafx.scene.text.Text;
 
 /**
