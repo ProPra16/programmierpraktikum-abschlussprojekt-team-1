@@ -16,7 +16,7 @@ public class Class implements Code{
 	 * Erzeugt fürs Testen nötige CompilationUnit aus der Klasse.
 	 */
 	public CompilationUnit getCompilationUnit(){
-		return new CompilationUnit(name, code, false); //TODO: ein besserer name muss her
+		return new CompilationUnit(name, code, false);
 	}
 	public String getName(){
 		return name;

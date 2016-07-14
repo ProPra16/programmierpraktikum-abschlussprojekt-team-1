@@ -23,6 +23,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import tracking.EventHandler;
+import tracking.PhaseStartEvent;
 
 /**
  * Repräsentiert die Hauptanwendung. Initialisiert das Hauptfenster und für die Hauptanwendung notwendige Komponenten.
@@ -290,6 +292,7 @@ public class Gui extends Application{
 	 */
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
+		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.CODE));
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
 		code_pane.setEditable(true);
@@ -302,6 +305,7 @@ public class Gui extends Application{
 	 */
 
 	private void setPhaseRefactor(){
+		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.REFACTOR));
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
 		project.overrideOldCode(project.CLASS);
@@ -317,6 +321,7 @@ public class Gui extends Application{
 
 	private void setPhaseTest(){
 		if(project.getBabysteps()) timer.reset();
+		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.TESTS));
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
 		phase2.setFill(Color.BLACK);
@@ -324,6 +329,8 @@ public class Gui extends Application{
 		test_pane.setEditable(true);
 		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
-
+	}
+	public void babysteps(){
+		//TODO: hier i-welche auswertungen
 	}
 }

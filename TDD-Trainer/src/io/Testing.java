@@ -13,7 +13,7 @@ import vk.core.internal.InternalCompiler;
 public class Testing {
 	private static ConsolePane console;
 	
-	public static void setConsole(ConsolePane console1){//TODO: schoener machen
+	public static void setConsole(ConsolePane console1){
 		console = console1;
 	}
 	/**

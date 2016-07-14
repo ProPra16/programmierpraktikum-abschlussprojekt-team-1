@@ -41,7 +41,7 @@ public class Test implements Code{
 		this.new_test = new_test;
 	}
 	public void overrideOldCode(){
-		code = code+new_test;
+		code = code+"\n"+new_test;
 		new_test = "";
 	}
 	public int getNewTestCount(){
