@@ -1,7 +1,18 @@
 package data;
 
-
 import vk.core.api.CompilationUnit;
+
+/**
+ * Datentyp, der den vom Nutzer eingegebenen Java-Code einer Klasse repräsentiert.
+ * Der Nutzer kann mehrere Klassen in einem Projekt verwalten. Diese Klasse bietet
+ * eine automatische Verwaltung von altem und neuen Code, um Änderungen rückgängig
+ * zu machen, falls der Nutzer aus der Code-Phase zurück in die Test-Phase wechselt.
+ * Darüber hinaus kann diese Klasse automatisch ein CompilationUnit aus sich erzeu-
+ * gen, welches für das Kompilieren und Testen des Codes in {@link io.Testing} er-
+ * forderlich ist.
+ * 
+ * @author Daniela Prigge, Lukas Rose, Rebecca Wagner
+ */
 
 public class Class implements Code{
 	private String code;
