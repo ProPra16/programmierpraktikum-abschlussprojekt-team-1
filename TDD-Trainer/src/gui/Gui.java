@@ -10,6 +10,8 @@ import io.XMLHandler;
 import data.Code;
 import javafx.application.Application;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -164,6 +166,21 @@ public class Gui extends Application{
 		if (project.getBabysteps()){
 			timer= new Timer(project.getDuration(), phase);
 			timer.start();
+			SimpleBooleanProperty time_up = new SimpleBooleanProperty(timer.time_up()); //TODO: klappt das so?
+			time_up.addListener(new ChangeListener<Boolean>(){
+				@Override
+				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+					System.out.println("klappt");
+					if(newValue == true){
+						int phase_now = phase.get();
+						next.fire();
+						if(phase.get()==phase_now){
+							project.backToOldCode(phase.get());
+						}
+					}
+				}
+				
+			});
 		}
 		GridPane grid = new GridPane();
 		grid.setAlignment(Pos.CENTER);
