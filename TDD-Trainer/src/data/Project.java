@@ -7,8 +7,8 @@ import io.Testing;
 import vk.core.api.CompilationUnit;
 
 public class Project {
-	public final int CLASS = 0;
-	public final int TEST = 1;
+	public final int CLASS = 1;
+	public final int TEST = 0;
 	private List<Code> tests;
 	private List<Code> all_class;
 	private String description, name;

@@ -177,12 +177,14 @@ public class Gui extends Application{
 			time_up.addListener(new ChangeListener<Boolean>(){
 				@Override
 				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-					System.out.println("klappt");
 					if(newValue == true){
 						int phase_now = phase.get();
 						next.fire();
 						if(phase.get()==phase_now){
 							project.backToOldCode(phase.get());
+							if(phase_now==phase.TESTS)test_pane.clear();
+							updateGui();
+							timer.reset();
 						}
 					}
 				}
@@ -306,7 +308,8 @@ public class Gui extends Application{
 			Code klasse = project.getClassList().get(i);
 			code_pane.setText(i, klasse.getContent());
 		}
-		test_pane.setText(((Test)project.getTestList().get(0)).getContent());
+		System.out.println(project.getTestList().get(0).getContent());
+		test_pane.setText(project.getTestList().get(0).getContent());
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die TestPhase erfolgen
