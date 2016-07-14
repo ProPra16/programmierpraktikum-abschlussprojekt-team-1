@@ -1,5 +1,8 @@
 package data;
 
+/**
+ * Der ConstantsManager verwaltet eine Constans-Objekt.
+ */
 public class ConstantsManager {
 	private static Constants constants;
 	

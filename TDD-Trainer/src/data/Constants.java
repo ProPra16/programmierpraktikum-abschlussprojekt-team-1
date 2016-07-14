@@ -5,6 +5,9 @@ public class Constants {
 	private boolean showBabystepsAlert;
 	private boolean loadExercise = false;
 	
+	/**
+	 * Der Konstruktor erstellt ein neues Project.
+	 */
 	public Constants(){
 		project = new Project();
 		showBabystepsAlert = false;
