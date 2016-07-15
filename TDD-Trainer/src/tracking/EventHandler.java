@@ -20,6 +20,6 @@ public class EventHandler {
 		return events.stream().filter(e -> e instanceof ErrorEvent).collect(Collectors.toList());
 	}
 	public static void endLastPhaseEvent(){
-		((PhaseStartEvent)getPhaseStartEvents().get(getPhaseStartEvents().size()-1)).calculateDuration();
+		if(getPhaseStartEvents().size() > 0) ((PhaseStartEvent)getPhaseStartEvents().get(getPhaseStartEvents().size()-1)).calculateDuration();
 	}
 }

@@ -1,7 +1,6 @@
 package gui;
 
 import java.util.List;
-import java.util.stream.Collector;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +14,7 @@ import tracking.PhaseStartEvent;
 
 public class StatisticStage extends Stage{
 	BorderPane root;
+	
 	public StatisticStage(){
 		root = new BorderPane();
 		root.setCenter(root_center());
@@ -24,14 +24,14 @@ public class StatisticStage extends Stage{
 	
 	public PieChart root_center(){
 		List<Event> startEvents= EventHandler.getPhaseStartEvents();
-		long test = 0;
-		long code = 0;
-		long ref  = 0;
+		int test = 0;
+		int code = 0;
+		int ref  = 0;
 		for(Event e : startEvents){
 			switch(((PhaseStartEvent)e).getPhase()){
 				case 0: test = test+((PhaseStartEvent)e).getDuration();break;
-				case 1: test = test+((PhaseStartEvent)e).getDuration();break;
-				case 2: test = test+((PhaseStartEvent)e).getDuration();break;
+				case 1: code = code+((PhaseStartEvent)e).getDuration();break;
+				case 2: ref = ref+((PhaseStartEvent)e).getDuration();break;
 			}
 		}
 		ObservableList<PieChart.Data> pieChartData =

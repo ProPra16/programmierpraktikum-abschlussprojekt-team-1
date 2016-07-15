@@ -108,9 +108,12 @@ public class Gui extends Application{
 
 		stage.setOnCloseRequest(e->{
 			if(ConstantsManager.getConstants().getProject().getBabysteps()) timer.stop();
-			if(EventHandler.getPhaseStartEvents().size() != 0){
-				StatisticStage stat = new StatisticStage();
-				stat.showAndWait();
+			if(ConstantsManager.getConstants().getProject().getTracking()){
+				if(EventHandler.getPhaseStartEvents().size() != 0){
+					System.out.println(((PhaseStartEvent)EventHandler.getPhaseStartEvents().get(0)).getDuration()+"");
+					StatisticStage stat = new StatisticStage();
+					stat.showAndWait();
+				}
 			}
 		});
 	}
@@ -325,8 +328,8 @@ public class Gui extends Application{
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
 		if(project.getTracking()){
-			EventHandler.addEvent(new PhaseStartEvent(phase.CODE));
 			EventHandler.endLastPhaseEvent();
+			EventHandler.addEvent(new PhaseStartEvent(phase.CODE));
 		}
 		main.getSelectionModel().select(0);
 		phase1.setFill(Color.BLACK);
@@ -341,7 +344,10 @@ public class Gui extends Application{
 	 */
 
 	private void setPhaseRefactor(){
-		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.REFACTOR));
+		if(project.getTracking()){
+			EventHandler.endLastPhaseEvent();
+			EventHandler.addEvent(new PhaseStartEvent(phase.REFACTOR));
+		}
 		main.getSelectionModel().select(0);
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
@@ -358,8 +364,10 @@ public class Gui extends Application{
 
 	private void setPhaseTest(){
 		if(project.getBabysteps()) timer.reset();
-		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.TESTS));
-		main.getSelectionModel().select(1);
+		if(project.getTracking()){
+			EventHandler.endLastPhaseEvent();
+			EventHandler.addEvent(new PhaseStartEvent(phase.TESTS));
+		}		main.getSelectionModel().select(1);
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
 		phase2.setFill(Color.BLACK);
