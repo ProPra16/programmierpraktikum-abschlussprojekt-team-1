@@ -43,6 +43,7 @@ public class Gui extends Application{
 	CodePane code_pane;
 	TestPane test_pane;
 	ConsolePane console_pane;
+	TabPane main;
 	Button next, run, test, back, settings, save, fun_b;
 	Text phase1, phase2, phase3;
 	/** field askForBabysteps: Variable that states if the application should
@@ -120,7 +121,7 @@ public class Gui extends Application{
 	private Scene main_scene(){
 		phase = new Phase();
 		BorderPane root = new BorderPane();
-		TabPane main = create_center();
+		main = create_center();
 		root.setCenter(main);
 		root.setBottom(create_bottom());
 		root.setRight(create_right_side());
@@ -150,16 +151,16 @@ public class Gui extends Application{
 		code_pane = new CodePane();
 		test_pane = new TestPane();
 		console_pane = new ConsolePane();
-		Tab code = new Tab("Code");
-		Tab test = new Tab("Tests");
-		Tab console = new Tab("Konsole");
-		code.setContent(code_pane);
-		test.setContent(test_pane);
-		console.setContent(console_pane);
-		code.setContent(code_pane);
-		test.setContent(test_pane);
-		console.setContent(console_pane);
-		menue.getTabs().addAll(code, test, console);
+		Tab code_tab = new Tab("Code");
+		Tab test_tab = new Tab("Tests");
+		Tab console_tab = new Tab("Konsole");
+		code_tab.setContent(code_pane);
+		test_tab.setContent(test_pane);
+		console_tab.setContent(console_pane);
+		code_tab.setContent(code_pane);
+		test_tab.setContent(test_pane);
+		console_tab.setContent(console_pane);
+		menue.getTabs().addAll(code_tab, test_tab, console_tab);
 		return menue;
 	}
 	/** Erstellt das Gridpane, das die Bedienelemente und Informationen zur aktuellen Phase enthaelt:
@@ -258,6 +259,9 @@ public class Gui extends Application{
 				updateClassProject();
 				phase.next();
 				setPhaseTest();
+			}else{
+				main.getSelectionModel().select(2);
+
 			}
 		});
 		return grid;
@@ -308,7 +312,6 @@ public class Gui extends Application{
 			Code klasse = project.getClassList().get(i);
 			code_pane.setText(i, klasse.getContent());
 		}
-		System.out.println(project.getTestList().get(0).getContent());
 		test_pane.setText(project.getTestList().get(0).getContent());
 	}
 	
@@ -321,6 +324,7 @@ public class Gui extends Application{
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
 		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.CODE));
+		main.getSelectionModel().select(0);
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);
 		code_pane.setEditable(true);
@@ -334,6 +338,7 @@ public class Gui extends Application{
 
 	private void setPhaseRefactor(){
 		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.REFACTOR));
+		main.getSelectionModel().select(0);
 		phase2.setFill(Color.BLACK);
 		phase3.setFill(Color.GREEN);
 		project.overrideOldCode(project.CLASS);
@@ -350,6 +355,7 @@ public class Gui extends Application{
 	private void setPhaseTest(){
 		if(project.getBabysteps()) timer.reset();
 		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.TESTS));
+		main.getSelectionModel().select(1);
 		phase3.setFill(Color.BLACK);
 		phase1.setFill(Color.GREEN);
 		phase2.setFill(Color.BLACK);
