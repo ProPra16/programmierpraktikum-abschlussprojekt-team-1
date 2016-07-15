@@ -323,7 +323,10 @@ public class Gui extends Application{
 	 */
 	private void setPhaseCode(){
 		if(project.getBabysteps()) timer.reset();
-		if(project.getTracking()) EventHandler.addEvent(new PhaseStartEvent(phase.CODE));
+		if(project.getTracking()){
+			EventHandler.addEvent(new PhaseStartEvent(phase.CODE));
+			EventHandler.endLastPhaseEvent();
+		}
 		main.getSelectionModel().select(0);
 		phase1.setFill(Color.BLACK);
 		phase2.setFill(Color.GREEN);

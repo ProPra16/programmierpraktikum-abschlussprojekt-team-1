@@ -13,10 +13,10 @@ public class PhaseStartEvent extends Event{
 	public int getPhase(){
 		return phase;
 	}
-	public void calculateDuration(){
-		duration =  super.time.until(LocalDateTime.now(), ChronoUnit.SECONDS);
+	public long getDuration(){
+		return duration;
 	}
-	public void getDuration(){
-		
+	public void calculateDuration() {
+		duration =  super.time.until(LocalDateTime.now(), ChronoUnit.SECONDS);
 	}
 }
