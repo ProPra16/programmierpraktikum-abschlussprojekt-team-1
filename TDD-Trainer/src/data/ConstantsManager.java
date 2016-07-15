@@ -32,7 +32,7 @@ public class ConstantsManager {
 	/**
 	 * Mit dieser Methode lässt sich der Zustands der {@link Constants}
 	 * zurücksetzen. Die aktuell verwendeten {@link Constants} werden
-	 * mit neuen {@link Constans} initialisiert.
+	 * mit neuen {@link Constants} initialisiert.
 	 */
  	public static void newConstants(){
 		constants = new Constants();
