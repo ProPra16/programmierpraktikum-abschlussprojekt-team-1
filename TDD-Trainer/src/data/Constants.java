@@ -53,7 +53,7 @@ public class Constants {
 	}
 	
 	/**
-	 * Ein Setter für {@link #showBabystepsAlert}.
+	 * Ein Setter für showBabystepsAlert.
 	 * @param showBabystepsAlert Der zu setzende Wert.
 	 */
 	public void setShowBabystepsAlert(boolean showBabystepsAlert){
@@ -61,7 +61,7 @@ public class Constants {
 	}
 	
 	/**
-	 * Ein Getter für {@link #showBabystepsAlert}.
+	 * Ein Getter für showBabystepsAlert.
 	 * @return Der Wert der Variable {@link #showBabystepsAlert}.
 	 */
 	public boolean getShowBabystepsAlert(){
@@ -69,7 +69,7 @@ public class Constants {
 	}
 	
 	/**
-	 * Ein Setter für {@link #loadExercise}.
+	 * Ein Setter für loadExercise.
 	 * @param loadExercise Der zu setzende Wert.
 	 */
 	public void setLoadExercise(boolean loadExercise){
@@ -77,7 +77,7 @@ public class Constants {
 	}
 	
 	/**
-	 * Ein Getter für {@link #loadExercise}.
+	 * Ein Getter für loadExercise.
 	 * @return Der aktuelle Wert der Variable.
 	 */
 	public boolean getLoadExercise(){
