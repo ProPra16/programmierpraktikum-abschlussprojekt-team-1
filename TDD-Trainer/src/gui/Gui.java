@@ -106,11 +106,13 @@ public class Gui extends Application{
 			break;
 		}
 
-		if(ConstantsManager.getConstants().getProject().getBabysteps()) {
-			stage.setOnCloseRequest(e->{
-			timer.stop();
-			});
-		}
+		stage.setOnCloseRequest(e->{
+			if(ConstantsManager.getConstants().getProject().getBabysteps()) timer.stop();
+			if(EventHandler.getPhaseStartEvents().size() != 0){
+				StatisticStage stat = new StatisticStage();
+				stat.showAndWait();
+			}
+		});
 	}
 	
 	/** Erstellt ein Scene-Objekt, das ein Borderpane-Objekt mit einem Tabpane im Zentrum ({@link #create_center()})
