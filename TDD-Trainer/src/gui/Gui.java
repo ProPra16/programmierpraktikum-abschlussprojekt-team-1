@@ -217,7 +217,7 @@ public class Gui extends Application{
 			fun.showRandom();
 		});
 		
-		save.setOnAction(e->{//fun
+		save.setOnAction(e->{
 			XMLHandler.writeProject(project);
 		});
 
@@ -337,6 +337,7 @@ public class Gui extends Application{
 		code_pane.setEditable(true);
 		test_pane.setEditable(false);
 		back.setDisable(false);
+		save.setDisable(true);
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Codephase erfolgen
@@ -356,6 +357,7 @@ public class Gui extends Application{
 		project.overrideOldCode(project.TEST);
 		updateGui();
 		test_pane.clear();
+		save.setDisable(true);
 	}
 	
 	/**Fuehrt Handlungen aus, die beim Uebergang in die Refactorphase erfolgen
@@ -375,6 +377,7 @@ public class Gui extends Application{
 		test_pane.setEditable(true);
 		project.overrideOldCode(project.CLASS);
 		back.setDisable(true);
+		save.setDisable(false);
 	}
 	public void babysteps(){
 		//TODO: hier i-welche auswertungen
