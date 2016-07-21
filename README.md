@@ -13,6 +13,9 @@ This project is automatically built using the travis-CI. You can check the build
 ## Gradle
 For information on how to build with gradle, see [gradle-HOWTO.md](gradle-HOWTO.md)
 
+## JavaDoc
+https://propra16.github.io/programmierpraktikum-abschlussprojekt-team-1/
+
 ## License
 Each file in this repository, if not otherwise specified, is part of TDD-Trainer.
 
